@@ -16,11 +16,6 @@ env/
 # Playwright / browser state
 whatsapp_profile/
 
-# Generated autotest outputs
-results/
-results_archive/
-
-# Local archives and temporary files
-*.zip
+# Temporary files
 *.tmp
 *.bak

@@ -1,0 +1,49 @@
+PECUS CHAIN — Benchmark V3 Summary
+================================================
+Run ID: V3_20260831_083920
+Test raccolti: 53
+
+HEADLINE METRICS
+------------------------------------------------
+context_retention_depth_strict: 0
+scope_recovery_pass: 1/2
+scope_recovery_pct: 50.0
+entity_probe_pass: 1/5
+entity_probe_pct: 20.0
+noise_recovery_pass: 1/3
+noise_recovery_pct: 33.3
+paraphrase_pass: 7/12
+paraphrase_pass_pct: 58.3
+paraphrase_modal_actual_kg: 6.0
+paraphrase_value_consistency_pct: 100.0
+
+SCENARIOS
+------------------------------------------------
+A_CONTEXT_DECAY: valid=10/10, primary=1/2 (50.0%)
+B_SCOPE_RECOVERY: valid=7/7, primary=4/7 (57.1%)
+C_ENTITY_SWITCH: valid=9/9, primary=5/9 (55.6%)
+D_NOISE_RETENTION: valid=15/15, primary=4/6 (66.7%)
+E_PARAPHRASE_PRODUCTION: valid=12/12, primary=7/12 (58.3%)
+
+NON-PASS / INVALID
+------------------------------------------------
+A_DECAY_002 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=quanto produce oggi?
+A_DECAY_003 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=e ieri?
+A_DECAY_005 | FAIL | SCOPE_DRIFT | scope=herd | animals=1320,2997,3002,3118,9684 | Q=qual è la causa principale?
+A_DECAY_008 | FAIL | ANIMAL_UNRESOLVED_IN_TEXT|SCOPE_DRIFT | scope=herd | animals= | Q=rispetto all'atteso quanto è sotto?
+A_DECAY_009 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=come è cambiata negli ultimi giorni?
+A_DECAY_010 | FAIL | SCOPE_DRIFT | scope=herd | animals=1320,2516,3118 | Q=quindi qual è la situazione principale adesso?
+B_SCOPE_002 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=quanto produce oggi?
+B_SCOPE_004 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=tornando alla bufala di cui parlavamo prima, quanto produce oggi?
+B_SCOPE_006 | FAIL | WRONG_SCOPE | scope=animal | animals=1320 | Q=quali altre bufale hanno una perdita di latte simile?
+C_ENTITY_002 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=quanto produce oggi?
+C_ENTITY_004 | FAIL | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=quanto produce oggi?
+C_ENTITY_005 | FAIL | SCOPE_DRIFT | scope=herd | animals=1320,2516,3118 | Q=che rischio ha?
+C_ENTITY_007 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=quanto produce oggi?
+D_NOISE_008 | REVIEW | ANIMAL_UNRESOLVED_IN_TEXT | scope=unclear | animals= | Q=che rischio ha?
+D_NOISE_015 | FAIL | ANIMAL_UNRESOLVED_IN_TEXT|SCOPE_DRIFT | scope=herd | animals= | Q=quanto produce oggi?
+E_PARA_007 | FAIL |  | scope=animal | animals=3118 | Q=Mi dai la produzione odierna della 3118?
+E_PARA_008 | FAIL |  | scope=animal | animals=3118 | Q=3118 quanti kg oggi?
+E_PARA_009 | FAIL |  | scope=animal | animals=3118 | Q=Quanto latte ha prodotto oggi la 3118?
+E_PARA_010 | FAIL |  | scope=animal | animals=3118 | Q=quanto ha prodoto oggi la 3118?
+E_PARA_012 | FAIL |  | scope=animal | animals=3118 | Q=La 3118, oggi, a quanti kg è arrivata?

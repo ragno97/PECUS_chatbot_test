@@ -1,0 +1,40 @@
+PECUS CHAIN — Benchmark V3.1 Review
+================================================
+Run ID: V3_20260831_083920
+Test raccolti: 53
+PASS: 47
+REVIEW: 0
+FAIL: 6
+INVALID_COLLECTOR: 0
+
+HEADLINE METRICS
+------------------------------------------------
+context_retention_depth_strict: 3
+context_recovery_after_first_failure: 4/5
+scope_recovery: 2/2
+herd_scope_switch: 2/2
+entity_probe: 3/5
+noise_recovery: 1/3
+paraphrase_semantic_robustness: 12/12
+today_availability_consistency: 10/10
+latest_value_6kg_mentions: 7/12
+latency_median_ms: 31474
+latency_mean_ms: 33184
+latency_max_ms: 78587
+
+SCENARIOS
+------------------------------------------------
+A_CONTEXT_DECAY: 8/10 (80.0%), collector 10/10
+B_SCOPE_RECOVERY: 7/7 (100.0%), collector 7/7
+C_ENTITY_SWITCH: 7/9 (77.8%), collector 9/9
+D_NOISE_RETENTION: 4/6 (66.7%), collector 15/15
+E_PARAPHRASE_PRODUCTION: 12/12 (100.0%), collector 12/12
+
+FAIL / REVIEW
+------------------------------------------------
+A_DECAY_005 | FAIL | CONTEXT_SCOPE_DRIFT | intent=PASS | scope=FAIL | animal=PASS_MIXED | Q=qual è la causa principale?
+A_DECAY_010 | FAIL | CONTEXT_SCOPE_DRIFT | intent=PASS | scope=FAIL | animal=PASS_MIXED | Q=quindi qual è la situazione principale adesso?
+C_ENTITY_004 | FAIL | CONTEXT_SCOPE_DRIFT | intent=FAIL | scope=FAIL | animal=FAIL_SCOPE | Q=quanto produce oggi?
+C_ENTITY_005 | FAIL | CONTEXT_SCOPE_DRIFT | intent=PASS | scope=FAIL | animal=PASS_MIXED | Q=che rischio ha?
+D_NOISE_008 | FAIL | CONTEXT_ENTITY_LOSS | intent=PASS | scope=FAIL | animal=FAIL_UNRESOLVED | Q=che rischio ha?
+D_NOISE_015 | FAIL | CONTEXT_SCOPE_DRIFT | intent=PASS | scope=FAIL | animal=FAIL_SCOPE | Q=quanto produce oggi?

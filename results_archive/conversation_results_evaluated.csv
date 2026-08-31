@@ -1,0 +1,145 @@
+﻿run_id;test_id;turn;test_family;intent;question;animal_explicit;expected_animal;expected_scope;response;latency_ms;message_count;response_truncated;message_ids;whatsapp_metadata;system_timestamp;context_distance;detected_animals;detected_scope;animal_correct;scope_correct;intent_correct;context_correct;advice_flags;metric_flags;error_type;overall_status
+RUN_20260831_000712;CONV_001;1;animal_profile;animal_profile;descrivi la 3118;True;3118;animal;"3118 (bufala): stress da calore, probabilità 76%
+
+
+
+Produzione -28 % rispetto all’atteso. Perdita stimata 8,1 kg/giorno
+
+
+
+Segnali: calo produzione acuto –0,28 %, ore di caldo 24 h, perdita prevista ML 8,1 kg/giorno
+
+
+
+Azioni:
+
+ombra continua e coperture sulle aree di pascolo e vicino al robot
+aumentare la ventilazione (porte/finestre aperte, ventilatori)
+installare nebulizzatori o spruzzi d’acqua nelle zone di attesa pre‑mungere
+garantire acqua fresca illimitata, vasche ombreggiate
+incrementare la densità energetica della razione con concentrati di alta qualità, mantenendo la composizione costante
+somministrare integratori di vitamine E, selenio, zinco ed elettroliti
+monitorare THI più volte al giorno e la produzione; se la perdita persiste oltre 48 h, contattare il veterinario.";30794;1;False;A2152D534310222E3C;[00:07, 31/08/2026] Marica Marches: ;2026-08-31T00:08:03;0;3118;animal;PASS;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;PRODUCTION_PERCENT_CONFLICT;METRIC_REVIEW|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_002;2;context_memory;daily_milk_yield;quanto produce oggi?;False;3118;animal;"#3118 (L2, DIM 62): 6,0 kg — attesi 14,8 kg (-8,8 kg, -59%)
+
+
+La bufala 3118 ha prodotto 6,0 kg di latte oggi. Con 62 giorni di lattazione nella seconda lattazione, la produzione attesa è circa 14,8 kg, quindi la resa è circa -59 % rispetto al baseline.
+
+
+
+Segnali: residuo -0,59 (scostamento negativo).
+
+
+
+Azioni: verifica condizioni ambientali (ombreggiatura, ventilazione), assicurati di una buona idratazione e di un apporto energetico adeguato; controlla segni di stress da calore o problemi di salute e, se il calo persiste, consulta il veterinario.
+
+
+
+Se vuoi approfondisco.";13490;1;False;4DA7F234981D2EEA0B;[00:08, 31/08/2026] Marica Marches: ;2026-08-31T00:08:25;1;3118;animal;PASS;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_003;3;context_memory;previous_milk_yield;e ieri?;False;3118;animal;"Dati di ieri (29 ago 2026)
+
+Produzione: 2,1 kg di latte
+Attesa (baseline): 14,8 kg
+Scostamento: -12,7 kg, cioè -86 % rispetto alla produzione prevista per una bufala in questa fase (≈62 giorni di lattazione, seconda lattazione)
+
+
+Il calo è più marcato rispetto a oggi (‑59 %). La differenza di produzione tra i due giorni è di -3,9 kg.
+
+
+
+Cosa controllare subito
+
+Condizioni ambientali: verifica THI, ombra e ventilazione adeguata.
+Idratazione: acqua fresca e pulita sempre disponibile.
+Alimentazione: razione completa, energia e proteine sufficienti; valuta un supplemento di vitamine E, selenio, zinco ed elettroliti per contrastare lo stress da calore.
+Segni clinici: osserva disidratazione, respirazione affannosa o cambiamenti nel comportamento di mungitura.
+
+
+Se il calo persiste o peggiora nelle prossime 24‑48 ore, contatta il veterinario per una valutazione più approfondita.
+
+Se vuoi approfondisco le azioni da intraprendere o confrontare altri giorni.";16300;1;False;1751653311AEA5A66A;[00:08, 31/08/2026] Marica Marches: ;2026-08-31T00:08:50;2;;animal;PASS_IMPLICIT;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_004;4;context_memory;risk;ha qualche rischio?;False;3118;animal;"bufala #3118: stress da calore, probabilità 76 %
+
+Perdita stimata 8,1 kg/giorno (≈ ‑48 % rispetto al valore atteso)
+
+Segnali: calo produzione acuto ‑0,28 %; ore di caldo 24 h; perdita prevista 8,1 kg/giorno
+
+Azioni: installare/potenziare pannelli evaporativi e ventilazione forzata; usare nebulizzatori nelle zone di transito e vicino al robot; fornire acqua fresca illimitata in zona ombreggiata; aumentare densità energetica della razione con concentrati di alta qualità e integratori (vitamina E, selenio, elettroliti), distribuendo i pasti nelle ore più fresche; monitorare THI e produzione ogni 4 h, se la perdita supera il 30 % per più di 48 h contattare il veterinario.
+
+
+
+Se vuoi approfondisco ulteriori dettagli.";23621;1;False;36412E98F80C53B9E7;[00:09, 31/08/2026] Marica Marches: ;2026-08-31T00:09:22;3;3118;animal;PASS;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_005;5;context_memory;risk_reason;da cosa deriva?;False;3118;animal;"#3118: probabilità 76 % – perdita stimata 8,1 kg/giorno
+#1320: probabilità 73 % – perdita stimata 7,7 kg/giorno
+#3002: probabilità 70 % – perdita stimata 5,2 kg/giorno
+#2997: probabilità 68 % – perdita stimata 4,9 kg/giorno
+#9684: probabilità 67 % – perdita stimata 3,9 kg/giorno
+
+
+Le bufale segnalate presentano stress da calore perché le temperature e l’umidità attuali hanno elevato il THI sopra la zona di comfort. La loro capacità di evaporare è limitata, perciò devono aumentare la respirazione per dissipare calore. Questo fa crescere il fabbisogno di energia di mantenimento e riduce l’ingestione di sostanza secca (spesso di almeno 10 %), provocando cali di resa lattiera e perdita di peso.
+
+Fornisci acqua fresca e continuo, preferibilmente in zone ombreggiate.
+Installa o potenzia sistemi di raffreddamento evaporativo e ventilazione forzata, soprattutto nei corridoi e vicino al robot di mungitura.
+Aumenta la densità energetica della razione con concentrati di alta qualità e integratori di vitamina E, selenio ed elettroliti; distribuisci i pasti nelle ore più fresche […]";20817;1;False;844C754EDA92468763;[00:09, 31/08/2026] Marica Marches: ;2026-08-31T00:09:51;4;1320,2997,3002,3118,9684;herd;FAIL;FAIL;PASS;FAIL;ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;CONTEXT_SCOPE_DRIFT|WRONG_ANIMAL_OR_SCOPE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;FAIL
+RUN_20260831_000712;CONV_006;6;paraphrase;daily_milk_yield;quanto latte ha fatto oggi la 3118?;True;3118;animal;"#3118: 6,0 kg — attesi 14,8 kg (-8,8 kg, -59 %)
+
+
+Produzione molto sotto la baseline prevista. Se vuoi approfondisco…";14217;1;False;E0AD81E148E3D8656A;[00:10, 31/08/2026] Marica Marches: ;2026-08-31T00:10:13;0;3118;animal;PASS;PASS;PASS;PASS;;;;PASS
+RUN_20260831_000712;CONV_007;7;context_memory;production_vs_expected;come sta andando rispetto al previsto?;False;3118;animal;"#3118 (P2, DIM 62): 4,05 kg — attesi 6,78 kg (-2,73 kg); residuo -72,6 % vs -55,0 % (-17,6 punti)
+
+
+La produzione media degli ultimi 2 giorni è circa il 40 % inferiore a quanto la curva di lattazione prevede per una bufala al DIM 62 e parità P2. Il residuo relativo è più negativo di 17,6 punti percentuali rispetto al periodo di riferimento di 14 giorni, segnale tipico di stress termico.
+
+
+
+Azioni consigliate
+
+Attiva o intensifica pannelli evaporativi, ventilatori e nebulizzatori nelle zone di riposo e mungitura, soprattutto nelle ore più calde.
+Garantisci acqua fresca e abbondante in zone ombreggiate; offri la pulizia più frequente dei punti d’acqua.
+Incrementa la densità energetica della razione (concentrati di alta qualità) e aggiungi integratori di vitamina E, selenio ed elettroliti; somministra i pasti nelle ore più fresche (prima dell’alba e al tramonto).
+Monitora THI e produzione ogni 4 ore; se la perdita supera il 30 % per più di 48 ore, contatta il veterinario per valutare possibili interventi terapeutici o aggiustamenti dietetici.
+
+
+Se vuoi approfondisco le cause specifiche o i parametri da tenere sotto controllo.";22070;1;False;1147D3D4FEB5934BB8;[00:10, 31/08/2026] Marica Marches: ;2026-08-31T00:10:44;1;3118;animal;PASS;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_ACTION_REVIEW|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;RESIDUAL_NEEDS_DEFINITION(production_delta=-40.3%,residual=-72.6%);METRIC_REVIEW|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_008;8;scope_switch;herd_similar;ci sono altre bufale con lo stesso problema?;False;;herd;"#3118: probabilità 76 % — perdita stimata 8,1 kg/giorno
+#1320: probabilità 73 % — perdita stimata 7,7 kg/giorno
+#3002: probabilità 70 % — perdita stimata 5,2 kg/giorno
+#2997: probabilità 68 % — perdita stimata 4,9 kg/giorno
+#9684: probabilità 67 % — perdita stimata 3,9 kg/giorno
+
+
+Sì, oltre alla bufala #3118 altre quattro bufale (#1320, #3002, #2997, #9684) mostrano un elevato rischio di stress da calore con perdita di produzione superiore a 3 kg al giorno.
+
+
+
+Lo stress da calore aumenta il fabbisogno di mantenimento perché la bufala deve spendere energia per raffreddare il corpo; contemporaneamente l’assunzione di sostanza secca può diminuire del ≈ 10 %, riducendo la resa lattiera. Per limitare l’impatto:
+
+installare/rafforzare pannelli evaporativi e ventilatori forzati nelle corsie, nelle aree di pre‑milking e vicino al robot;
+usare nebulizzatori o spruzzatori d’acqua nelle zone più calde, soprattutto nelle ore di picco termico;
+garantire acqua fresca e abbondante in punti ombreggiati, rinfrescandola più volte al giorno;
+aumentare la densità energetica della razione con concentrati di alta qualità e integrare vitamine E, selenio ed elettroliti […]";26530;1;False;79E0F9305CD21F9D9B;[00:11, 31/08/2026] Marica Marches: ;2026-08-31T00:11:19;;1320,2997,3002,3118,9684;herd;N/A;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_009;9;scope_recovery;daily_milk_yield;tornando alla 3118, qual è la sua produzione?;True;3118;animal;"#3118: 6,0 kg — attesi 14,78 kg (-8,78 kg, -59%)
+3118: produzione bassa.
+
+Produce 6,0 kg — attesi 14,78 kg (-8,78 kg, -59%). Perdita stimata 8,78 kg/giorno.
+
+Segnali: residual -8,78 kg, residual_rel -59%.
+
+Controlla lo stato di salute della bufala, verifica alimentazione e gestione ambientale, effettua test latte (cellule somatiche, conducibilità) e, se necessario, avvia terapia o integrazione.
+
+
+
+Se vuoi approfondisco.";17599;1;False;40725572C8D0D7C434;[00:11, 31/08/2026] Marica Marches: ;2026-08-31T00:11:45;0;3118;animal;PASS;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_ACTION_REVIEW|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW
+RUN_20260831_000712;CONV_010;10;context_memory;daily_milk_yield;produzione oggi?;False;3118;animal;"Dati 30‑08‑2026: produzione 6,0 kg — attesa 14,78 kg — scostamento –8,78 kg (‑59 %).
+
+
+
+La produzione è molto al di sotto della curva attesa per la fase attuale di lattazione; il residuo relativo di –59 % indica un calo significativo, coerente con lo stress da caldo segnalato.
+
+
+
+Controlla temperatura e umidità in stalla, garantisci acqua fresca e ombra, verifica apporto energetico e proteico dell’alimentazione; preleva latte per analisi di cellule somatiche e conducibilità; se i valori sono alterati, considera terapia di supporto (sale minerale, anti‑stress).
+
+
+
+Se vuoi approfondisco…";17317;1;False;4734B7760798D6EF3C;[00:12, 31/08/2026] Marica Marches: ;2026-08-31T00:12:11;1;;animal;PASS_IMPLICIT;PASS;PASS;PASS;ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_ACTION_REVIEW|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW

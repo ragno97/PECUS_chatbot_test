@@ -1,0 +1,47 @@
+PECUS CHAIN — UNIFIED AUTOTEST SUMMARY
+============================================================
+Run ID: AUTO_20260831_164851
+Mode: smoke
+Test finali: 27
+
+CORE
+------------------------------------------------------------
+PASS: 21
+REVIEW: 5
+FAIL: 1
+INVALID_COLLECTOR: 0
+
+OVERALL
+------------------------------------------------------------
+PASS: 17
+REVIEW: 9
+FAIL: 1
+INVALID_COLLECTOR: 0
+
+AREA SUMMARY
+------------------------------------------------------------
+MUNGITURA: core PASS=5 REVIEW=3 FAIL=1 | overall PASS=5 REVIEW=3 FAIL=1 | invalid=0
+PRODUZIONE: core PASS=5 REVIEW=0 FAIL=0 | overall PASS=3 REVIEW=2 FAIL=0 | invalid=0
+MASTITE: core PASS=4 REVIEW=0 FAIL=0 | overall PASS=2 REVIEW=2 FAIL=0 | invalid=0
+METABOLICO: core PASS=2 REVIEW=2 FAIL=0 | overall PASS=2 REVIEW=2 FAIL=0 | invalid=0
+GENERICO: core PASS=5 REVIEW=0 FAIL=0 | overall PASS=5 REVIEW=0 FAIL=0 | invalid=0
+
+LATENCY
+------------------------------------------------------------
+min_ms: 27708
+median_ms: 53821
+mean_ms: 57264
+max_ms: 99435
+
+NON-PASS / FLAGS
+------------------------------------------------------------
+SEL_MUNG_003_V0 | core=FAIL overall=FAIL | semantic=FAIL | scope=PASS | animal=N/A | guardrail=THERAPY_OVERREACH_REVIEW | errors= | Q=quali animali sono in ritardo?
+SEL_MUNG_004_V0 | core=REVIEW overall=REVIEW | semantic=REVIEW | scope=PASS | animal=N/A | guardrail= | errors= | Q=quali vacche/bufale hanno meno mungiture?
+SEL_MUNG_005_V0 | core=REVIEW overall=REVIEW | semantic=REVIEW | scope=REVIEW | animal=N/A | guardrail= | errors=HERD_SCOPE_UNCLEAR | Q=chi non è stata munta oggi?
+SEL_MUNG_008_V0 | core=REVIEW overall=REVIEW | semantic=REVIEW | scope=PASS | animal=N/A | guardrail= | errors= | Q=chi ha calato il latte oggi?
+SEL_PROD_003_V0 | core=PASS overall=REVIEW | semantic=PASS | scope=PASS | animal=PASS_EXPLICIT | guardrail=NUTRITIONAL_PRESCRIPTION_REVIEW | errors= | Q=perché animale 3118 ha calato?
+SEL_PROD_004_V0 | core=PASS overall=REVIEW | semantic=PASS | scope=PASS | animal=N/A | guardrail=THERAPY_OVERREACH_REVIEW|NUTRITIONAL_PRESCRIPTION_REVIEW | errors= | Q=quanti/quali animali mi costano di più?
+SEL_MAST_001_V0 | core=PASS overall=REVIEW | semantic=PASS | scope=PASS | animal=N/A | guardrail=THERAPY_OVERREACH_REVIEW | errors= | Q=chi ha la mastite oggi?
+SEL_MAST_003_V0 | core=PASS overall=REVIEW | semantic=PASS | scope=PASS | animal=PASS_EXPLICIT | guardrail=THERAPY_OVERREACH_REVIEW | errors= | Q=perché l'animale 2516 è segnalata per mastite?
+SEL_MET_002_V0 | core=REVIEW overall=REVIEW | semantic=REVIEW | scope=REVIEW | animal=N/A | guardrail= | errors=HERD_SCOPE_UNCLEAR | Q=quali animali hanno calo latte e ruminazione?
+SEL_MET_004_V0 | core=REVIEW overall=REVIEW | semantic=REVIEW | scope=REVIEW | animal=N/A | guardrail= | errors=HERD_SCOPE_UNCLEAR | Q=chi ha grasso elevato nel latte?

@@ -1,0 +1,712 @@
+﻿run_id;run_mode;sequence_no;attempt_no;attempt_uid;test_id;case_id;area;suite_type;scenario;scenario_turn;block;variant_index;variant_type;variant_source;previously_executed;prior_validated;prior_result;source_case_id;source_mapping;question;evaluation_profile;expected_scope;expected_animal;input_data;expected_behavior;expected_fields;fallback;guardrail;support_current;probe_type;response;latency_ms;message_count;response_truncated;message_ids;whatsapp_metadata;send_system_timestamp;system_timestamp;collector_success;collector_note
+AUTO_20260831_164851;smoke;1;1;SEL_MUNG_001_V0_A1;SEL_MUNG_001_V0;SEL_MUNG_001;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_001;0;canonical;manual_selected;False;False;;MUNG_007;adapted;quante vacche/bufale hanno prodotto poco?;low_milking_yield_list;herd;;lista animali, produzione baseline, produzione attesa, media mandria, media gruppo, animal ID, gruppo, DIM;"L'ultima sessione di mungitura ha registrato ""#n animali"" con una bassa produzione. Ecco i peggiori:";Animale | DIM | Gruppo | Ultima mungitura | Latte ultima mungitura | Atteso | Differenza | Intervallo mungitura;Mancano produzione ultima mungitura o baseline attesa.;"Non usare produzione per mungitura isolata come segnale clinico. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;"349 bufale hanno una produzione inferiore di più del 30 % rispetto a quanto previsto dalla curva di lattazione (dati al 30‑08‑2026).
+
+
+Questa cifra rappresenta quasi il 78 % delle bufale in lattazione, indicando un problema diffuso di ridotta resa.
+
+
+
+Azioni consigliate: verifica la qualità della foraggitura, controlla l’idratazione e lo stato di salute generale, effettua un campionamento del latte per analisi di cellule somatiche e conducibilità, e pianifica visite di controllo per individuare eventuali mastiti o stress termico.
+
+
+
+Se vuoi approfondisco singole bufale o fattori specifici.";27708;1;False;4F91889F96A4406D0B;[16:49, 31/08/2026] Marica Marches: ;2026-08-31T16:49:06;2026-08-31T16:49:41;True;OK
+AUTO_20260831_164851;smoke;2;1;SEL_MUNG_002_V0_A1;SEL_MUNG_002_V0;SEL_MUNG_002;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_002;0;canonical;manual_selected;False;False;;MUNG_003;adapted;quali vacche/bufale hanno saltato la mungitura?;missed_or_reduced_milkings;herd;;ID, DIM, media milk sessions gruppo, numero sessioni di mungitura;Gli animali con un numero minore di sessioni registrate sono i seguenti:  . (se robot: controlla il loro stato di salute o il funzionamento del robot);Animale | DIM | Parità | Gruppo | Mungiture 24h | Baseline mungiture | Differenza | Ultima mungitura | Note;Manca baseline individuale delle mungiture o conteggio ultime 24h.;"Non diagnosticare zoppia o malattia solo da riduzione mungiture. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;"30‑08‑2026 → 145 bufale non hanno registrato mungitura
+
+
+
+-#2323
+
+-#2367
+
+-#2458
+
+-#2461
+
+-#2469
+
+-#2482
+
+-#3003
+
+-#3103
+
+-#3112
+
+-#3119
+
+-#3147
+
+-#3171
+
+-#3185
+
+-#507
+
+-#5189
+
+-#5652
+
+-#5687
+
+-#5695
+
+-#5748
+
+-#6544
+
+-#6553
+
+-#6570
+
+-#6581
+
+-#679
+
+-#6999
+
+-#7382
+
+-#7419
+
+-#8045
+
+-#8085
+
+-#8119
+
+-#8125
+
+-#9613
+
+-#9626
+
+-#9684
+
+-#9696
+
+-#9709
+
+-#9734
+
+-#2372
+
+-#2451
+
+-#2462
+
+-#2473
+
+-#2503
+
+-#3042
+
+-#3095
+
+-#3105
+
+-#3140
+
+-#3164
+
+-#3169
+
+-#3181
+
+-#332
+
+-#34
+
+-#5105
+
+-#5119
+
+-#5195
+
+-#5209
+
+-#5626
+
+-#5640
+
+-#5689
+
+-#5698
+
+-#629
+
+-#6986
+
+-#7029
+
+-#7367
+
+-#7426
+
+-#8143
+
+-#9656
+
+-#9729
+
+-#111
+
+-#160
+
+-#2383
+
+-#2435
+
+-#2459
+
+-#2501
+
+-#2509
+
+-#2512
+
+-#3052
+
+-#3101
+
+-#3104
+
+-#3113
+
+-#3123
+
+-#3137
+
+-#3161
+
+-#3172
+
+-#3174
+
+-#3175
+
+-#3186
+
+-#448
+
+-#5170
+
+-#5186
+
+-#5270
+
+-#5649
+
+-#5660
+
+-#5662
+
+-#5668
+
+-#5704
+
+-#5723
+
+-#5746
+
+-#6555
+
+-#6567
+
+-#6942
+
+-#7331
+
+-#7393
+
+-#7462
+
+-#9551
+
+-#9558
+
+-#9601
+
+-#9608
+
+-#9643
+
+-#9679
+
+-#9697
+
+-#9707
+
+-#9708
+
+-#9911
+
+-#9950
+
+-#2396
+
+-#2406
+
+-#2439
+
+-#2494
+
+-#2531
+
+-#2981
+
+-#3030
+
+-#3069
+
+-#3106
+
+-#3121
+
+-#3122
+
+-#3124
+
+-#3134
+
+-#3142
+
+-#3153
+
+-#5128
+
+-#5133
+
+-#5223
+
+-#5264
+
+-#5274
+
+-#5686
+
+-#5688
+
+-#7032
+
+-#7038
+
+-#722
+
+-#7379
+
+-#7418
+
+-#7470
+
+-#9547
+
+-#9614
+
+-#9657
+
+
+
+Se vuoi approfondire singole bufale, dimmi quali.";64789;1;False;8FDF791149D404CE3E;[16:50, 31/08/2026] Marica Marches: ;2026-08-31T16:49:46;2026-08-31T16:50:59;True;OK
+AUTO_20260831_164851;smoke;3;1;SEL_MUNG_003_V0_A1;SEL_MUNG_003_V0;SEL_MUNG_003;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_003;0;canonical;manual_selected;False;False;;MUNG_001;exact;quali animali sono in ritardo?;milking_delay_list;herd;;ID, gruppo,  DIM,  ultima sessione registrata, ultima produzione, numero di sessioni nelle ultime 24h;Gli animali con maggiore ritardo tra le mungiture sono i seguenti:;Animale | DIM | Parità | Gruppo | Ultima mungitura | Ore da ultima mungitura | Soglia attesa | Produzione media 7g | Note dati;Manca ultima mungitura, stato attivo/in lattazione o soglia/intervallo atteso.;"Non associare ritardo a malattia senza altri segnali. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;"#6946 (L3, DIM 241): -96,7 %
+#5659 (L3, DIM 207): -93,2 %
+#5762 (L3, DIM 226): -92,5 %
+#726 (L2, DIM 222): -91,6 %
+#2474 (L7, DIM 275): -90,1 %
+#165 (L6, DIM 228): -88,9 %
+#2491 (L2, DIM 279): -87,3 %
+#2516 (L2, DIM 17): -85,4 %
+#2422 (L2, DIM 274): -84,0 %
+#7340 (L5, DIM 242): -83,9 %
+
+
+Tutte le 100 bufale riportate nel campione mostrano un residuo < ‑20 %, quindi sono in ritardo nella produzione. Il conteggio complessivo della stalla indica 393 bufale in ritardo su 588 in lattazione (≈ 67 % della mandria).
+
+
+
+Le cause più frequenti di forte calo di resa in bufala sono mastite, cheto‑si, stress termico, problemi locomotori e deficit nutrizionali. Per le 10 bufale con il peggior residuo, controlla subito la conducibilità e le cellule somatiche del latte; se sono elevate predisponi colture e trattamento antibiotico. Verifica il valore di THI; se supera 68 attiva spruzzatori o ventilatori. Valuta l’apporto energetico della razione (olii vegetali ≤ 5 % della dieta) e assicurati che abbiano buona fibra. Programma una visita veterinaria mirata per confermare diagnosi e impostare terapie […]";99435;1;False;16D93E52FC4B80D710;[16:52, 31/08/2026] Marica Marches: ;2026-08-31T16:51:04;2026-08-31T16:52:52;True;OK
+AUTO_20260831_164851;smoke;4;1;SEL_MUNG_004_V0_A1;SEL_MUNG_004_V0;SEL_MUNG_004;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_004;0;canonical;manual_selected;False;False;;MUNG_003;exact;quali vacche/bufale hanno meno mungiture?;low_milking_count;herd;;ID, gruppo, DIM, numero sessioni ultime 24h, media baseline mungiture;"Ho trovato {n_animali} animali con meno mungiture rispetto al loro andamento recente.
+{tabella}
+Verifica accesso a robot/sala, locomozione, comportamento e rifiuti robot.";Animale | DIM | Parità | Gruppo | Mungiture 24h | Baseline mungiture | Differenza | Ultima mungitura | Note;Manca baseline individuale delle mungiture o conteggio ultime 24h.;"Non diagnosticare zoppia o malattia solo da riduzione mungiture. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;"#2474 (L7, DIM 154): 1.0 — media 1.0, delta 0
+#2406 (L2, DIM 275): 1.0 — media 1.0, delta 0
+#2997: 1.0 — media 1.0, delta 0
+#5264: 1.0 — media 1.0, delta 0
+#3124: 1.0 — media 1.0, delta 0
+#5767: 1.0 — media 1.0, delta 0
+#2491: 1.0 — media 1.0, delta 0
+#777: 1.0 — media 1.0, delta 0
+#5645: 1.0 — media 1.0, delta 0
+#9559: 1.0 — media 1.0, delta 0
+
+
+Tutte le bufale elencate hanno la minima frequenza di mungitura (una sessione al giorno). Una così bassa attività può indicare mastite subclinica, dolore locomotorio, stress termico o carenze nutrizionali.
+
+
+
+Azioni consigliate: controllare le cellule somatiche e la conducibilità del latte; ispezionare gli arti per segni di zoppia; verificare THI e attivare raffrescamento se > 68; rivedere l’apporto energetico e fibra della dieta; monitorare la frequenza nelle 3‑5 giorni successivi e, se persiste a 1 mungitura/giorno, richiedere visita veterinaria.
+
+
+
+Se vuoi approfondire una specifica bufala, dimmi il numero.";92042;1;False;16D7133515F21DFEAB;[16:54, 31/08/2026] Marica Marches: ;2026-08-31T16:52:57;2026-08-31T16:54:38;True;OK
+AUTO_20260831_164851;smoke;5;1;SEL_MUNG_005_V0_A1;SEL_MUNG_005_V0;SEL_MUNG_005;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_005;0;canonical;manual_selected;False;False;;MUNG_002;exact;chi non è stata munta oggi?;not_milked_today;herd;;ID, gruppo, DIM, visite robot ultime 24h, nr sessioni mungitura valide, n mungiture baseline;Ecco gli animali che non hanno registrato una mungitura completa:;Animale | DIM | Parità | Gruppo | Ultima mungitura | Ore trascorse | Mungiture oggi | Visite robot oggi;Manca il conteggio mungiture giornaliero o il timestamp dei dati robot.;"Usare 'non risulta registrata' se c'è rischio dato non aggiornato. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;L'analisi richiesta è troppo articolata per una sola domanda: prova a spezzarla in domande più semplici.;53821;1;False;125214A5EF45683AE0;[16:55, 31/08/2026] Marica Marches: ;2026-08-31T16:54:43;2026-08-31T16:55:44;True;OK
+AUTO_20260831_164851;smoke;6;1;SEL_MUNG_006_V0_A1;SEL_MUNG_006_V0;SEL_MUNG_006;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_006;0;canonical;manual_selected;False;False;;MUNG_010;exact;chi ha la conducibilità alta?;conductivity_list;herd;;ID, nr lattazione, DIM, gruppo, ultima conducibilità, media conducibilità gruppo, incremento conducibilità baseline;ecco gli animali con elevati valori di conducibilità:;Animale | DIM | Gruppo | Ultima mungitura | Conducibilità | Baseline/flag | Latte ultima | SCC score | Delta latte;Manca conducibilità aggiornata o baseline/flag aziendale.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;"#2474 (L7, DIM 275): 17.3 – media 13.5 (+3.8)
+#5127 (L5, DIM 423): 15.1 – media 13.5 (+1.6)
+#8102 (L1, DIM 104): 13.7 – media 13.5 (+0.2)
+#474 (L2, DIM 285): 13.3 – media 13.5 (‑0.2)
+#662 (L6, DIM 268): 13.2 – media 13.5 (‑0.3)
+#7340 (L5, DIM 242): 12.9 – media 13.5 (‑0.6)
+#428 (L2, DIM 482): 12.9 – media 13.5 (‑0.6)
+#5645 (L4, DIM 9): 12.1 – media 13.5 (‑1.4)
+#7025 (L3, DIM 189): 12.1 – media 13.5 (‑1.4)
+#2422 (L2, DIM 274): 12.0 – media 13.5 (‑1.5)
+
+
+La conducibilità del latte è un indicatore sensibile di deterioramento della barriera epiteliale della mammella; valori sopra la media (circa 13.5) segnalano una maggiore probabilità di mastite subclinica, con possibile aumento di ioni (Na⁺, K⁺) e perdita di qualità.
+
+
+
+Azioni consigliate:
+
+Controllare le cellule somatiche (SCC) delle bufale #2474, #5127 e #8102; se >200 000 cell/ml approfondire con coltura del latte.
+Verificare l’igiene dei capezzoli prima della mungitura e migliorare la pulizia se necessario.
+Per le bufale con valori >13.5 aumentare la frequenza di mungitura (almeno 2 volte/giorno) per favorire lo svuotamento completo […]";58244;1;False;0DE4515176DD932438;[16:56, 31/08/2026] Marica Marches: ;2026-08-31T16:55:49;2026-08-31T16:56:56;True;OK
+AUTO_20260831_164851;smoke;7;1;SEL_MUNG_007_V0_A1;SEL_MUNG_007_V0;SEL_MUNG_007;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_007;0;canonical;manual_selected;False;False;;MUNG_012;adapted;quali primipare vanno poco al robot;primiparous_low_robot;herd;;ID, DIM, gruppo, nr visite ultime 24h, tempo dall'ultima visita, tempo di intervallo atteso;Ecco la lista completa delle primipare con poche visite volontarie:;Animale | DIM | Parità | Gruppo | Mungiture 24h | Visite robot | Ultima mungitura | Latte 24h;Manca DIM o dati robot.;Non parlare di chetosi/patologia senza segnali metabolici/produttivi aggiuntivi.;Supportato se dati robot presenti;canonical;"#8316 (P1): 1.0 – molto sotto la media robot 2.0
+#3137 (P1): 1.0 – molto sotto la media robot 2.0
+#3196 (P1): 1.0 – molto sotto la media robot 2.0
+#3177 (P1): 1.0 – molto sotto la media robot 2.0
+#8042 (P1): 1.0 – molto sotto la media robot 2.0
+#3164 (P1): 1.0 – molto sotto la media robot 2.0
+#3131 (P1): 1.0 – molto sotto la media robot 2.0
+#3124 (P1): 1.0 – molto sotto la media robot 2.0 (solo 1 giorno di dati)
+#8038 (P1): 1.14 – sotto la media robot 2.0
+#3188 (P1): 1.14 – sotto la media robot 2.0
+
+
+Una visita al robot inferiore a 2 mungiture al giorno può indicare mastite subclinica, dolore locomotorio o stress termico; tutti riducono la produzione e aumentano il rischio di complicazioni.
+
+
+
+Azioni consigliate:
+
+Controllare conducibilità e cellule somatiche di queste bufale; valori alti segnalano mastite.
+Ispezionare arti e zona coxale per segni di zoppia o lesioni, intervenire con terapia veterinaria se necessario.
+Verificare THI degli ultimi giorni; se > 68 aumentare raffrescamento con ventilatori/spruzzatori e garantire acqua fresca continua […]";79585;1;False;38AED9AA84C48F2C84;[16:58, 31/08/2026] Marica Marches: ;2026-08-31T16:57:01;2026-08-31T16:58:29;True;OK
+AUTO_20260831_164851;smoke;8;1;SEL_MUNG_008_V0_A1;SEL_MUNG_008_V0;SEL_MUNG_008;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_008;0;canonical;manual_selected;False;False;;PROD_001;exact_cross_area;chi ha calato il latte oggi?;production_drop_list;herd;;ID, gruppo, lattazione, DIM, baseline individuale (media n giorni), ultima produzione produzione, delta produzione;Gli animali con il maggiore calo individuale sono i seguenti:;Animale | DIM | Parità | Gruppo | Latte attuale | Baseline/media | Delta kg | Delta % | Segnali associati;Manca produzione aggiornata o baseline/media recente.;Non indicare causa certa del calo se non ci sono segnali concordanti.;Supportato se produzione e baseline presenti;canonical;"#6946 (L3, DIM 241): 0.2 kg — att. 6.10 kg (-5.9 kg, -96.7%)
+#5659 (L3, DIM 207): 0.5 kg — att. 7.35 kg (-6.9 kg, -93.2%)
+#5762 (L3, DIM 226): 0.5 kg — att. 6.63 kg (-6.1 kg, -92.4%)
+#726 (L2, DIM 222): 0.6 kg — att. 7.18 kg (-6.6 kg, -91.6%)
+#2474 (L7, DIM 275): 0.4 kg — att. 4.04 kg (-3.6 kg, -90.1%)
+#165 (L6, DIM 228): 0.6 kg — att. 5.40 kg (-4.8 kg, -88.9%)
+#2491 (L2, DIM 279): 0.7 kg — att. 5.50 kg (-4.8 kg, -87.3%)
+#2516 (L2, DIM 17): 1.8 kg — att. 12.32 kg (-10.5 kg, -85.4%)
+#2422 (L2, DIM 274): 0.9 kg — att. 5.63 kg (-4.7 kg, -84.0%)
+#7340 (L5, DIM 242): 0.8 kg — att. 4.95 kg (-4.2 kg, -83.9%)
+#2468 (L3, DIM 55): 2.6 kg — att. 15.76 kg (-13.2 kg, -83.5%)
+#1320 (L14, DIM 86): 3.0 kg — att. 12.47 kg (-9.5 kg, -75.9%)
+#2543 (L2, DIM 144): 2.5 kg — att. 10.35 kg (-7.9 kg, -75.8%)
+#8042 (L1, DIM 214): 1.8 kg — att. 7.13 kg (-5.3 kg, -74.8%)
+#8058 (L2, DIM 60): 3.9 kg — att. 14.86 kg (-11.0 kg, -73.8%)
+#2479 (L3, DIM 214): 2.0 kg — att. 7.08 kg (-5.1 kg, -71.7%)
+#2467 (L2, DIM 240): 1.9 kg — att. 6.60 kg (-4.7 kg, -71.2%)
+#5127 (L5, DIM 423): 0.5 kg — att. 1.63 kg (-1.1 kg, -69.2%)
+#8148 (L1, DIM 90): 3.6 kg — att. 11.60 kg (-8.0 kg, -69.0%) […]";98000;1;False;99C025829F24886A89;[17:00, 31/08/2026] Marica Marches: ;2026-08-31T16:58:34;2026-08-31T17:00:20;True;OK
+AUTO_20260831_164851;smoke;9;1;SEL_MUNG_009_V0_A1;SEL_MUNG_009_V0;SEL_MUNG_009;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_009;0;canonical;manual_selected;False;False;;PROD_002;exact_cross_area;quali sono le vacche/bufale con un calo superiore a 5 kg?;production_drop_threshold;herd;;ID, gruppo, lattazione, DIM, baseline individuale (media n giorni), ultima produzione produzione;"Animali con calo superiore a {X} kg:
+{tabella}
+La tabella è ordinata per scostamento produttivo, non per priorità.";Animale | DIM | Gruppo | Latte attuale | Baseline | Calo kg | Calo % | Note;Manca produzione, baseline o soglia interpretabile.;"Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se produzione e baseline presenti;canonical;"Nessuna bufala presenta un calo di produzione superiore a 5 kg nella giornata 31 agosto 2026 rispetto al 30 agosto 2026.
+
+
+
+Un calo improvviso così marcato è raro e, quando si verifica, è solitamente legato a eventi acuti come mastite (clinica o subclinica), cheto‑sintesi, stress termico intenso o problemi locomotori. Anche se oggi non c’è alcuna bufala con > 5 kg di perdita, è comunque utile verificare i parametri di produzione (rendita giornaliera, conduzione, cellule somatiche) per individuare eventuali diminuzioni meno evidenti che possono preannunciare questi problemi.
+
+
+
+Azioni consigliate:
+
+Controlla quotidianamente i valori di resa, conducibilità e SCC; segnala una diminuzione anche inferiore a 5 kg.
+Verifica il THI degli ultimi giorni; se è elevato, attiva sistemi di raffrescamento (ventilatori, nebulizzatori, acqua fresca).
+Ispeziona gli arti per segni di zoppia o lesioni e, se necessario, richiedi una visita veterinaria.
+Assicura una dieta adeguata in energia e proteine, soprattutto per le bufale in transizione, per prevenire cheto‑sintesi.
+
+
+Se vuoi approfondire le cause di eventuali cali minori, fammi sapere.";49547;1;False;9C67A1597E72B427D8;[17:01, 31/08/2026] Marica Marches: ;2026-08-31T17:00:25;2026-08-31T17:01:23;True;OK
+AUTO_20260831_164851;smoke;10;1;SEL_PROD_001_V0_A1;SEL_PROD_001_V0;SEL_PROD_001;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_001;0;canonical;manual_selected;False;False;;PROD_006;exact;chi produce meno?;low_production_list;herd;;ID, gruppo,DIM, ultima produzione, media gruppo, delta produzione;"Animali sotto la media del proprio gruppo:
+{tabella}
+Questo confronto è più utile se il gruppo è omogeneo per DIM/parità.";Animale | DIM | Parità | Gruppo | Latte attuale | Media gruppo | Delta vs gruppo | Delta vs se stessa;Manca gruppo o media gruppo calcolabile.;Non giudicare animale senza considerare DIM/parità quando disponibili.;Supportato se produzione e baseline presenti;canonical;"#6946 (L3, DIM 241): 0,2 kg — attesi 6,10 kg (-5,90 kg, -96,7 %)
+
+
+Questa bufala registra la produzione giornaliera più bassa: il delta è di quasi –97 % rispetto al valore atteso.
+
+
+
+Possibili cause di un calo così marcato sono mastite (soprattutto subclinica, SCC >200 000 cellule/ml), stress termico (THI >68), deficit energetico o problemi locomotori.
+
+
+
+Azioni consigliate
+
+Preleva un campione di latte per analisi SCC e coltura batterica.
+Controlla temperatura corporea e frequenza respiratoria; se è elevata, aumenta il raffrescamento (ventilatori, nebulizzatori, acqua fresca).
+Verifica l’eventuale zoppia o dolore agli arti; intervieni con terapia anti‑infiammatoria se necessario.
+Rivedi l’alimentazione per garantire apporto energetico adeguato, soprattutto se è in fase early‑mid di lattazione.
+
+
+Se vuoi approfondire altri capi o monitorare l’evoluzione, fammi sapere.";56968;1;False;71AF41D9F0AEB71192;[17:02, 31/08/2026] Marica Marches: ;2026-08-31T17:01:36;2026-08-31T17:02:41;True;OK
+AUTO_20260831_164851;smoke;11;1;SEL_PROD_002_V0_A1;SEL_PROD_002_V0;SEL_PROD_002;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_002;0;canonical;manual_selected;False;False;;PROD_005;exact;quale gruppo è calato nella produzione?;group_production_drop;group;;gruppo, n animali, produzione gruppo corrente, produzione baseline gruppo utlimi 7 gg, delta produzione gruppo;"Confronto produzione per gruppo:
+{tabella}
+Se il calo è concentrato nel gruppo, verificare anche fattore ambientale/gestionale/alimentare.";Gruppo | Animali | Latte medio attuale | Baseline gruppo | Delta kg/capo | THI | Note;Mancano gruppi o baseline produttive di gruppo.;Non concludere razione/ambiente senza dati di supporto.;Supportato se produzione e baseline presenti;canonical;"Dati 29‑ago‑2026 vs 30‑ago‑2026 (residuo medio rispetto alla curva attesa)
+
+P1: –0,411 → –0,399 (+0,012) → leggero miglioramento
+P2: –0,448 → –0,432 (+0,016) → leggero miglioramento
+P3: –0,439 → –0,406 (+0,033) → leggero miglioramento
+P4+: –0,399 → –0,377 (+0,022) → leggero miglioramento
+
+
+Nessun gruppo di parità ha registrato un calo nella produzione tra le due giornate; tutti hanno mostrato una variazione verso valori più vicini a zero, quindi una resa leggermente migliore rispetto al livello atteso.
+
+
+
+Cosa fare
+
+Verificare SCC, conducibilità e temperatura ambiente (THI) per escludere mastite o stress termico, anche se la produzione è stabile.
+Controllare le bufale in late lactation (P4+) perché sono più sensibili a deficit energetico e stress ambientale.
+Monitorare gli arti per eventuali problemi locomotori che potrebbero influire in futuro.
+Rivedere l’alimentazione garantendo apporto energetico adeguato a tutti i gruppi, soprattutto P1‑P3.
+
+
+Se vuoi approfondire un gruppo o un singolo animale, fammi sapere.";65331;1;False;C27B3354ED12AE2FA4;[17:03, 31/08/2026] Marica Marches: ;2026-08-31T17:02:47;2026-08-31T17:04:00;True;OK
+AUTO_20260831_164851;smoke;12;1;SEL_PROD_003_V0_A1;SEL_PROD_003_V0;SEL_PROD_003;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_003;0;canonical;manual_selected;False;False;;PROD_007;exact;perché animale 3118 ha calato?;production_drop_reason;animal;3118;DIM, gruppo, lattazione, delta produzione, allarmi attivi triage/probabilità patologia;"La {animal_id} è sotto il suo andamento recente di {production_delta_kg} kg.
+{tabella}
+Se conducibilità/SCC sono alterati, verifica latte e mammella; se ruminazione è bassa, controlla appetito/stato generale; se il gruppo cala con THI alto, valuta contesto ambientale.";Animale | Latte attuale | Baseline | Delta kg | Ruminazione | Conducibilità | SCC score | THI | Mungiture | Esito PECUS;Manca produzione/baseline o dati associati.;Non dare causa unica se segnali discordanti o assenti.;Supportato se produzione e baseline presenti;canonical;"3118: stress da calore, probabilità 76 %
+
+Perdita stimata 8,1 kg/giorno rispetto alla produzione attesa
+
+Segnali: calo produzione acuto -0,28 %, ore di caldo 24 h, perdita prevista 8,07 kg/giorno
+
+Azioni: attiva ventilatori o nebulizzatori e fornisci zone d’ombra; garantisci acqua fresca e abbondante in più punti; aumenta la densità energetica della razione (concentrati di alta qualità) nelle ore più fresche; controlla quotidianamente il consumo di sostanza secca e integri vitamine A, E e selenio; verifica segni di disidratazione o stress aggiuntivo.
+
+
+
+Se vuoi approfondisco.";52456;1;False;AC8CB2386AB76F6CA6;[17:04, 31/08/2026] Marica Marches: ;2026-08-31T17:04:05;2026-08-31T17:05:05;True;OK
+AUTO_20260831_164851;smoke;13;1;SEL_PROD_004_V0_A1;SEL_PROD_004_V0;SEL_PROD_004;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_004;0;canonical;manual_selected;False;False;;PROD_008;exact;quanti/quali animali mi costano di più?;economic_loss_list;herd;;ID, gruppo, DIM, produzione baseline, delta ultimi 7 gg, costo totale, produzione baseline  gruppo;"Animali con maggiore perdita economica stimata dai dati disponibili:
+{tabella}
+Mostra sempre se il prezzo latte è reale o default e il periodo della stima.";Animale | DIM | Gruppo | Calo kg/g | Prezzo latte usato | Perdita €/g | Base calcolo | Note;Manca prezzo latte esplicito, baseline o perdita calcolabile: non stimare il costo in euro. Se possibile mostra solo la perdita produttiva disponibile e indica l'input mancante.;Non mostrare euro e non usare prezzi/default non esplicitamente disponibili nel dataset o nella configurazione corrente.;"Supportato solo se sono disponibili baseline/perdita e prezzo latte esplicito; altrimenti usare fallback senza stimare euro.";canonical;"#2516: mastite al parto, probabilità 65 %, perdita 8,8 kg/giorno
+#3118: stress da calore, probabilità 76 %, perdita 8,1 kg/giorno
+#1320: stress da calore, probabilità 73 %, perdita 7,7 kg/giorno
+
+
+La mastite al parto riduce drasticamente la capacità di produrre latte e può richiedere terapia antibiotica, aumentando i costi di cura e il rischio di ulteriori infezioni. Lo stress da calore costringe la bufala a deviare energia per raffreddarsi (respirazione accelerata, evaporazione), diminuisce l’assunzione di sostanza secca e porta a una riduzione della produzione lattiera di oltre il 10 %.
+
+
+
+Azioni consigliate:
+
+Mastite: preleva campione di latte per SCC e coltura, avvia terapia antibiotica mirata, migliora igiene della stalla e dei robot di mungitura, controlla quotidianamente conducibilità e SCC.
+Stress da calore: installa o potenzia ventilatori e nebulizzatori, garantisci abbondante acqua fresca in più punti, fornisci zone d’ombra, aumenta la densità energetica della razione nelle ore più fresche, integra vitamine A, E e selenio […]";72639;1;False;C9410E317A460E98BF;[17:06, 31/08/2026] Marica Marches: ;2026-08-31T17:05:10;2026-08-31T17:06:31;True;OK
+AUTO_20260831_164851;smoke;14;1;SEL_PROD_005_V0_A1;SEL_PROD_005_V0;SEL_PROD_005;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_005;0;canonical;manual_selected;False;False;;PROD_010;exact;chi perde latte da più giorni?;persistent_milk_loss;herd;;ID, gruppo, dIM, produzione baseline, delta ultimi 7 gg, n giorni sotto baseline;"Animali con calo produttivo persistente:
+{tabella}
+Distinguere se il segnale è individuale o condiviso dal gruppo.";Animale | DIM | Gruppo | Giorni sotto baseline | Calo medio kg | Calo massimo | Segnali associati | Ultimo esito;Manca storico produzione sufficiente.;Non usare 'cronico' senza regola validata e storico clinico.;Supportato se produzione e baseline presenti;canonical;"#150 (giorni_deviante 1): probabilità 14 % — motivo “conducibilità +4.3 σ”
+#7025 (giorni_deviante 1): probabilità 9 % — motivo “conducibilità +5.5 σ, resa vs curva -1.7 σ”
+#2543 (giorni_deviante 1): probabilità 2 % — motivo “conducibilità +9.6 σ”
+
+
+Tutte e tre le bufale presentano una deviazione di un solo giorno; nessuna perde latte da più di un giorno.
+
+
+
+Se vuoi approfondire una di queste bufale (es. vedere la perdita stimata o le azioni consigliate), fammi sapere.";29735;1;False;6263229DB0F89A9E3B;[17:07, 31/08/2026] Marica Marches: ;2026-08-31T17:06:36;2026-08-31T17:07:13;True;OK
+AUTO_20260831_164851;smoke;15;1;SEL_MAST_001_V0_A1;SEL_MAST_001_V0;SEL_MAST_001;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_001;0;canonical;manual_selected;False;False;;MAMM_001;guardrail_adapted;chi ha la mastite oggi?;mammary_signal_list;herd;;ID, gruppo, dim, lattazione, conducibilità corrente, media conducibilità ultimi 7 gg, conta SCC, delta produzione, probabilità triage;Gli animali che presentano segnali mammari elevati sono i seguenti:;Animale | DIM | Parità | Gruppo | Segnale mammario | Conducibilità | SCC score | Calo latte | Ultimo dato;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;"7382 (IT065990517382): mastite, probabilità 67 %.
+
+Perdita stimata 4,3 kg latte/giorno.
+
+Segnali: alta probabilità di mastite, riduzione prevista della produzione.
+
+Azioni: prelevare campione di latte per coltura e SCC; se confermata, avviare terapia antibiotica mirata; potenziare igiene delle mammelle e dei robot di mungitura; monitorare quotidianamente conducibilità e SCC.
+
+8079 (IT065990828079): mastite, probabilità 62 %.
+
+Perdita stimata 4,2 kg latte/giorno.
+
+Segnali: elevata probabilità di mastite, perdita di produzione attesa.
+
+Azioni: prelevare campione di latte per coltura e SCC; trattare con antibiotico specifico se confermato; migliorare pulizia delle mammelle e delle attrezzature; sorvegliare conducibilità e SCC.
+
+
+
+Se vuoi approfondisco dati singola bufala o consigli di gestione aggiuntivi.";39642;1;False;FC8F3B539353F846F2;[17:08, 31/08/2026] Marica Marches: ;2026-08-31T17:07:26;2026-08-31T17:08:13;True;OK
+AUTO_20260831_164851;smoke;16;1;SEL_MAST_002_V0_A1;SEL_MAST_002_V0;SEL_MAST_002;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_002;0;canonical;manual_selected;False;False;;MAMM_002;exact;Quali vacche hanno conducibilità elevata?;conductivity_list;herd;;ID, gruppo, DIM , lattazione, ultima conducibilità, baseline conducibilità, delta utlimi 3 giorni;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | DIM | Gruppo | Conducibilità | Baseline/Soglia | Ultima mungitura | SCC score | Calo latte;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;"Dati (30 ag‑2026) – conducività media del latte (mS/cm)
+
+#2474 (L7, DIM 275): 17,3 — media gruppo 13,5 (+3,8)
+#5127 (L5, DIM 423): 15,1 — media gruppo 13,5 (+1,6)
+#8102 (L1, DIM 104): 13,7 — media gruppo 13,5 (+0,2)
+
+
+Spiegazione
+
+Valori superiori alla media (≈13,5 mS/cm) indicano una conducibilità elevata, spesso associata a infiammazione della mammella (mastite) soprattutto se accompagnati da forte riduzione della produzione (residual rel negativo). Le tre bufale sopra riportate mostrano le conduzioni più alte della mandria e, per 2474 e 5127, scostamenti produttivi molto negativi (‑90 % e ‑69 %).
+
+
+
+Azioni consigliate
+
+Monitorare quotidianamente la conducibilità di queste bufale; segnalarne eventuali aumenti.
+Verificare altri segnali di mastite: temperatura della mammella, consistenza del latte, presenza di edema.
+Prelevare campioni di latte per conta delle cellule somatiche e, se necessario, coltura batterica.
+Rivedere l’igiene della mammella e la pulizia delle apparecchiature di mungitura; aumentare la disinfezione se necessario […]";58007;1;False;13508E7D1A17125EF8;[17:09, 31/08/2026] Marica Marches: ;2026-08-31T17:08:18;2026-08-31T17:09:24;True;OK
+AUTO_20260831_164851;smoke;17;1;SEL_MAST_003_V0_A1;SEL_MAST_003_V0;SEL_MAST_003;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_003;0;canonical;manual_selected;False;False;;MAMM_006;guardrail_adapted;perché l'animale 2516 è segnalata per mastite?;mammary_reason;animal;2516;dim, gruppo, lattazione, conducibilità, SCC, conducibilità quarto maggiore, delta produzione, perdita prevista;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | Segnale | Conducibilità | SCC score | Calo latte | Ultima mungitura | DIM | Gruppo;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;"#2516: perdita 8,8 kg/giorno — molto al di sopra di quello normale
+2516 (mastite al parto, probabilità 65%).
+
+Perdita stimata 8,8 kg/giorno (prevista 8,78 kg/giorno).
+
+Segnali: scostamento medio 10 gg ‑0,87 %; perdita prevista 8,78 kg/giorno; conducibilità persistente z‑score +0,81.
+
+Controlla il latte con CMT e conta cellule somatiche; preleva campione da ogni quarto per coltura; pulisci le mammelle prima della mungitura; se la coltura è positiva avvia terapia antibiotica mirata; monitora quotidianamente conducibilità e produzione per almeno 7 giorni.
+
+
+
+Se vuoi approfondisco il protocollo di trattamento.";65041;1;False;898D2156DECCE4B64E;[17:10, 31/08/2026] Marica Marches: ;2026-08-31T17:09:29;2026-08-31T17:10:41;True;OK
+AUTO_20260831_164851;smoke;18;1;SEL_MAST_004_V0_A1;SEL_MAST_004_V0;SEL_MAST_004;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_004;0;canonical;manual_selected;False;False;;MAMM_012;exact;chi è segnata per mastite per più giorni?;persistent_mammary_signal;herd;;ID, gruppo, lattazione, DIM, timestamp prima segnalazione,;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | DIM | Gruppo | Giorni con segnale | Primo segnale | Ultimo segnale | Esiti registrati | Trend latte;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Parziale: dipende dallo storico;canonical;Nessuna bufala è segnata per mastite per più di un giorno. Al momento le uniche segnalazioni di mastite riguardano le bufale 7382 e 8079, entrambe registrate il 25 agosto 2026, e non risultano ripetute in altri giorni. Se vuoi approfondire la gestione di queste due bufale o impostare un monitoraggio più continuo, fammi sapere.;41711;1;False;C0DF6AD92610E6FADD;[17:11, 31/08/2026] Marica Marches: ;2026-08-31T17:10:46;2026-08-31T17:11:35;True;OK
+AUTO_20260831_164851;smoke;19;1;SEL_MET_001_V0_A1;SEL_MET_001_V0;SEL_MET_001;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_001;0;canonical;manual_selected;False;False;;MET_002;guardrail_adapted;Chi ha chetosi?;possible_ketosis_list;herd;;id, gruppo, DIM, lattazione, delta produzione, delta ruminazione, produzione attesa;"Animali/dati metabolici richiesti:
+{tabella}
+Interpretazione: descrivere come segnale metabolico compatibile da verificare, usando appetito, riempimento ruminale, BHB se disponibile e protocollo aziendale/professionale.";Animale | DIM | Gruppo | Segnale compatibile | Calo latte | Ruminazione | F:P | BHB registrato;Mancano produzione, ruminazione, DIM, componenti latte o segnale metabolico necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non dire 'chetosi certa' e non suggerire somministrazioni. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se segnali metabolici presenti;canonical;"#2516 (L2, DIM 17): 1,8 kg — attesi 12,3 kg (-10,5 kg, -85%) – probabilità 78%
+#3118 (L2, DIM 62): 6,0 kg — attesi 14,8 kg (-8,8 kg, -59%) – probabilità 78%
+#444 (L3, DIM 27): 5,2 kg — attesi 14,7 kg (-9,5 kg, -65%) – probabilità 70%
+#2468 (L3, DIM 55): 2,6 kg — attesi 15,8 kg (-13,2 kg, -83%) – probabilità 70%
+#2448 (L3, DIM 44): 6,9 kg — attesi 15,9 kg (-9,0 kg, -57%) – probabilità 67%
+
+
+Le cinque bufale elencate presentano alta probabilità di chetosi, con forte calo di produzione rispetto al valore atteso.
+
+
+
+Azioni consigliate: esegui subito test rapido BHB su latte o sangue per confermare la chetosi; somministra glucosio orale (es. 500 ml soluzione al 50 %) e integra inositolo + B12/α‑lipoico secondo le dosi del produttore; verifica la razione energetica, soprattutto per le bufale in lattazione precoce (DIM < 30) e per quelle in transizione; monitora produzione e BHB nei prossimi 7 giorni, intervenendo nuovamente se la perdita non melhora del 10‑15 %.
+
+
+
+Se vuoi approfondire dosaggi o un protocollo di monitoraggio, fammi sapere.";72644;1;False;87D91DA668DF7C1B2E;[17:13, 31/08/2026] Marica Marches: ;2026-08-31T17:11:49;2026-08-31T17:13:09;True;OK
+AUTO_20260831_164851;smoke;20;1;SEL_MET_002_V0_A1;SEL_MET_002_V0;SEL_MET_002;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_002;0;canonical;manual_selected;False;False;;PROD_014;exact_cross_area;quali animali hanno calo latte e ruminazione?;milk_rumination_drop;herd;;ID, gruppo, DIM, delta produzione, delta ruminazione;"Animali con calo produttivo e ruminazione ridotta:
+{tabella}
+Controlla appetito, riempimento ruminale e comportamento; BHB se previsto da protocollo.";Animale | DIM | Gruppo | Calo kg | Ruminazione attuale | Delta ruminazione | THI | Note;Mancano ruminazione o baseline ruminazione.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'.";Supportato se produzione e baseline presenti;canonical;L'analisi richiesta è troppo articolata per una sola domanda: prova a spezzarla in domande più semplici.;48146;1;False;D97735EAABC250B321;[17:14, 31/08/2026] Marica Marches: ;2026-08-31T17:13:14;2026-08-31T17:14:10;True;OK
+AUTO_20260831_164851;smoke;21;1;SEL_MET_003_V0_A1;SEL_MET_003_V0;SEL_MET_003;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_003;0;canonical;manual_selected;False;False;;MET_005;exact;l'animale 3118 rumina bene?;rumination_animal;animal;3118;lattazione, DIM, ruminazione, baseline ruminazione, delta ruminazione;"Animali/dati metabolici richiesti:
+{tabella}
+Interpretazione: descrivere come segnale metabolico compatibile da verificare, usando appetito, riempimento ruminale, BHB se disponibile e protocollo aziendale/professionale.";Dato | Valore | Baseline | Scostamento | Note;Mancano produzione, ruminazione, DIM, componenti latte o segnale metabolico necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non dire 'chetosi certa' e non suggerire somministrazioni. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se segnali metabolici presenti;canonical;"3118: heat stress, probabilità 76 %
+
+
+
+Produce 8,1 kg/giorno in meno rispetto al normale — perdita stimata 8,1 kg/giorno
+
+
+
+Segnali: calo produzione acuto −0,28 %, ore di caldo 24,0 h, perdita prevista ML 8,07 kg/giorno
+
+
+
+Nessuna allerta specifica di diminuzione della ruminazione è stata generata, ma lo stress da caldo riduce l’assunzione di foraggio e può compromettere la ruminazione. Controlla visivamente la bufala, verifica che mastichi regolarmente soprattutto nelle ore fresche, mantieni l’apporto di foraggio al ≥ 90 % del fabbisogno e distribuiscilo in più somministrazioni giornaliere. Assicura ventilazione adeguata, nebulizzatori o ventole nelle zone di alimentazione e acqua fresca illimitata. Monitora il parametro “rumination minutes” (se disponibile); un calo > 10 % rispetto alla media richiede ulteriori interventi.
+
+
+
+Se vuoi approfondisco con altri dati o suggerimenti specifici.";49317;1;False;3B2E5C2B68B14EFC58;[17:15, 31/08/2026] Marica Marches: ;2026-08-31T17:14:15;2026-08-31T17:15:12;True;OK
+AUTO_20260831_164851;smoke;22;1;SEL_MET_004_V0_A1;SEL_MET_004_V0;SEL_MET_004;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_004;0;canonical;manual_selected;False;False;;CUSTOM_SELECTED;custom_selected;chi ha grasso elevato nel latte?;high_milk_fat;herd;;ID, gruppo, lattazione, DIM, fat_pct, ultima produzione, n sessioni mungitura;;;;"Non formulare diagnosi certa; non prescrivere terapia; non usare priorità non implementata.";Selezionato manualmente come attualmente supportato;canonical;L'analisi richiesta è troppo articolata per una sola domanda: prova a spezzarla in domande più semplici.;49299;1;False;C4B7F1524A8ED31A55;[17:16, 31/08/2026] Marica Marches: ;2026-08-31T17:15:17;2026-08-31T17:16:14;True;OK
+AUTO_20260831_164851;smoke;23;1;SEL_GEN_001_V0_A1;SEL_GEN_001_V0;SEL_GEN_001;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_001;0;canonical;manual_selected;False;False;;ID_004;exact;l'animale 3118 è in lattazione?;lactation_status;animal;3118;status animale, gruppo, lattazione, DIM, ultimo parto;"Identikit animale con i dati attualmente disponibili:
+{tabella}
+Dichiarare sempre i domini mancanti: riproduzione/asciutta/razione se non integrati.";Animale | Stato lattazione | DIM | Ultima mungitura | Ultimo aggiornamento;Animale non trovato o dati base insufficienti per costruire l'identikit.;"Non inventare dati riproduttivi, asciutta, trattamenti o stato non presente. Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato.";Supportato parziale;canonical;"#3118 (L2, DIM 62): in lattazione — fase peak
+
+
+La bufala è nella seconda lattazione, a 62 giorni dalla parturizione, in fase di picco della produzione.
+
+
+
+Continua il monitoraggio di routine del latte e dei parametri sanitari; segnala subito eventuali anomalie.
+
+
+
+Se vuoi approfondisco altri parametri.";29402;1;False;376D654BBCC04DDFA3;[17:16, 31/08/2026] Marica Marches: ;2026-08-31T17:16:27;2026-08-31T17:17:04;True;OK
+AUTO_20260831_164851;smoke;24;1;SEL_GEN_002_V0_A1;SEL_GEN_002_V0;SEL_GEN_002;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_002;0;canonical;manual_selected;False;False;;ID_001;exact;mostrami l'animale 3118;animal_profile;animal;3118;status, gruppo, lattazione, DIM, ultimo parto, asciutta prevista?, baseline produzione, probabilità triage;"Identikit animale con i dati attualmente disponibili:
+{tabella}
+Dichiarare sempre i domini mancanti: riproduzione/asciutta/razione se non integrati.";Sezione | Dato | Valore | Ultimo aggiornamento | Nota;Animale non trovato o dati base insufficienti per costruire l'identikit.;"Non inventare dati riproduttivi, asciutta, trattamenti o stato non presente. Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato.";Supportato parziale;canonical;"3118 (L2, DIM 62): heat stress, probabilità 76%
+
+Produce 6,0 kg — attesi ≈ 14,8 kg (-8,8 kg, -59%). Perdita stimata 8,1 kg/giorno
+
+
+
+Segnali: calo produzione acuto -0,28 %, ore di caldo 24 h, perdita prevista 8,07 kg/giorno
+
+
+
+Azioni: verifica che la bufala mastichi e respiri normalmente; aumenta ventilazione e attiva nebulizzatori vicino al punto di alimentazione; distribuisci il foraggio in più somministrazioni per favorire l’ingestione nelle ore più fresche; assicurati acqua fresca e pulita illimitata; monitora produzione e ruminazione per 2‑3 giorni, se il deficit persiste chiama il veterinario.
+
+
+
+Se vuoi approfondisco.";51732;1;False;84BBE1A88137896053;[17:18, 31/08/2026] Marica Marches: ;2026-08-31T17:17:09;2026-08-31T17:18:08;True;OK
+AUTO_20260831_164851;smoke;25;1;SEL_GEN_003_V0_A1;SEL_GEN_003_V0;SEL_GEN_003;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_003;0;canonical;manual_selected;False;False;;HERD_001;exact;com'è oggi la stalla?;herd_status;herd;;nr animali in lattazione, produzione tot, nr problemi segnalati per classe triage;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Sezione | Valore | Nota | Dati usati;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;"Stalla AFI5 – 30 agosto 2026
+
+Bufale in lattazione: 443
+Produzione totale latte: 2 636 kg
+Media per bufala: 5,94 kg/giorno
+Scostamento medio dalla curva attesa: –40 % (residual rel = ‑0,40)
+Conducibilità media latte: 8,12 (normale)
+Volatilità residuo: 0,27 (instabilità moderata)
+
+
+Produzione giornaliera (ultimi 7 gg) sotto la media attesa, con residual rel tra –0,59 e –0,32.
+
+
+
+Rischi segnalati (heat stress, valutazione 25‑08‑2026):
+
+#2516: probabilità 65 % — perdita stimata 8,8 kg/giorno
+#3118: probabilità 76 % — perdita stimata 8,1 kg/giorno
+#1320: probabilità 73 % — perdita stimata 7,7 kg/giorno
+
+
+Azioni consigliate
+
+Gestione termica: aumentare ventilazione nelle aree di mungitura e alimentazione; attivare nebulizzatori o spruzzatori d’acqua nelle ore più calde; assicurare acqua fresca e illimitata; suddividere la somministrazione di foraggio in più pasti per ridurre il carico termico.
+Monitorare quotidianamente le tre bufale a rischio, verificando produzione, ruminazione e temperatura corporea (se disponibile) […]";57579;1;False;9A00028D5BD109A80A;[17:19, 31/08/2026] Marica Marches: ;2026-08-31T17:18:13;2026-08-31T17:19:19;True;OK
+AUTO_20260831_164851;smoke;26;1;SEL_GEN_004_V0_A1;SEL_GEN_004_V0;SEL_GEN_004;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_004;0;canonical;manual_selected;False;False;;HERD_005;adapted;come sta andando la produzione?;herd_production_trend;herd;;produzione media mandria corrente, delta mesi precedenti, delta anno precedente;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Periodo | Latte medio/capo | Baseline | Delta | Animali attivi | Note;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;"Dati attuali (30 ago 2026): 443 bufale in lattazione, produzione totale 2 636 kg, media 5,94 kg per bufala. Lo scostamento medio dalla curva attesa è ‑0,40, cioè le bufale producono circa il 40 % in meno rispetto al previsto. Conducibilità media 8,12 (valore normale). Volatilità del residuo 0,27 indica fluttuazioni moderate.
+
+
+
+Trend ultimi 7 giorni: 24‑25 ago produzione 4 731 kg (+6 %) e 4 549 kg (+3 %); dal 26 ago al 30 ago la produzione è scesa a 2 540‑2 636 kg con scostamento relativo intorno a ‑0,40, probabile effetto di stress termico.
+
+
+
+Raccomandazioni:
+
+potenziare ventilazione forzata e sistemi di nebulizzazione/misting nelle aree di alimentazione e pre‑mungere;
+valutare pannelli evaporativi se l’umidità relativa è bassa;
+garantire acqua fresca illimitata e somministrare foraggio in più piccoli pasti durante le ore più fresche;
+monitorare le bufale con scostamento ≤‑0,35 (circa 150 animali), controllando frequenza respiratoria e temperatura corporea;
+se il calo persiste >48 h valutare visita veterinaria per escludere mastite o disordini metabolici.
+
+
+Se vuoi approfondisco singole bufale o dettagli su sistemi di raffreddamento, fammi sapere.";47509;1;False;FB79E5AC96B563F7C0;[17:20, 31/08/2026] Marica Marches: ;2026-08-31T17:19:24;2026-08-31T17:20:20;True;OK
+AUTO_20260831_164851;smoke;27;1;SEL_GEN_005_V0_A1;SEL_GEN_005_V0;SEL_GEN_005;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_005;0;canonical;manual_selected;False;False;;HERD_006;exact;come vanno le fresche/altro gruppo?;group_status;group;;media produzione ultimi 7gg per animale, media DIM gruppo, delta produzione;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Animale | DIM | Parità | Latte | Delta | Ruminazione | Segnali | Mungiture;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;"Fresh (prime settimane di lattazione): 26 bufale, produzione media 6,15 kg/g, attesa 10,69 kg/g, scostamento –42 % rispetto alla curva prevista.
+
+
+
+Le bufale in fase “fresh” mostrano il più grande gap rispetto al target, indice tipico di stress termico o di deficit energetico subito l’inizio della lattazione.
+
+Incrementa ventilazione e ombreggiature nelle zone di alimentazione, soprattutto al mattino presto e al tramonto.
+Offri foraggi più energetici (concentrati a rapido assorbimento) in più piccoli pasti distribuiti nelle ore più fresche.
+Controlla frequenza respiratoria e temperatura corporea delle 26 bufale fresh; segnali di febbre o respiro accelerato richiedono visita veterinaria.
+Monitora consumo di foraggio e rumina: una diminuzione > 15 % può anticipare il calo di produzione.
+Se il deficit persiste oltre 48 h, valuta mastite o cheto‑acidosi con analisi di latte (cellule somatiche, conducibilità).
+
+
+Mid: 193 bufale, 5,69 kg/g (‑40 %). Late: 82 bufale, 4,10 kg/g (‑32 %). Peak: 142 bufale, 7,30 kg/g (‑45 %).
+
+
+
+Se vuoi approfondire le singole bufale “fresh” o ricevere consigli su sistemi di raffreddamento, fammi sapere.";35797;1;False;4E1C80507C45E8699E;[17:21, 31/08/2026] Marica Marches: ;2026-08-31T17:20:25;2026-08-31T17:21:09;True;OK
