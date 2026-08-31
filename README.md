@@ -88,22 +88,70 @@ py -m playwright install chromium
 
 ## Collegamento a WhatsApp Web
 
-Il collegamento avviene tramite un profilo Chromium persistente nella cartella `whatsapp_profile/`.
+Il collegamento avviene tramite Playwright, che apre una finestra Chromium non headless e usa un profilo browser persistente nella cartella `whatsapp_profile/`.
 
-Al primo avvio:
+Questo profilo funziona come un browser dedicato ai test: dopo il primo accesso salva la sessione WhatsApp Web e permette ai run successivi di ripartire senza scansionare ogni volta il QR code.
 
-1. Eseguire un run, per esempio:
+### Preparazione iniziale
+
+Prima di avviare i test verificare che:
+
+- il telefono con WhatsApp sia acceso e connesso;
+- l'account WhatsApp abbia accesso alla chat del bot da testare;
+- il nome della chat o del contatto del bot sia noto;
+- nessun altro run dello script stia usando la stessa cartella `whatsapp_profile/`;
+- le dipendenze siano installate:
+
+```powershell
+py -m pip install -r requirements.txt
+py -m playwright install chromium
+```
+
+### Primo collegamento
+
+1. Avviare uno smoke test. E consigliato usare `smoke` per il primo collegamento perche esegue meno casi:
 
    ```powershell
    py pecus_autotest.py run --mode smoke
    ```
 
-2. Si apre una finestra Chromium controllata da Playwright.
-3. Se WhatsApp Web mostra il QR code, scansionarlo dal telefono.
-4. Aprire o selezionare la chat con il bot da testare.
-5. Lasciare la finestra aperta: lo script usa quella sessione per inviare domande e leggere le risposte.
+2. Lo script apre una finestra Chromium controllata da Playwright e carica:
+
+   ```text
+   https://web.whatsapp.com
+   ```
+
+3. Se compare il QR code, collegare WhatsApp Web dal telefono:
+
+   - aprire WhatsApp sul telefono;
+   - entrare nella sezione dispositivi collegati;
+   - scegliere l'opzione per collegare un nuovo dispositivo;
+   - scansionare il QR code mostrato nella finestra Chromium.
+
+4. Attendere il caricamento completo di WhatsApp Web.
+
+5. Aprire manualmente la chat del bot da testare nella finestra Chromium.
+
+6. Verificare che in basso sia visibile la casella di scrittura del messaggio.
+
+7. Lasciare la finestra aperta e non usare quella finestra per altre conversazioni mentre il run e in corso.
+
+Quando la casella di scrittura e visibile, lo script la rileva e inizia a inviare le domande della suite. Per ogni test compila il messaggio, preme `Enter`, attende la risposta del bot e salva il risultato.
+
+### Avvii successivi
 
 Dagli avvii successivi, se la sessione WhatsApp e ancora valida, il profilo `whatsapp_profile/` permette di rientrare senza ripetere il QR code.
+
+La procedura diventa:
+
+1. avviare il comando desiderato;
+2. attendere l'apertura automatica di WhatsApp Web;
+3. verificare che la chat del bot sia aperta;
+4. lasciare lavorare lo script fino alla fine del run.
+
+Se WhatsApp Web apre una chat diversa, selezionare manualmente la chat corretta prima che lo script inizi a inviare domande.
+
+### Nome del bot
 
 Il bot cercato di default e:
 
@@ -118,6 +166,82 @@ py pecus_autotest.py run --mode smoke --bot-name "Nome Bot"
 ```
 
 Nota operativa: lo script identifica i messaggi del bot tramite il nome presente nei metadati WhatsApp (`data-pre-plain-text`). Il nome passato con `--bot-name` deve quindi corrispondere al nome visualizzato da WhatsApp nella chat.
+
+Esempio:
+
+```powershell
+py pecus_autotest.py run --mode functional --bot-name "Marica Marches"
+```
+
+### Durante il run
+
+Durante l'esecuzione:
+
+- non chiudere la finestra Chromium;
+- non cambiare chat;
+- non scrivere manualmente nella casella messaggi;
+- evitare di usare WhatsApp Web dallo stesso profilo in un'altra finestra;
+- tenere il telefono connesso se WhatsApp lo richiede;
+- non modificare `tests/pecus_llm_suite.csv` fino alla fine del run.
+
+Lo script salva progressivamente i risultati in `raw_results.csv`. Se un test va in timeout o la risposta non viene raccolta, il run si ferma in modo protettivo e stampa il comando da usare per riprendere.
+
+### Ripresa dopo timeout o interruzione
+
+Se il run si interrompe, non cancellare la cartella del run. Riprendere con:
+
+```powershell
+py pecus_autotest.py resume "results\AUTO_YYYYMMDD_HHMMSS"
+```
+
+Il resume:
+
+- rilegge `raw_results.csv`;
+- rilegge `suite_snapshot.csv`;
+- identifica i test gia raccolti con successo;
+- riparte solo dai test pendenti;
+- mantiene il conteggio dei tentativi con `attempt_no` e `attempt_uid`.
+
+All'avvio del resume lo script attende alcuni secondi prima di ripartire, cosi eventuali risposte tardive nella chat hanno il tempo di stabilizzarsi.
+
+### Problemi comuni
+
+Se compare di nuovo il QR code:
+
+- la sessione salvata in `whatsapp_profile/` non e piu valida;
+- scansionare di nuovo il QR code;
+- poi riaprire la chat del bot e rilanciare o riprendere il run.
+
+Se lo script resta fermo prima di inviare domande:
+
+- controllare che WhatsApp Web sia caricato;
+- controllare che la chat del bot sia aperta;
+- controllare che la casella di scrittura sia visibile;
+- se c'e un popup o una schermata iniziale, chiuderla manualmente.
+
+Se le risposte non vengono raccolte:
+
+- verificare che `--bot-name` corrisponda esattamente al nome mostrato da WhatsApp;
+- controllare che il bot stia rispondendo nella stessa chat;
+- aumentare il timeout, per esempio:
+
+```powershell
+py pecus_autotest.py run --mode smoke --timeout 300
+```
+
+Se WhatsApp Web e gia aperto altrove:
+
+- chiudere altri browser o finestre che usano lo stesso account per i test;
+- usare solo la finestra aperta da Playwright durante il run.
+
+Se si vuole ripartire da un login pulito:
+
+1. chiudere tutte le finestre Chromium aperte dallo script;
+2. eliminare la cartella locale `whatsapp_profile/`;
+3. rilanciare un run;
+4. scansionare nuovamente il QR code.
+
+Attenzione: `whatsapp_profile/` puo contenere dati locali e informazioni di sessione. Non va caricato nella repository e non va condiviso.
 
 ## Comandi principali
 
