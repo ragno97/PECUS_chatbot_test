@@ -10,10 +10,13 @@ Lo script principale invia le domande definite nella suite CSV a una chat WhatsA
 .
 |-- pecus_autotest.py
 |-- tests/
-|   `-- pecus_llm_suite.csv
+|   |-- pecus_llm_suite.csv
+|   |-- pecus_historical_baselines.csv
+|   `-- pecus_suite_coverage.csv
 |-- results/
 |-- results_archive/
 |-- whatsapp_profile/
+|-- PECUS_AUTOTEST_MASTER_SPEC.md
 |-- README_PECUS_AUTOTEST_CLEAN.txt
 |-- requirements.txt
 `-- README.md
@@ -26,6 +29,7 @@ Lo script principale invia le domande definite nella suite CSV a una chat WhatsA
 Script unico della pipeline. Contiene:
 
 - selezione dei test da eseguire;
+- filtro dei test attivi tramite colonna `enabled`;
 - collegamento a WhatsApp Web tramite Playwright;
 - invio delle domande;
 - raccolta delle risposte del bot;
@@ -36,18 +40,44 @@ Script unico della pipeline. Contiene:
 
 `tests/pecus_llm_suite.csv`
 
-Suite di test in formato CSV con separatore `;`. Ogni riga rappresenta un caso o una variante. Le colonne principali sono:
+Catalogo master dei test in formato CSV con separatore `;`. La versione corrente contiene 186 record:
+
+- 79 test `functional` attivi;
+- 10 test `legacy` attivi;
+- 53 test `regression` attivi;
+- 44 test `deprecated_reference` disattivati, conservati per audit.
+
+Ogni riga rappresenta un caso o una variante. Le colonne principali sono:
 
 - `test_id`: identificativo univoco del test;
 - `case_id`: identificativo del caso logico;
 - `area`: area funzionale, ad esempio `MUNGITURA`, `PRODUZIONE`, `MASTITE`, `METABOLICO`, `GENERICO`;
-- `suite_type`: tipo di suite, ad esempio `functional` o `regression`;
+- `suite_type`: tipo di suite, ad esempio `functional`, `legacy`, `regression` o `deprecated_reference`;
 - `scenario` e `scenario_turn`: scenario e ordine nei test multi-turn;
 - `variant_type`: variante canonica o parafrasi;
 - `question`: domanda inviata al bot;
 - `evaluation_profile`: profilo usato dalla valutazione automatica;
 - `expected_scope`, `expected_animal`, `expected_behavior`, `expected_fields`: aspettative usate per verificare la risposta;
-- `fallback`, `guardrail`, `support_current`: note su fallback, limiti attesi e stato di supporto.
+- `fallback`, `guardrail`, `support_current`: note su fallback, limiti attesi e stato di supporto;
+- `enabled`: include o esclude il test dai run attivi;
+- `origin`: provenienza del test;
+- `methodology_status`: stato metodologico, per esempio `active` o `deprecated_superseded_by_V3`;
+- `test_layer`: livello logico del test;
+- `legacy_test_id`: riferimento al test storico quando disponibile;
+- `animal_explicit`: indica se la domanda nomina esplicitamente un animale;
+- `evaluator_dimensions`: dimensioni di valutazione attese.
+
+`tests/pecus_historical_baselines.csv`
+
+Baseline storiche usate come riferimento per il confronto dei risultati. Contiene metriche RUN_001 e V3.1, per esempio accuratezza intent, scope, risoluzione animale, profondita di retention del contesto, noise recovery e latenze.
+
+`tests/pecus_suite_coverage.csv`
+
+Vista di copertura della suite funzionale. Per ogni `case_id` riporta domanda canonica, numero di varianti e parafrasi associate.
+
+`PECUS_AUTOTEST_MASTER_SPEC.md`
+
+Specifica master della nuova pipeline. Descrive catalogo, modalita di esecuzione, aree funzionali, dimensioni dell'evaluator, file prodotti e regole metodologiche principali.
 
 `results/`
 
@@ -65,7 +95,7 @@ Questa cartella non deve essere versionata: puo contenere dati locali, cache e i
 
 `README_PECUS_AUTOTEST_CLEAN.txt`
 
-Documento storico con le istruzioni operative essenziali della pipeline pulita.
+Documento storico con le istruzioni operative della pipeline precedente. Resta utile per audit, ma la documentazione principale e `README.md` insieme a `PECUS_AUTOTEST_MASTER_SPEC.md`.
 
 `requirements.txt`
 
@@ -259,7 +289,11 @@ Eseguire uno smoke test:
 py pecus_autotest.py run --mode smoke
 ```
 
-Esegue le domande canoniche funzionali.
+Esegue le 27 domande canoniche funzionali. `canonical` e un alias equivalente:
+
+```powershell
+py pecus_autotest.py run --mode canonical
+```
 
 Eseguire la suite funzionale:
 
@@ -267,7 +301,15 @@ Eseguire la suite funzionale:
 py pecus_autotest.py run --mode functional
 ```
 
-Esegue domande canoniche e parafrasi funzionali.
+Esegue 79 test: 27 canoniche e 52 parafrasi funzionali.
+
+Eseguire la suite legacy RUN_001:
+
+```powershell
+py pecus_autotest.py run --mode legacy
+```
+
+Esegue i 10 test storici RUN_001.
 
 Eseguire la suite di regressione:
 
@@ -275,13 +317,29 @@ Eseguire la suite di regressione:
 py pecus_autotest.py run --mode regression
 ```
 
-Esegue scenari di regressione, inclusi contesto, cambio entita, rumore e produzione di parafrasi.
+Esegue 53 scenari di regressione V3, inclusi contesto, cambio entita, rumore e produzione di parafrasi.
 
-Eseguire tutto:
+Eseguire tutto il gate attivo:
+
+```powershell
+py pecus_autotest.py run --mode full
+```
+
+Esegue 142 test attivi: functional, legacy e regression. `full` e anche la modalita di default se `--mode` non viene specificato.
+
+Alias equivalente:
 
 ```powershell
 py pecus_autotest.py run --mode all
 ```
+
+Eseguire i test V2 storici disattivati:
+
+```powershell
+py pecus_autotest.py run --mode deprecated_reference
+```
+
+Questa modalita serve solo per audit o confronto storico. Non usarla come acceptance gate.
 
 Riprendere un run interrotto:
 
@@ -344,20 +402,29 @@ Colonne importanti:
 - `message_ids`, `whatsapp_metadata`: riferimenti ai messaggi WhatsApp;
 - `send_system_timestamp`, `system_timestamp`: timestamp di invio e raccolta;
 - `collector_success`: esito della raccolta;
-- `collector_note`: note del collector, per esempio timeout o risposta vuota.
+- `collector_note`: note del collector, per esempio timeout o risposta vuota;
+- `enabled`, `origin`, `methodology_status`, `test_layer`, `legacy_test_id`, `animal_explicit`, `evaluator_dimensions`: metadati master copiati dalla suite.
 
 `evaluated_attempts.csv`
 
 Valutazione di ogni singolo tentativo presente nel raw. Aggiunge colonne derivate come:
 
 - `collector_status`;
-- `semantic_status`;
+- `intent_status`;
 - `scope_status`;
 - `animal_status`;
+- `context_status`;
+- `implicit_context_status`;
+- `temporal_status`;
+- `availability_status`;
+- `fallback_status`;
 - `detected_scope`;
 - `detected_animals`;
 - `response_class`;
 - `guardrail_flags`;
+- `advice_flags`;
+- `metric_flags`;
+- `quality_flags`;
 - `core_status`;
 - `overall_status`;
 - `error_flags`.
@@ -401,6 +468,29 @@ Aggregazione per area funzionale. Contiene:
 - conteggi `PASS`, `REVIEW`, `FAIL` per `overall_status`;
 - numero di collector invalidi.
 
+`scenario_summary.csv`
+
+Aggregazione per scenario multi-turn. Riporta test, collector validi, core pass, context pass e overall pass per ogni scenario.
+
+`aggregate_metrics.csv`
+
+Metriche aggregate dell'evaluator master. Include famiglie come:
+
+- `quality`;
+- `collector`;
+- `functional`;
+- `legacy`;
+- `regression`;
+- `guardrail`;
+- `metric_consistency`;
+- `latency`.
+
+Esempi di metriche: Intent Accuracy, Scope Accuracy, Animal Resolution Accuracy, Context Accuracy, Temporal Grounding, Data Availability Disclosure, Functional Paraphrase Consistency, Context Retention Depth, Scope Recovery, Noise Recovery e latenze p50/p90/p95/max.
+
+`historical_comparison.csv`
+
+Confronto tra metriche correnti e baseline storiche RUN_001 / V3.1. Serve per capire se la nuova versione migliora, peggiora o mantiene il comportamento rispetto ai run di riferimento.
+
 `summary.txt`
 
 Report leggibile del run. Riporta:
@@ -408,9 +498,15 @@ Report leggibile del run. Riporta:
 - KPI complessivi;
 - KPI core;
 - KPI overall;
+- metriche aggregate QA;
 - riepilogo per area;
+- riepilogo per scenario;
 - statistiche di latenza;
 - elenco dei test non-pass o con flag.
+
+`summary.md`
+
+Versione Markdown del report, piu comoda da condividere o leggere in GitHub. Contiene tabella delle metriche aggregate, confronto storico e lista non-pass/flag.
 
 ## Interpretazione degli stati
 
@@ -432,7 +528,7 @@ Il problema non e la qualita della risposta, ma la raccolta: timeout, risposta v
 
 `core_status`
 
-Esito centrale della risposta: semantica, perimetro richiesto e riferimenti attesi.
+Esito centrale della risposta: intent, perimetro richiesto, riferimenti attesi e dimensioni principali della qualita.
 
 `overall_status`
 
@@ -444,5 +540,6 @@ Esito piu prudente: include anche guardrail e condizioni che possono trasformare
 - Il comando `resume` riparte solo dai test senza raccolta valida.
 - La chat WhatsApp non viene resettata automaticamente tra i test.
 - Il profilo `whatsapp_profile/` e locale e non va committato.
-- Gli output in `results/` e `results_archive/` sono generati e possono contenere risposte reali del bot: per questo sono esclusi da git.
+- Gli output in `results/` e `results_archive/` sono inclusi nella repository come artefatti di confronto e audit.
 - La suite snapshot rende ogni run riproducibile anche se la suite sorgente cambia.
+- Il gate consigliato della versione master e `py pecus_autotest.py run --mode full`.

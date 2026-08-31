@@ -1,0 +1,28 @@
+﻿area;case_id;canonical_question;canonical_count;paraphrase_count;total_variants;paraphrases
+MUNGITURA;SEL_MUNG_001;quante vacche/bufale hanno prodotto poco?;1;3;4;mi dai la lista di vacche che hanno prodotto poco? || quali ultime mungiture sono basse? || chi ha dato poco latte ora?
+MUNGITURA;SEL_MUNG_002;quali vacche/bufale hanno saltato la mungitura?;1;2;3;chi ha ridotto le mungiture? || animali con meno passaggi al robot
+MUNGITURA;SEL_MUNG_003;quali animali sono in ritardo?;1;3;4;Chi è in ritardo? || fammi vedere chi non è passato al robot || quali bufale sono indietro con la mungitura?
+MUNGITURA;SEL_MUNG_004;quali vacche/bufale hanno meno mungiture?;1;2;3;chi ha ridotto le mungiture? || animali con meno passaggi al robot
+MUNGITURA;SEL_MUNG_005;chi non è stata munta oggi?;1;2;3;Chi non ha mungiture oggi? || chi non è passato oggi?
+MUNGITURA;SEL_MUNG_006;chi ha la conducibilità alta?;1;1;2;quali hanno conducibilità alta ora?
+MUNGITURA;SEL_MUNG_007;quali primipare vanno poco al robot;1;2;3;quali primipare fanno poche visite al robot? || quali vacche in prima lattazione vanno poco al robot?
+MUNGITURA;SEL_MUNG_008;chi ha calato il latte oggi?;1;3;4;quali vacche sono calate? || lista cali produzione || chi sta perdendo latte?
+MUNGITURA;SEL_MUNG_009;quali sono le vacche/bufale con un calo superiore a 5 kg?;1;2;3;chi ha perso più di 5 kg? || cali oltre 5 kg
+PRODUZIONE;SEL_PROD_001;chi produce meno?;1;1;2;chi è sotto il gruppo?
+PRODUZIONE;SEL_PROD_002;quale gruppo è calato nella produzione?;1;2;3;il gruppo fresche sta calando? || c'è un calo di gruppo?
+PRODUZIONE;SEL_PROD_003;perché animale 3118 ha calato?;1;2;3;cosa sta succedendo alla 3118? || perché produce meno?
+PRODUZIONE;SEL_PROD_004;quanti/quali animali mi costano di più?;1;1;2;chi mi sta costando di più in latte?
+PRODUZIONE;SEL_PROD_005;chi perde latte da più giorni?;1;2;3;animali che continuano a calare || calo persistente
+MASTITE;SEL_MAST_001;chi ha la mastite oggi?;1;2;3;chi controllo per mammella? || lista sospetti mammari
+MASTITE;SEL_MAST_002;Quali vacche hanno conducibilità elevata?;1;2;3;conducibilità elevata || chi ha conducibilità sopra soglia
+MASTITE;SEL_MAST_003;perché l'animale 2516 è segnalata per mastite?;1;2;3;perché è sospetta? || cosa ha la 2516?
+MASTITE;SEL_MAST_004;chi è segnata per mastite per più giorni?;1;2;3;sospetti mammari persistenti || chi non si risolve?
+METABOLICO;SEL_MET_001;Chi ha chetosi?;1;1;2;chi è a rischio chetosi?
+METABOLICO;SEL_MET_002;quali animali hanno calo latte e ruminazione?;1;2;3;calo latte con ruminazione bassa || animali da controllare per appetito
+METABOLICO;SEL_MET_003;l'animale 3118 rumina bene?;1;2;3;ruminazione della 3118 || la 3118 mangia?
+METABOLICO;SEL_MET_004;chi ha grasso elevato nel latte?;1;2;3;quali animali hanno il grasso del latte alto? || chi ha una percentuale di grasso elevata nel latte?
+GENERICO;SEL_GEN_001;l'animale 3118 è in lattazione?;1;1;2;è una lattazione attiva?
+GENERICO;SEL_GEN_002;mostrami l'animale 3118;1;3;4;scheda 3118 || com'è messa la 3118? || dati 3118
+GENERICO;SEL_GEN_003;com'è oggi la stalla?;1;2;3;com'è la situazione? || ci sono problemi oggi?
+GENERICO;SEL_GEN_004;come sta andando la produzione?;1;1;2;produzione stalla giù?
+GENERICO;SEL_GEN_005;come vanno le fresche/altro gruppo?;1;2;3;fresche oggi || inizio lattazione

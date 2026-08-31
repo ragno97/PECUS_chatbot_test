@@ -67,6 +67,13 @@ RAW_FIELDS = [
     "guardrail",
     "support_current",
     "probe_type",
+    "enabled",
+    "origin",
+    "methodology_status",
+    "test_layer",
+    "legacy_test_id",
+    "animal_explicit",
+    "evaluator_dimensions",
     "response",
     "latency_ms",
     "message_count",
@@ -208,10 +215,11 @@ def append_raw(
 # ===================================================================
 
 def select_tests(rows: list[dict], mode: str) -> list[dict]:
-    if mode == "smoke":
+    active = [row for row in rows if as_bool(row.get("enabled", "True"))]
+
+    if mode in {"smoke", "canonical"}:
         selected = [
-            row
-            for row in rows
+            row for row in active
             if row.get("suite_type") == "functional"
             and row.get("variant_type") == "canonical"
         ]
@@ -224,25 +232,15 @@ def select_tests(rows: list[dict], mode: str) -> list[dict]:
         )
 
     if mode == "functional":
-        selected = [
-            row
-            for row in rows
-            if row.get("suite_type") == "functional"
-        ]
-        return sorted(
-            selected,
-            key=lambda row: int(
-                row.get("execution_order") or 0
-            ),
-        )
+        selected = [row for row in active if row.get("suite_type") == "functional"]
+        return sorted(selected, key=lambda row: int(row.get("execution_order") or 0))
+
+    if mode == "legacy":
+        selected = [row for row in active if row.get("suite_type") == "legacy"]
+        return sorted(selected, key=lambda row: int(row.get("scenario_turn") or 0))
 
     if mode == "regression":
-        selected = [
-            row
-            for row in rows
-            if row.get("suite_type") == "regression"
-        ]
-
+        selected = [row for row in active if row.get("suite_type") == "regression"]
         scenario_order = {
             "A_CONTEXT_DECAY": 1,
             "B_SCOPE_RECOVERY": 2,
@@ -250,23 +248,25 @@ def select_tests(rows: list[dict], mode: str) -> list[dict]:
             "D_NOISE_RETENTION": 4,
             "E_PARAPHRASE_PRODUCTION": 5,
         }
-
         return sorted(
             selected,
             key=lambda row: (
-                scenario_order.get(
-                    row.get("scenario"),
-                    99,
-                ),
+                scenario_order.get(row.get("scenario"), 99),
                 int(row.get("scenario_turn") or 0),
             ),
         )
 
-    if mode == "all":
+    if mode in {"full", "all"}:
+        # Functional first, then historical RUN_001, then V3 regression.
         return (
             select_tests(rows, "functional")
+            + select_tests(rows, "legacy")
             + select_tests(rows, "regression")
         )
+
+    if mode == "deprecated_reference":
+        selected = [row for row in rows if row.get("suite_type") == "deprecated_reference"]
+        return sorted(selected, key=lambda row: int(row.get("case_order") or 0))
 
     raise ValueError(f"Mode non supportato: {mode}")
 
@@ -1666,134 +1666,273 @@ def collector_status(row: dict):
     )
 
 
-def evaluate_attempt(row: dict) -> dict:
-    response = str(
-        row.get("response", "")
-        or ""
-    )
+MONTHS_IT = {
+    "gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4,
+    "maggio": 5, "giugno": 6, "luglio": 7, "agosto": 8,
+    "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12,
+}
 
-    collector, collector_flags = (
-        collector_status(row)
+
+def parse_number_local(value: str) -> float:
+    value = str(value).strip().replace("−", "-").replace("–", "-")
+    if "," in value:
+        value = value.replace(".", "").replace(",", ".")
+    return float(value)
+
+
+def metric_consistency_flags(text: str) -> list[str]:
+    flags = []
+    patterns = (
+        r"(?P<a>\d+(?:[.,]\d+)?)\s*kg\s*[—–-]\s*attesi?\s*(?P<e>\d+(?:[.,]\d+)?)\s*kg(?:\s*\([^)]*?(?P<p>[−–-]?\d+(?:[.,]\d+)?)\s*%\))?",
+        r"Produzione:\s*(?P<a>\d+(?:[.,]\d+)?)\s*kg.*?Attesa(?:\s*\(baseline\))?:\s*(?P<e>\d+(?:[.,]\d+)?)\s*kg.*?(?P<p>[−–-]?\d+(?:[.,]\d+)?)\s*%",
     )
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.I | re.S)
+        if not match:
+            continue
+        actual = parse_number_local(match.group("a"))
+        expected = parse_number_local(match.group("e"))
+        stated_raw = match.groupdict().get("p")
+        if expected and stated_raw:
+            computed = (actual - expected) / expected * 100.0
+            stated = parse_number_local(stated_raw)
+            if abs(computed - stated) > 5.0:
+                flags.append(f"PCT_MISMATCH(computed={computed:.1f}%,stated={stated:.1f}%)")
+        break
+
+    values = []
+    for pattern in (
+        r"Produzione\s*[:\-]?\s*[^\n]{0,35}?([−–-]?\d+(?:[.,]\d+)?)\s*%",
+        r"calo produzione[^\n]{0,35}?([−–-]?\d+(?:[.,]\d+)?)\s*%",
+    ):
+        match = re.search(pattern, text, flags=re.I)
+        if match:
+            try: values.append(parse_number_local(match.group(1)))
+            except Exception: pass
+    if len(values) >= 2 and max(values) - min(values) > 5.0:
+        flags.append("PRODUCTION_PERCENT_CONFLICT")
+    return flags
+
+
+def advice_review_flags(text: str, profile: str) -> list[str]:
+    low = text.lower()
+    flags = []
+    action = re.search(r"\b(?:somministr|tratt|terapia|interven|aumenta|riduci|integra|isola|preleva|esegui)\w*", low, re.I)
+    nutrition = re.search(r"concentrat|razion|densit[aà]\s+energetica|vitamin|selenio|zinco|apporto\s+(?:energetico|proteico)", low, re.I)
+    clinical = re.search(r"antibiotic|antinfiammator|terapia\s+intramamm|\b\d+(?:[.,]\d+)?\s*ml\b|glucosio|glicole\s+propilenico", low, re.I)
+    if action: flags.append("ACTION_ADVICE")
+    if nutrition: flags.append("NUTRITIONAL_ADVICE")
+    if clinical: flags.append("CLINICAL_OR_DOSING_ADVICE")
+    informational = profile not in {"acknowledgement"}
+    if informational and (nutrition or clinical):
+        flags.append("UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW")
+    return flags
+
+
+def response_dates(text: str) -> list[datetime]:
+    dates = []
+    for m in re.finditer(r"\b(\d{1,2})[\-/](\d{1,2})[\-/](\d{4})\b", text):
+        try: dates.append(datetime(int(m.group(3)), int(m.group(2)), int(m.group(1))))
+        except Exception: pass
+    months = "|".join(MONTHS_IT)
+    for m in re.finditer(rf"\b(\d{{1,2}})\s+({months})\s+(\d{{4}})\b", text, flags=re.I):
+        try: dates.append(datetime(int(m.group(3)), MONTHS_IT[m.group(2).lower()], int(m.group(1))))
+        except Exception: pass
+    return dates
+
+
+def run_date_from_row(row: dict):
+    for field in ("send_system_timestamp", "system_timestamp"):
+        value = row.get(field, "")
+        if value:
+            try: return datetime.fromisoformat(value).date()
+            except Exception: pass
+    return None
+
+
+def temporal_evaluation(row: dict, response: str):
+    question = row.get("question", "").lower()
+    layer = row.get("test_layer", row.get("suite_type", ""))
+    explicit_today = bool(re.search(r"\boggi\b|odiern|ultime\s+24\s*ore|nelle\s+24\s*ore", question, re.I))
+    explicit_other = bool(re.search(r"\bieri\b|ultimi\s+giorni|pi[uù]\s+giorni|mese|anno|trend|andamento", question, re.I))
+    default_today = layer == "functional" and not explicit_today and not explicit_other
+    if not (explicit_today or default_today):
+        return "N/A", []
+
+    flags = []
+    today = run_date_from_row(row)
+    low = response.lower()
+    dates = response_dates(response)
+    disclosure = bool(re.search(r"ultimo dato|ultimo aggiornamento|oggi.*non|non.*disponibil.*oggi|dati disponibili al|dato più recente|dato pi[uù] recente", low, re.I))
+
+    if today and dates:
+        latest = max(d.date() for d in dates)
+        if latest < today:
+            if disclosure:
+                return "PASS", ["TEMPORAL_FALLBACK_DISCLOSED"]
+            return "REVIEW", [f"STALE_DATE_UNDISCLOSED({latest.isoformat()})"]
+        return "PASS", []
+
+    if explicit_today:
+        if re.search(r"\boggi\b|odiern", low, re.I) or disclosure or is_no_data(response):
+            return "PASS", []
+        return "REVIEW", ["TEMPORAL_REFERENCE_MISSING"]
+
+    # default-today query without an explicit response date is evaluable only weakly.
+    if re.search(r"\bieri\b", low, re.I) and not disclosure:
+        return "REVIEW", ["DEFAULT_TODAY_BUT_RESPONSE_YESTERDAY"]
+    return "N/A", []
+
+
+def availability_evaluation(row: dict, response: str):
+    q = row.get("question", "").lower()
+    profile = row.get("evaluation_profile", "")
+    signal = ""
+    if "rumin" in q or "rumin" in profile: signal = "rumination"
+    elif "grasso" in q or profile == "high_milk_fat": signal = "milk_fat"
+    elif "conducibil" in q or "conductivity" in profile: signal = "conductivity"
+    elif "cellule" in q or "scc" in q: signal = "scc"
+    if not signal:
+        return "N/A", "", []
+
+    low = response.lower()
+    explicit_unavailable = bool(re.search(r"non (?:è|e) (?:monitorat|disponibil|integrat)|non (?:monitoriamo|monitorate)|questa stalla non|dato .* non disponibile|non ho .* dato", low, re.I))
+    uncertain = bool(re.search(r"se disponibile|se presenti|qualora disponibile", low, re.I))
+    generic = bool(re.search(r"troppo articolat|richiesta complessa", low, re.I))
+    if explicit_unavailable:
+        return "PASS", signal, ["SIGNAL_UNAVAILABLE_DISCLOSED"]
+    if uncertain:
+        return "REVIEW", signal, ["SIGNAL_AVAILABILITY_UNCLEAR"]
+    if generic:
+        return "REVIEW", signal, ["SIGNAL_LIMIT_HIDDEN_BEHIND_GENERIC_FALLBACK"]
+    return "N/A", signal, []
+
+
+def fallback_evaluation(response: str):
+    low = response.lower()
+    if re.search(r"troppo articolat|richiesta complessa", low, re.I):
+        return "REVIEW", ["GENERIC_FALLBACK"]
+    if is_no_data(response):
+        if re.search(r"manca|non disponibile|non monitor|non integrat|prezzo|dato", low, re.I):
+            return "PASS", []
+        return "REVIEW", ["NO_DATA_REASON_UNCLEAR"]
+    return "N/A", []
+
+
+def derive_context_status(scope: str, animal: str, expected_scope: str):
+    if expected_scope == "neutral": return "N/A"
+    if scope == "FAIL" or str(animal).startswith("FAIL"): return "FAIL"
+    if scope == "REVIEW" or animal == "REVIEW": return "REVIEW"
+    return "PASS"
+
+
+def derive_implicit_context_status(row: dict, context_status: str):
+    if row.get("expected_scope") != "animal": return "N/A"
+    if as_bool(row.get("animal_explicit", "False")): return "N/A"
+    if row.get("probe_type") not in {"context_probe", "animal_probe", "recovery_probe", "entity_probe", "previous_entity_probe", "noise_recovery_probe"}:
+        return "N/A"
+    return context_status
+
+
+def evaluate_attempt(row: dict) -> dict:
+    response = str(row.get("response", "") or "")
+    collector, collector_flags = collector_status(row)
 
     if collector != "PASS":
         result = dict(row)
-
-        result.update(
-            {
-                "collector_status": collector,
-                "semantic_status": "N/A",
-                "scope_status": "N/A",
-                "animal_status": "N/A",
-                "detected_scope": "N/A",
-                "detected_animals": "",
-                "response_class": response_class(
-                    response
-                ),
-                "guardrail_flags": "",
-                "core_status": "INVALID_COLLECTOR",
-                "overall_status": "INVALID_COLLECTOR",
-                "error_flags": "|".join(
-                    collector_flags
-                ),
-            }
-        )
-
+        result.update({
+            "collector_status": collector,
+            "semantic_status": "N/A",
+            "intent_status": "N/A",
+            "scope_status": "N/A",
+            "animal_status": "N/A",
+            "context_status": "N/A",
+            "implicit_context_status": "N/A",
+            "temporal_status": "N/A",
+            "availability_status": "N/A",
+            "availability_signal": "",
+            "fallback_status": "N/A",
+            "detected_scope": "N/A",
+            "detected_animals": "",
+            "response_class": response_class(response),
+            "guardrail_flags": "",
+            "advice_flags": "",
+            "metric_flags": "",
+            "quality_flags": "|".join(collector_flags),
+            "core_status": "INVALID_COLLECTOR",
+            "overall_status": "INVALID_COLLECTOR",
+            "error_flags": "|".join(collector_flags),
+        })
         return result
 
-    semantic = semantic_status(
-        row.get(
-            "evaluation_profile",
-            "",
-        ),
-        response,
-    )
+    semantic = semantic_status(row.get("evaluation_profile", ""), response)
+    scope, animal, detected_scope, scope_flags = evaluate_scope_and_animal(row, response, semantic)
+    guardrails = guardrail_flags(row, response)
+    metric = metric_consistency_flags(response)
+    advice = advice_review_flags(response, row.get("evaluation_profile", ""))
+    temporal, temporal_flags = temporal_evaluation(row, response)
+    availability, availability_signal, availability_flags = availability_evaluation(row, response)
+    fallback, fallback_flags = fallback_evaluation(response)
+    context = derive_context_status(scope, animal, row.get("expected_scope", ""))
+    implicit_context = derive_implicit_context_status(row, context)
 
-    (
-        scope,
-        animal,
-        detected_scope,
-        scope_flags,
-    ) = evaluate_scope_and_animal(
-        row,
-        response,
-        semantic,
-    )
-
-    guardrails = guardrail_flags(
-        row,
-        response,
-    )
-
-    if (
-        semantic == "FAIL"
-        or scope == "FAIL"
-        or str(animal).startswith("FAIL")
-    ):
+    if semantic == "FAIL" or context == "FAIL":
         core_status = "FAIL"
-
-    elif (
-        semantic == "REVIEW"
-        or scope == "REVIEW"
-        or animal == "REVIEW"
-    ):
+    elif semantic == "REVIEW" or context == "REVIEW":
         core_status = "REVIEW"
-
     else:
         core_status = "PASS"
 
-    hard_guardrail = any(
-        flag
-        in {
-            "DIAGNOSIS_OVERREACH_MASTITIS",
-            "DIAGNOSIS_OVERREACH_KETOSIS",
-            "UNSUPPORTED_PRIORITY",
-        }
-        for flag in guardrails
+    hard_guardrail = any(flag in {
+        "DIAGNOSIS_OVERREACH_MASTITIS",
+        "DIAGNOSIS_OVERREACH_KETOSIS",
+        "UNSUPPORTED_PRIORITY",
+    } for flag in guardrails)
+
+    high_impact_advice = any(flag != "ACTION_ADVICE" for flag in advice)
+    quality_review = bool(
+        metric or high_impact_advice or guardrails
+        or temporal == "REVIEW"
+        or availability == "REVIEW"
+        or fallback == "REVIEW"
     )
 
-    if (
-        core_status == "FAIL"
-        or hard_guardrail
-    ):
+    if core_status == "FAIL" or hard_guardrail:
         overall = "FAIL"
-
-    elif (
-        core_status == "REVIEW"
-        or guardrails
-    ):
+    elif core_status == "REVIEW" or quality_review:
         overall = "REVIEW"
-
     else:
         overall = "PASS"
 
-    result = dict(row)
-
-    result.update(
-        {
-            "collector_status": collector,
-            "semantic_status": semantic,
-            "scope_status": scope,
-            "animal_status": animal,
-            "detected_scope": detected_scope,
-            "detected_animals": ",".join(
-                extract_animals(response)
-            ),
-            "response_class": response_class(
-                response
-            ),
-            "guardrail_flags": "|".join(
-                guardrails
-            ),
-            "core_status": core_status,
-            "overall_status": overall,
-            "error_flags": "|".join(
-                scope_flags
-                + collector_flags
-            ),
-        }
+    all_quality_flags = (
+        scope_flags + collector_flags + guardrails + advice + metric
+        + temporal_flags + availability_flags + fallback_flags
     )
 
+    result = dict(row)
+    result.update({
+        "collector_status": collector,
+        "semantic_status": semantic,
+        "intent_status": semantic,
+        "scope_status": scope,
+        "animal_status": animal,
+        "context_status": context,
+        "implicit_context_status": implicit_context,
+        "temporal_status": temporal,
+        "availability_status": availability,
+        "availability_signal": availability_signal,
+        "fallback_status": fallback,
+        "detected_scope": detected_scope,
+        "detected_animals": ",".join(extract_animals(response)),
+        "response_class": response_class(response),
+        "guardrail_flags": "|".join(guardrails),
+        "advice_flags": "|".join(advice),
+        "metric_flags": "|".join(metric),
+        "quality_flags": "|".join(all_quality_flags),
+        "core_status": core_status,
+        "overall_status": overall,
+        "error_flags": "|".join(scope_flags + collector_flags),
+    })
     return result
 
 
@@ -2038,172 +2177,301 @@ def build_area_summary(
     return output
 
 
+def _ratio(rows, field, pass_pred=lambda v: v == "PASS"):
+    scored = [r for r in rows if r.get(field) not in {"", "N/A", None}]
+    if not scored: return {"pass": 0, "total": 0, "pct": ""}
+    passed = sum(pass_pred(r.get(field)) for r in scored)
+    return {"pass": passed, "total": len(scored), "pct": round(100 * passed / len(scored), 1)}
+
+
+def _strict_retention(rows, scenario):
+    rs = sorted([r for r in rows if r.get("scenario") == scenario and r.get("probe_type") == "context_probe"], key=lambda r: int(r.get("scenario_turn") or 0))
+    depth = 0
+    for r in rs:
+        if r.get("context_status") == "PASS": depth += 1
+        else: break
+    return depth
+
+
+def build_scenario_summary(rows):
+    output=[]
+    scenarios=[]
+    for r in rows:
+        s=r.get("scenario","")
+        if s and s not in scenarios: scenarios.append(s)
+    for scenario in scenarios:
+        subset=[r for r in rows if r.get("scenario")==scenario]
+        scored=[r for r in subset if r.get("expected_scope")!="neutral"]
+        output.append({
+            "scenario":scenario,
+            "tests":len(subset),
+            "collector_valid":sum(r.get("collector_status")=="PASS" for r in subset),
+            "core_pass":sum(r.get("core_status")=="PASS" for r in scored),
+            "core_review":sum(r.get("core_status")=="REVIEW" for r in scored),
+            "core_fail":sum(r.get("core_status")=="FAIL" for r in scored),
+            "context_pass":sum(r.get("context_status")=="PASS" for r in scored),
+            "overall_pass":sum(r.get("overall_status")=="PASS" for r in scored),
+        })
+    return output
+
+
+def build_aggregate_metrics(rows, consistency):
+    metrics=[]
+    def add(name, value, numerator="", denominator="", pct="", family="core"):
+        metrics.append({"family":family,"metric":name,"value":value,"numerator":numerator,"denominator":denominator,"pct":pct})
+
+    for name,field,pred in [
+        ("Intent Accuracy","intent_status",lambda v:v=="PASS"),
+        ("Scope Accuracy","scope_status",lambda v:v=="PASS"),
+        ("Animal Resolution Accuracy","animal_status",lambda v:str(v).startswith("PASS")),
+        ("Context Accuracy","context_status",lambda v:v=="PASS"),
+        ("Implicit Animal-Context Accuracy","implicit_context_status",lambda v:v=="PASS"),
+        ("Temporal Grounding","temporal_status",lambda v:v=="PASS"),
+        ("Data Availability Disclosure","availability_status",lambda v:v=="PASS"),
+        ("Fallback Quality","fallback_status",lambda v:v=="PASS"),
+    ]:
+        rr=_ratio(rows,field,pred)
+        add(name, f"{rr['pass']}/{rr['total']}" if rr['total'] else "N/A", rr['pass'], rr['total'], rr['pct'], "quality")
+
+    collector_valid=sum(r.get("collector_status")=="PASS" for r in rows)
+    add("Collector Validity",f"{collector_valid}/{len(rows)}",collector_valid,len(rows),round(100*collector_valid/len(rows),1) if rows else "","collector")
+    timeout=sum("TIMEOUT" in r.get("collector_note","") or (r.get("collector_status")!="PASS" and not r.get("response")) for r in rows)
+    truncated=sum(as_bool(r.get("response_truncated","False")) for r in rows)
+    add("Timeout Count",timeout,f"{timeout}",len(rows),round(100*timeout/len(rows),1) if rows else "","collector")
+    add("Truncated Response Count",truncated,f"{truncated}",len(rows),round(100*truncated/len(rows),1) if rows else "","collector")
+
+    canon=[r for r in rows if r.get("suite_type")=="functional" and r.get("variant_type")=="canonical"]
+    para=[r for r in rows if r.get("suite_type")=="functional" and r.get("variant_type")=="paraphrase"]
+    for label,subset in [("Functional Canonical Core Pass",canon),("Functional Paraphrase Core Pass",para)]:
+        p=sum(r.get("core_status")=="PASS" for r in subset); t=len(subset)
+        add(label,f"{p}/{t}" if t else "N/A",p,t,round(100*p/t,1) if t else "","functional")
+
+    cons_scored=[c for c in consistency if c.get("consistency_status")!="BASELINE"]
+    cons_pass=sum(c.get("consistency_status")=="PASS" for c in cons_scored)
+    add("Functional Paraphrase Consistency",f"{cons_pass}/{len(cons_scored)}" if cons_scored else "N/A",cons_pass,len(cons_scored),round(100*cons_pass/len(cons_scored),1) if cons_scored else "","functional")
+
+    add("RUN_001 Context Retention Depth",_strict_retention(rows,"LEGACY_RUN001"),family="legacy")
+    add("V3 Context Retention Depth",_strict_retention(rows,"A_CONTEXT_DECAY"),family="regression")
+
+    for label,types in [
+        ("Scope Recovery",{"recovery_probe"}),
+        ("Entity Probe",{"entity_probe"}),
+        ("Previous Entity Recall",{"previous_entity_probe"}),
+        ("Scope Switch",{"scope_switch"}),
+        ("Noise Recovery",{"noise_recovery_probe"}),
+        ("Regression Paraphrase Robustness",{"paraphrase_probe"}),
+    ]:
+        subset=[r for r in rows if r.get("probe_type") in types and r.get("suite_type") in {"regression","legacy"}]
+        p=sum(r.get("context_status")=="PASS" and r.get("intent_status") in {"PASS","N/A"} for r in subset); t=len(subset)
+        add(label,f"{p}/{t}" if t else "N/A",p,t,round(100*p/t,1) if t else "","regression")
+
+    # Noise survival by exact V3 block.
+    for block in ("D1","D3","D5"):
+        subset=[r for r in rows if r.get("scenario")=="D_NOISE_RETENTION" and r.get("block")==block and r.get("probe_type")=="noise_recovery_probe"]
+        if subset:
+            p=sum(r.get("context_status")=="PASS" for r in subset)
+            add(f"Noise Recovery {block}",f"{p}/{len(subset)}",p,len(subset),round(100*p/len(subset),1),"regression")
+
+    guard=Counter(flag for r in rows for flag in r.get("guardrail_flags","").split("|") if flag)
+    advice=Counter(flag for r in rows for flag in r.get("advice_flags","").split("|") if flag)
+    metric=Counter(flag for r in rows for flag in r.get("metric_flags","").split("|") if flag)
+    for flag,count in sorted(guard.items()): add(f"Guardrail: {flag}",count,f"{count}",len(rows),"","guardrail")
+    for flag,count in sorted(advice.items()): add(f"Advice: {flag}",count,f"{count}",len(rows),"","guardrail")
+    for flag,count in sorted(metric.items()): add(f"Metric: {flag}",count,f"{count}",len(rows),"","metric_consistency")
+
+    lat=[]
+    for r in rows:
+        try:
+            if r.get("latency_ms"): lat.append(float(r["latency_ms"]))
+        except Exception: pass
+    if lat:
+        lat.sort()
+        def percentile(p):
+            if len(lat)==1:return lat[0]
+            k=(len(lat)-1)*p; f=int(k); c=min(f+1,len(lat)-1); return lat[f]+(lat[c]-lat[f])*(k-f)
+        add("Latency p50 ms",round(percentile(.50)),family="latency")
+        add("Latency p90 ms",round(percentile(.90)),family="latency")
+        add("Latency p95 ms",round(percentile(.95)),family="latency")
+        add("Latency max ms",round(max(lat)),family="latency")
+    return metrics
+
+
+HISTORICAL_BASELINES = {
+    "Intent Accuracy": {"RUN_001": "100.0%"},
+    "Scope Accuracy": {"RUN_001": "90.0%"},
+    "Animal Resolution Accuracy": {"RUN_001": "88.9%"},
+    "Context Accuracy": {"RUN_001": "90.0%"},
+    "Implicit Animal-Context Accuracy": {"RUN_001": "83.3%"},
+    "RUN_001 Context Retention Depth": {"RUN_001": "3"},
+    "V3 Context Retention Depth": {"V3.1": "3"},
+    "Scope Recovery": {"V3.1": "2/2"},
+    "Entity Probe": {"V3.1": "3/5"},
+    "Noise Recovery": {"V3.1": "1/3"},
+    "Regression Paraphrase Robustness": {"V3.1": "12/12"},
+}
+
+
+def build_historical_comparison(metrics):
+    by={m["metric"]:m for m in metrics}
+    rows=[]
+    for metric,baselines in HISTORICAL_BASELINES.items():
+        current=by.get(metric,{}).get("value","N/A")
+        for baseline,value in baselines.items():
+            rows.append({"metric":metric,"historical_baseline":baseline,"historical_value":value,"current_value":current})
+    return rows
+
+
 def evaluate_run(run_dir: Path) -> dict:
     raw_path = run_dir / "raw_results.csv"
-
-    if not raw_path.exists():
-        raise SystemExit(
-            f"Raw non trovato: {raw_path}"
-        )
-
+    if not raw_path.exists(): raise SystemExit(f"Raw non trovato: {raw_path}")
     raw_rows = load_csv(raw_path)
+    if not raw_rows: raise SystemExit("raw_results.csv vuoto.")
 
-    if not raw_rows:
-        raise SystemExit(
-            "raw_results.csv vuoto."
-        )
+    evaluated_attempts=[evaluate_attempt(row) for row in raw_rows]
+    final_results=choose_final_attempt(evaluated_attempts)
+    consistency=paraphrase_consistency(final_results)
+    area_summary=build_area_summary(final_results)
+    scenario_summary=build_scenario_summary(final_results)
+    aggregate_metrics=build_aggregate_metrics(final_results,consistency)
+    historical=build_historical_comparison(aggregate_metrics)
 
-    evaluated_attempts = [
-        evaluate_attempt(row)
-        for row in raw_rows
+    write_csv(run_dir/"evaluated_attempts.csv",evaluated_attempts)
+    write_csv(run_dir/"evaluated_results.csv",final_results)
+    write_csv(run_dir/"paraphrase_consistency.csv",consistency)
+    write_csv(run_dir/"area_summary.csv",area_summary)
+    write_csv(run_dir/"scenario_summary.csv",scenario_summary)
+    write_csv(run_dir/"aggregate_metrics.csv",aggregate_metrics)
+    write_csv(run_dir/"historical_comparison.csv",historical)
+
+    core_counts=Counter(r["core_status"] for r in final_results)
+    overall_counts=Counter(r["overall_status"] for r in final_results)
+    metric_map={m["metric"]:m["value"] for m in aggregate_metrics}
+
+    lines=[
+        "PECUS CHAIN — MASTER AUTOTEST SUMMARY","="*68,
+        f"Run ID: {final_results[0].get('run_id','')}",
+        f"Mode: {final_results[0].get('run_mode','')}",
+        f"Test finali: {len(final_results)}","",
+        "CORE","-"*68,
+        f"PASS: {core_counts['PASS']}",f"REVIEW: {core_counts['REVIEW']}",f"FAIL: {core_counts['FAIL']}",f"INVALID_COLLECTOR: {core_counts['INVALID_COLLECTOR']}","",
+        "OVERALL","-"*68,
+        f"PASS: {overall_counts['PASS']}",f"REVIEW: {overall_counts['REVIEW']}",f"FAIL: {overall_counts['FAIL']}",f"INVALID_COLLECTOR: {overall_counts['INVALID_COLLECTOR']}","",
+        "AGGREGATE QA METRICS","-"*68,
     ]
+    for m in aggregate_metrics:
+        lines.append(f"[{m['family']}] {m['metric']}: {m['value']}" + (f" ({m['pct']}%)" if m.get('pct') not in {'',None} else ""))
 
-    final_results = choose_final_attempt(
-        evaluated_attempts
-    )
+    lines += ["","AREA SUMMARY","-"*68]
+    for a in area_summary:
+        lines.append(f"{a['area']}: core PASS={a['core_pass']} REVIEW={a['core_review']} FAIL={a['core_fail']} | overall PASS={a['overall_pass']} REVIEW={a['overall_review']} FAIL={a['overall_fail']} | invalid={a['invalid_collector']}")
 
-    consistency = paraphrase_consistency(
-        final_results
-    )
+    lines += ["","SCENARIO SUMMARY","-"*68]
+    for s in scenario_summary:
+        lines.append(f"{s['scenario']}: tests={s['tests']} collector={s['collector_valid']} core_pass={s['core_pass']} context_pass={s['context_pass']} overall_pass={s['overall_pass']}")
 
-    area_summary = build_area_summary(
-        final_results
-    )
+    lines += ["","NON-PASS / FLAGS","-"*68]
+    for r in final_results:
+        if r["overall_status"]!="PASS" or r.get("quality_flags"):
+            lines.append(f"{r['test_id']} | core={r['core_status']} overall={r['overall_status']} | intent={r['intent_status']} scope={r['scope_status']} animal={r['animal_status']} context={r['context_status']} | temporal={r['temporal_status']} availability={r['availability_status']} fallback={r['fallback_status']} | flags={r.get('quality_flags','')} | Q={r.get('question','')}")
 
-    write_csv(
-        run_dir / "evaluated_attempts.csv",
-        evaluated_attempts,
-    )
-    write_csv(
-        run_dir / "evaluated_results.csv",
-        final_results,
-    )
-    write_csv(
-        run_dir / "paraphrase_consistency.csv",
-        consistency,
-    )
-    write_csv(
-        run_dir / "area_summary.csv",
-        area_summary,
-    )
+    summary_path=run_dir/"summary.txt"
+    summary_path.write_text("\n".join(lines)+"\n",encoding="utf-8")
 
-    core_counts = Counter(
-        row["core_status"]
-        for row in final_results
-    )
-
-    overall_counts = Counter(
-        row["overall_status"]
-        for row in final_results
-    )
-
-    latencies = []
-
-    for row in final_results:
-        try:
-            if row.get("latency_ms"):
-                latencies.append(
-                    float(row["latency_ms"])
-                )
-        except Exception:
-            pass
-
-    lines = [
-        "PECUS CHAIN — UNIFIED AUTOTEST SUMMARY",
-        "=" * 60,
-        f"Run ID: {final_results[0].get('run_id', '')}",
-        f"Mode: {final_results[0].get('run_mode', '')}",
-        f"Test finali: {len(final_results)}",
-        "",
-        "CORE",
-        "-" * 60,
-        f"PASS: {core_counts['PASS']}",
-        f"REVIEW: {core_counts['REVIEW']}",
-        f"FAIL: {core_counts['FAIL']}",
-        f"INVALID_COLLECTOR: {core_counts['INVALID_COLLECTOR']}",
-        "",
-        "OVERALL",
-        "-" * 60,
-        f"PASS: {overall_counts['PASS']}",
-        f"REVIEW: {overall_counts['REVIEW']}",
-        f"FAIL: {overall_counts['FAIL']}",
-        f"INVALID_COLLECTOR: {overall_counts['INVALID_COLLECTOR']}",
-        "",
-        "AREA SUMMARY",
-        "-" * 60,
-    ]
-
-    for area in area_summary:
-        lines.append(
-            f"{area['area']}: "
-            f"core PASS={area['core_pass']} "
-            f"REVIEW={area['core_review']} "
-            f"FAIL={area['core_fail']} | "
-            f"overall PASS={area['overall_pass']} "
-            f"REVIEW={area['overall_review']} "
-            f"FAIL={area['overall_fail']} | "
-            f"invalid={area['invalid_collector']}"
-        )
-
-    if latencies:
-        lines += [
-            "",
-            "LATENCY",
-            "-" * 60,
-            f"min_ms: {min(latencies):.0f}",
-            f"median_ms: {statistics.median(latencies):.0f}",
-            f"mean_ms: {statistics.mean(latencies):.0f}",
-            f"max_ms: {max(latencies):.0f}",
-        ]
-
-    lines += [
-        "",
-        "NON-PASS / FLAGS",
-        "-" * 60,
-    ]
-
-    for row in final_results:
-        if (
-            row["overall_status"] != "PASS"
-            or row.get("guardrail_flags")
-        ):
-            lines.append(
-                f"{row['test_id']} | "
-                f"core={row['core_status']} "
-                f"overall={row['overall_status']} | "
-                f"semantic={row['semantic_status']} | "
-                f"scope={row['scope_status']} | "
-                f"animal={row['animal_status']} | "
-                f"guardrail={row.get('guardrail_flags', '')} | "
-                f"errors={row.get('error_flags', '')} | "
-                f"Q={row.get('question', '')}"
-            )
-
-    summary_path = run_dir / "summary.txt"
-
-    summary_path.write_text(
-        "\n".join(lines) + "\n",
-        encoding="utf-8",
-    )
+    # Shareable markdown summary with the same aggregate structure.
+    md=["# PECUS CHAIN — Master Autotest Summary", "", f"**Run:** `{final_results[0].get('run_id','')}`  ", f"**Mode:** `{final_results[0].get('run_mode','')}`  ", f"**Test:** {len(final_results)}", "", "## Aggregate QA metrics", "", "| Family | Metric | Value | % |", "|---|---|---:|---:|"]
+    for m in aggregate_metrics:
+        md.append(f"| {m['family']} | {m['metric']} | {m['value']} | {m.get('pct','')} |")
+    md += ["", "## Historical comparison", "", "| Metric | Baseline | Historical | Current |", "|---|---|---:|---:|"]
+    for h in historical: md.append(f"| {h['metric']} | {h['historical_baseline']} | {h['historical_value']} | {h['current_value']} |")
+    md += ["", "## Non-pass / flags", ""]
+    for r in final_results:
+        if r["overall_status"]!="PASS" or r.get("quality_flags"):
+            md.append(f"- **{r['test_id']} — {r['overall_status']}** — {r.get('question','')}  ")
+            md.append(f"  Flags: `{r.get('quality_flags','') or '—'}`")
+    (run_dir/"summary.md").write_text("\n".join(md)+"\n",encoding="utf-8")
 
     return {
-        "raw": raw_path,
-        "evaluated_attempts": (
-            run_dir / "evaluated_attempts.csv"
-        ),
-        "evaluated_results": (
-            run_dir / "evaluated_results.csv"
-        ),
-        "paraphrase_consistency": (
-            run_dir / "paraphrase_consistency.csv"
-        ),
-        "area_summary": (
-            run_dir / "area_summary.csv"
-        ),
-        "summary": summary_path,
-        "core_counts": core_counts,
-        "overall_counts": overall_counts,
+        "raw":raw_path,"evaluated_attempts":run_dir/"evaluated_attempts.csv","evaluated_results":run_dir/"evaluated_results.csv",
+        "paraphrase_consistency":run_dir/"paraphrase_consistency.csv","area_summary":run_dir/"area_summary.csv",
+        "scenario_summary":run_dir/"scenario_summary.csv","aggregate_metrics":run_dir/"aggregate_metrics.csv",
+        "historical_comparison":run_dir/"historical_comparison.csv","summary":summary_path,"summary_md":run_dir/"summary.md",
+        "core_counts":core_counts,"overall_counts":overall_counts,
     }
+
+
+# ===================================================================
+# WHATSAPP UI BOOTSTRAP
+# ===================================================================
+
+def find_message_box(page):
+    candidates = [
+        'footer [contenteditable="true"][role="textbox"]',
+        'footer div[contenteditable="true"]',
+        '[contenteditable="true"][role="textbox"][aria-placeholder]',
+        '[contenteditable="true"][role="textbox"][data-tab]',
+    ]
+    for selector in candidates:
+        locator=page.locator(selector); visible=[]
+        try: count=locator.count()
+        except Exception: count=0
+        for i in range(count):
+            candidate=locator.nth(i)
+            try:
+                if candidate.is_visible(): visible.append(candidate)
+            except Exception: pass
+        if visible: return visible[-1],selector
+    return None,None
+
+
+def try_open_bot_chat(page, bot_name):
+    try:
+        exact=page.get_by_text(bot_name,exact=True)
+        for i in range(exact.count()):
+            c=exact.nth(i)
+            try:
+                if c.is_visible(): c.click(timeout=3000); page.wait_for_timeout(1500); return True
+            except Exception: pass
+    except Exception: pass
+    for selector in [
+        '[contenteditable="true"][role="textbox"][aria-label*="Cerca"]',
+        '[contenteditable="true"][role="textbox"][aria-placeholder*="Cerca"]',
+        '#side [contenteditable="true"][role="textbox"]',
+    ]:
+        loc=page.locator(selector)
+        for i in range(loc.count()):
+            c=loc.nth(i)
+            try:
+                if not c.is_visible(): continue
+                c.click(); c.fill(bot_name); page.wait_for_timeout(1200)
+                exact=page.get_by_text(bot_name,exact=True)
+                for j in range(exact.count()):
+                    n=exact.nth(j)
+                    if n.is_visible(): n.click(timeout=5000); page.wait_for_timeout(1500); return True
+            except Exception: pass
+    return False
+
+
+def ensure_whatsapp_ready(page, bot_name, run_dir):
+    box,selector=find_message_box(page)
+    if box is not None:
+        print("Composer WhatsApp:",selector); return box
+    print("Composer non trovato; provo ad aprire la chat",bot_name)
+    try_open_bot_chat(page,bot_name); page.wait_for_timeout(1500)
+    box,selector=find_message_box(page)
+    if box is not None:
+        print("Chat aperta. Composer:",selector); return box
+    run_dir.mkdir(parents=True,exist_ok=True)
+    try: page.screenshot(path=str(run_dir/"whatsapp_locator_failure.png"),full_page=True)
+    except Exception: pass
+    lines=[f"url={page.url}",f"bot_name={bot_name}"]
+    try:
+        loc=page.locator('[contenteditable="true"]'); lines.append(f"contenteditable_count={loc.count()}")
+        for i in range(min(loc.count(),20)):
+            c=loc.nth(i)
+            lines.append(f"[{i}] visible={c.is_visible()} role={c.get_attribute('role')} data-tab={c.get_attribute('data-tab')} aria-label={c.get_attribute('aria-label')} aria-placeholder={c.get_attribute('aria-placeholder')}")
+    except Exception as exc: lines.append(repr(exc))
+    diag=run_dir/"whatsapp_locator_failure.txt"; diag.write_text("\n".join(lines)+"\n",encoding="utf-8")
+    raise RuntimeError(f"Composer WhatsApp non trovato. Diagnostica: {diag}")
 
 
 # ===================================================================
@@ -2227,7 +2495,7 @@ def create_manifest(
         f"suite={suite_path}",
         f"timeout_seconds={timeout_seconds}",
         f"bot_name={bot_name}",
-        f"raw_schema_version=1",
+        f"raw_schema_version=2_master",
     ]
 
     (run_dir / "run_manifest.txt").write_text(
@@ -2269,15 +2537,10 @@ def execute_tests(
 
         page.wait_for_timeout(5000)
 
-        message_box = page.locator(
-            '[contenteditable="true"]'
-            '[role="textbox"]'
-            '[data-tab="10"]'
-        )
-
-        message_box.wait_for(
-            state="visible",
-            timeout=30000,
+        message_box = ensure_whatsapp_ready(
+            page,
+            bot_name,
+            run_dir,
         )
 
         if resume:
@@ -2313,7 +2576,7 @@ def execute_tests(
                 )
 
             if (
-                test.get("suite_type") == "regression"
+                test.get("suite_type") in {"regression", "legacy"}
                 and previous_scenario
                 and scenario != previous_scenario
             ):
@@ -2708,11 +2971,15 @@ def build_parser():
         "--mode",
         choices=[
             "smoke",
+            "canonical",
             "functional",
+            "legacy",
             "regression",
+            "full",
             "all",
+            "deprecated_reference",
         ],
-        default="smoke",
+        default="full",
     )
     run.add_argument(
         "--suite",
