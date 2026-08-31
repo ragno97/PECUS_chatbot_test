@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Playwright / browser state
+whatsapp_profile/
+
+# Generated autotest outputs
+results/
+results_archive/
+
+# Local archives and temporary files
+*.zip
+*.tmp
+*.bak
