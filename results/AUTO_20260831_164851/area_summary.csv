@@ -1,0 +1,6 @@
+﻿area;tests;collector_valid;core_pass;core_review;core_fail;overall_pass;overall_review;overall_fail;invalid_collector
+MUNGITURA;9;9;5;3;1;5;3;1;0
+PRODUZIONE;5;5;5;0;0;3;2;0;0
+MASTITE;4;4;4;0;0;2;2;0;0
+METABOLICO;4;4;2;2;0;2;2;0;0
+GENERICO;5;5;5;0;0;5;0;0;0

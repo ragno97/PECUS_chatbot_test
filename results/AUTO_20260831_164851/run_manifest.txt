@@ -1,0 +1,9 @@
+PECUS CHAIN — RUN MANIFEST
+================================================
+run_id=AUTO_20260831_164851
+mode=smoke
+created_at=2026-08-31T16:48:51
+suite=tests\pecus_llm_suite.csv
+timeout_seconds=240
+bot_name=Marica Marches
+raw_schema_version=1
