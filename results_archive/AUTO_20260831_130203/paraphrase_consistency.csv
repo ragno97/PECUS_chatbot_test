@@ -1,0 +1,14 @@
+﻿case_id;area;test_id;variant_type;variant_source;canonical_test_id;canonical_class;response_class;class_match;animal_jaccard;primary_kg_delta;consistency_status
+SEL_MUNG_001;MUNGITURA;SEL_MUNG_001_V0;canonical;manual_selected;SEL_MUNG_001_V0;results;results;True;;;BASELINE
+SEL_MUNG_002;MUNGITURA;SEL_MUNG_002_V0;canonical;manual_selected;SEL_MUNG_002_V0;results;results;True;;;BASELINE
+SEL_MUNG_003;MUNGITURA;SEL_MUNG_003_V0;canonical;manual_selected;SEL_MUNG_003_V0;results;results;True;;;BASELINE
+SEL_MUNG_004;MUNGITURA;SEL_MUNG_004_V0;canonical;manual_selected;SEL_MUNG_004_V0;results;results;True;;;BASELINE
+SEL_MUNG_005;MUNGITURA;SEL_MUNG_005_V0;canonical;manual_selected;SEL_MUNG_005_V0;narrative;narrative;True;;;BASELINE
+SEL_MUNG_006;MUNGITURA;SEL_MUNG_006_V0;canonical;manual_selected;SEL_MUNG_006_V0;results;results;True;;;BASELINE
+SEL_MUNG_007;MUNGITURA;SEL_MUNG_007_V0;canonical;manual_selected;SEL_MUNG_007_V0;results;results;True;;;BASELINE
+SEL_MUNG_008;MUNGITURA;SEL_MUNG_008_V0;canonical;manual_selected;SEL_MUNG_008_V0;none_found;none_found;True;;;BASELINE
+SEL_MUNG_009;MUNGITURA;SEL_MUNG_009_V0;canonical;manual_selected;SEL_MUNG_009_V0;results;results;True;;;BASELINE
+SEL_PROD_001;PRODUZIONE;SEL_PROD_001_V0;canonical;manual_selected;SEL_PROD_001_V0;results;results;True;;;BASELINE
+SEL_PROD_002;PRODUZIONE;SEL_PROD_002_V0;canonical;manual_selected;SEL_PROD_002_V0;results;results;True;;;BASELINE
+SEL_PROD_003;PRODUZIONE;SEL_PROD_003_V0;canonical;manual_selected;SEL_PROD_003_V0;results;results;True;;;BASELINE
+SEL_PROD_004;PRODUZIONE;SEL_PROD_004_V0;canonical;manual_selected;SEL_PROD_004_V0;narrative;narrative;True;;;BASELINE
