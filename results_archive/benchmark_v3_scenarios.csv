@@ -1,6 +1,0 @@
-﻿scenario;tests_total;collector_valid;primary_scored;primary_pass;primary_success_pct
-A_CONTEXT_DECAY;10;10;2;1;50.0
-B_SCOPE_RECOVERY;7;7;7;4;57.1
-C_ENTITY_SWITCH;9;9;9;5;55.6
-D_NOISE_RETENTION;15;15;6;4;66.7
-E_PARAPHRASE_PRODUCTION;12;12;12;7;58.3

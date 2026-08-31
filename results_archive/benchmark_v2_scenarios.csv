@@ -1,5 +1,0 @@
-﻿scenario;tests;scored_tests;context_accuracy_pct;scope_accuracy_pct;animal_resolution_pct;probe_success_pct
-A_CONTEXT_DECAY;12;12;25.0;75.0;33.3;27.3
-B_SCOPE_RECOVERY;9;9;44.4;44.4;71.4;16.7
-C_ENTITY_SWITCH;12;12;50.0;58.3;66.7;62.5
-D_NOISE_RETENTION;11;5;40.0;40.0;60.0;25.0
