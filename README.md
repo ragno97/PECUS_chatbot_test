@@ -1,185 +1,189 @@
-# Pecus Chain WhatsApp LLM Autotest
+# PECUS CHAIN - Master LLM Autotest
 
-Repository per eseguire test automatici sul chatbot Pecus Chain via WhatsApp Web.
+Pipeline unica per testare automaticamente il chatbot PECUS CHAIN tramite WhatsApp Web.
 
-Lo script principale invia le domande definite nella suite CSV a una chat WhatsApp Web, raccoglie le risposte del bot, salva i risultati grezzi e genera file di valutazione leggibili.
+Il sistema invia a PECUS le domande definite nella master suite, raccoglie le risposte via WhatsApp Web, salva i risultati grezzi e produce valutazioni multidimensionali su qualita, contesto, robustezza conversazionale, fallback, guardrail e performance.
+
+La presenza di una domanda nella suite non significa che il relativo segnale sia disponibile in ogni stalla. Il test verifica anche che PECUS dichiari correttamente quando un dato e non monitorato, non integrato, non aggiornato o non disponibile.
+
+## Documenti di riferimento
+
+Il README resta la guida principale per preparare il sistema ed eseguire la suite. Per approfondire:
+
+- [PECUS_AUTOTEST_MASTER_SPEC.md](PECUS_AUTOTEST_MASTER_SPEC.md): specifica master della pipeline.
+- [01_GUIDA_PARAMETRI_MONITORATI.md](01_GUIDA_PARAMETRI_MONITORATI.md): cosa misura l'evaluator e quali domini di stalla vengono interrogati.
+- [02_COMANDI_MASTER_SUITE.md](02_COMANDI_MASTER_SUITE.md): riferimento rapido dei comandi.
+- [03_GUIDA_RISULTATI.md](03_GUIDA_RISULTATI.md): guida dettagliata ai file di output e ai KPI.
+- [README_PECUS_AUTOTEST_CLEAN.txt](README_PECUS_AUTOTEST_CLEAN.txt): documento storico della pipeline precedente.
 
 ## Struttura del progetto
 
 ```text
-.
+pecus_chatbot_test/
 |-- pecus_autotest.py
 |-- tests/
 |   |-- pecus_llm_suite.csv
-|   |-- pecus_historical_baselines.csv
-|   `-- pecus_suite_coverage.csv
+|   |-- pecus_suite_coverage.csv
+|   `-- pecus_historical_baselines.csv
 |-- results/
 |-- results_archive/
 |-- whatsapp_profile/
 |-- PECUS_AUTOTEST_MASTER_SPEC.md
+|-- 01_GUIDA_PARAMETRI_MONITORATI.md
+|-- 02_COMANDI_MASTER_SUITE.md
+|-- 03_GUIDA_RISULTATI.md
 |-- README_PECUS_AUTOTEST_CLEAN.txt
 |-- requirements.txt
 `-- README.md
 ```
 
-## File e cartelle
+## File principali
 
 `pecus_autotest.py`
 
-Script unico della pipeline. Contiene:
+Runner unico della pipeline. Gestisce:
 
-- selezione dei test da eseguire;
-- filtro dei test attivi tramite colonna `enabled`;
-- collegamento a WhatsApp Web tramite Playwright;
-- invio delle domande;
-- raccolta delle risposte del bot;
-- salvataggio dei risultati raw;
-- valutazione automatica dei risultati;
-- generazione dei report finali;
-- comandi CLI `clean`, `run`, `resume` ed `evaluate`.
+- selezione dei test;
+- filtro dei record attivi tramite `enabled`;
+- apertura di WhatsApp Web con Playwright;
+- invio automatico delle domande;
+- raccolta delle risposte;
+- salvataggio progressivo del raw;
+- resume dopo timeout o interruzione;
+- valutazione automatica;
+- generazione dei report.
 
 `tests/pecus_llm_suite.csv`
 
-Catalogo master dei test in formato CSV con separatore `;`. La versione corrente contiene 186 record:
+Catalogo master dei test. La versione corrente contiene 186 record:
 
-- 79 test `functional` attivi;
-- 10 test `legacy` attivi;
-- 53 test `regression` attivi;
-- 44 test `deprecated_reference` disattivati, conservati per audit.
+| Layer | Test | Stato |
+|---|---:|---|
+| Functional canoniche | 27 | attivi |
+| Functional parafrasi | 52 | attivi |
+| RUN_001 legacy | 10 | attivi |
+| V3 regression | 53 | attivi |
+| V2 deprecated reference | 44 | conservati, non usati come gate |
+| Totale catalogo | 186 | |
+| Totale attivo `full` | 142 | |
 
-Ogni riga rappresenta un caso o una variante. Le colonne principali sono:
+Colonne importanti:
 
-- `test_id`: identificativo univoco del test;
-- `case_id`: identificativo del caso logico;
-- `area`: area funzionale, ad esempio `MUNGITURA`, `PRODUZIONE`, `MASTITE`, `METABOLICO`, `GENERICO`;
-- `suite_type`: tipo di suite, ad esempio `functional`, `legacy`, `regression` o `deprecated_reference`;
-- `scenario` e `scenario_turn`: scenario e ordine nei test multi-turn;
-- `variant_type`: variante canonica o parafrasi;
-- `question`: domanda inviata al bot;
-- `evaluation_profile`: profilo usato dalla valutazione automatica;
-- `expected_scope`, `expected_animal`, `expected_behavior`, `expected_fields`: aspettative usate per verificare la risposta;
-- `fallback`, `guardrail`, `support_current`: note su fallback, limiti attesi e stato di supporto;
-- `enabled`: include o esclude il test dai run attivi;
-- `origin`: provenienza del test;
-- `methodology_status`: stato metodologico, per esempio `active` o `deprecated_superseded_by_V3`;
-- `test_layer`: livello logico del test;
-- `legacy_test_id`: riferimento al test storico quando disponibile;
-- `animal_explicit`: indica se la domanda nomina esplicitamente un animale;
-- `evaluator_dimensions`: dimensioni di valutazione attese.
-
-`tests/pecus_historical_baselines.csv`
-
-Baseline storiche usate come riferimento per il confronto dei risultati. Contiene metriche RUN_001 e V3.1, per esempio accuratezza intent, scope, risoluzione animale, profondita di retention del contesto, noise recovery e latenze.
+- `test_id`: identificativo univoco del test.
+- `case_id`: identificativo del caso logico.
+- `area`: area funzionale, per esempio `MUNGITURA`, `PRODUZIONE`, `MASTITE`, `METABOLICO`, `GENERICO`.
+- `suite_type`: layer del test, per esempio `functional`, `legacy`, `regression`, `deprecated_reference`.
+- `scenario` e `scenario_turn`: scenario e ordine nei test conversazionali.
+- `variant_type`: domanda canonica o parafrasi.
+- `question`: domanda inviata al bot.
+- `evaluation_profile`: profilo usato dall'evaluator.
+- `expected_scope`, `expected_animal`, `expected_behavior`, `expected_fields`: aspettative valutate.
+- `fallback`, `guardrail`, `support_current`: limiti e note operative attese.
+- `enabled`: include o esclude il record dai run attivi.
+- `origin`, `methodology_status`, `test_layer`, `legacy_test_id`, `animal_explicit`, `evaluator_dimensions`: metadati metodologici.
 
 `tests/pecus_suite_coverage.csv`
 
-Vista di copertura della suite funzionale. Per ogni `case_id` riporta domanda canonica, numero di varianti e parafrasi associate.
+Vista di copertura della suite functional: per ogni `case_id` riporta domanda canonica, numero di parafrasi e varianti associate.
 
-`PECUS_AUTOTEST_MASTER_SPEC.md`
+`tests/pecus_historical_baselines.csv`
 
-Specifica master della nuova pipeline. Descrive catalogo, modalita di esecuzione, aree funzionali, dimensioni dell'evaluator, file prodotti e regole metodologiche principali.
+Baseline RUN_001 e V3.1 usate per confrontare i run correnti con i benchmark storici.
 
 `results/`
 
-Cartella generata dai run correnti. Ogni esecuzione crea una sottocartella `AUTO_YYYYMMDD_HHMMSS`.
+Cartella dei run correnti. Ogni esecuzione crea `results/AUTO_YYYYMMDD_HHMMSS/`.
 
 `results_archive/`
 
-Archivio dei risultati precedenti. Il comando `clean` sposta il contenuto di `results/` dentro questa cartella invece di cancellarlo.
+Archivio dei risultati precedenti. Il comando `clean` sposta qui la vecchia cartella `results/`.
 
 `whatsapp_profile/`
 
-Profilo browser persistente usato da Playwright per WhatsApp Web. Serve a mantenere la sessione dopo il login con QR code.
+Profilo Chromium persistente usato da Playwright per mantenere la sessione WhatsApp Web. Questa cartella resta locale e non va caricata in repository.
 
-Questa cartella non deve essere versionata: puo contenere dati locali, cache e informazioni di sessione.
+## Preparazione del sistema
 
-`README_PECUS_AUTOTEST_CLEAN.txt`
+### Prerequisiti
 
-Documento storico con le istruzioni operative della pipeline precedente. Resta utile per audit, ma la documentazione principale e `README.md` insieme a `PECUS_AUTOTEST_MASTER_SPEC.md`.
-
-`requirements.txt`
-
-Dipendenze Python minime del progetto. Attualmente contiene Playwright.
-
-## Installazione
-
-Prerequisiti:
+Servono:
 
 - Python 3 installato;
-- accesso a WhatsApp Web nel browser;
-- chat WhatsApp gia disponibile con il bot da testare.
+- accesso a WhatsApp sul telefono;
+- possibilita di usare WhatsApp Web;
+- chat o contatto del bot PECUS da testare;
+- repository scaricata localmente.
 
-Installare le dipendenze:
+### Installazione dipendenze
+
+Da PowerShell, nella cartella della repository:
 
 ```powershell
+cd "D:\Pecus Chain\pecus_chatbot_test"
 py -m pip install -r requirements.txt
 py -m playwright install chromium
+```
+
+La dipendenza principale e Playwright. Chromium viene installato con il secondo comando.
+
+### Verifica rapida
+
+Controllare che lo script parta e mostri le modalita disponibili:
+
+```powershell
+py pecus_autotest.py run --help
+```
+
+Le modalita previste sono:
+
+```text
+smoke, canonical, functional, legacy, regression, full, all, deprecated_reference
 ```
 
 ## Collegamento a WhatsApp Web
 
-Il collegamento avviene tramite Playwright, che apre una finestra Chromium non headless e usa un profilo browser persistente nella cartella `whatsapp_profile/`.
+Il collegamento a WhatsApp Web avviene tramite Playwright. Lo script apre una finestra Chromium non headless e usa il profilo persistente `whatsapp_profile/`.
 
-Questo profilo funziona come un browser dedicato ai test: dopo il primo accesso salva la sessione WhatsApp Web e permette ai run successivi di ripartire senza scansionare ogni volta il QR code.
+Questo profilo funziona come un browser dedicato ai test: dopo il primo accesso salva la sessione WhatsApp Web e consente ai run successivi di ripartire senza scansionare ogni volta il QR code.
 
-### Preparazione iniziale
+### Prima del primo run
 
-Prima di avviare i test verificare che:
+Verificare che:
 
 - il telefono con WhatsApp sia acceso e connesso;
-- l'account WhatsApp abbia accesso alla chat del bot da testare;
-- il nome della chat o del contatto del bot sia noto;
-- nessun altro run dello script stia usando la stessa cartella `whatsapp_profile/`;
-- le dipendenze siano installate:
-
-```powershell
-py -m pip install -r requirements.txt
-py -m playwright install chromium
-```
+- l'account WhatsApp abbia accesso alla chat del bot;
+- il nome del contatto o della chat del bot sia noto;
+- non ci siano altri run che usano la stessa cartella `whatsapp_profile/`;
+- le dipendenze siano installate.
 
 ### Primo collegamento
 
-1. Avviare uno smoke test. E consigliato usare `smoke` per il primo collegamento perche esegue meno casi:
+1. Avviare un run breve:
 
    ```powershell
-   py pecus_autotest.py run --mode smoke
+   py pecus_autotest.py run --mode canonical
    ```
 
-2. Lo script apre una finestra Chromium controllata da Playwright e carica:
+   `canonical` e consigliato per il primo collegamento perche esegue solo le 27 domande canoniche. Anche `smoke` e equivalente.
 
-   ```text
-   https://web.whatsapp.com
-   ```
+2. Attendere l'apertura della finestra Chromium controllata da Playwright.
 
-3. Se compare il QR code, collegare WhatsApp Web dal telefono:
+3. Se WhatsApp Web mostra il QR code:
 
    - aprire WhatsApp sul telefono;
-   - entrare nella sezione dispositivi collegati;
+   - entrare in dispositivi collegati;
    - scegliere l'opzione per collegare un nuovo dispositivo;
    - scansionare il QR code mostrato nella finestra Chromium.
 
 4. Attendere il caricamento completo di WhatsApp Web.
 
-5. Aprire manualmente la chat del bot da testare nella finestra Chromium.
+5. Aprire manualmente la chat del bot PECUS nella finestra Chromium.
 
 6. Verificare che in basso sia visibile la casella di scrittura del messaggio.
 
 7. Lasciare la finestra aperta e non usare quella finestra per altre conversazioni mentre il run e in corso.
 
-Quando la casella di scrittura e visibile, lo script la rileva e inizia a inviare le domande della suite. Per ogni test compila il messaggio, preme `Enter`, attende la risposta del bot e salva il risultato.
-
-### Avvii successivi
-
-Dagli avvii successivi, se la sessione WhatsApp e ancora valida, il profilo `whatsapp_profile/` permette di rientrare senza ripetere il QR code.
-
-La procedura diventa:
-
-1. avviare il comando desiderato;
-2. attendere l'apertura automatica di WhatsApp Web;
-3. verificare che la chat del bot sia aperta;
-4. lasciare lavorare lo script fino alla fine del run.
-
-Se WhatsApp Web apre una chat diversa, selezionare manualmente la chat corretta prima che lo script inizi a inviare domande.
+Quando la casella di scrittura e visibile, lo script inizia a inviare le domande della suite. Per ogni test compila il messaggio, preme `Enter`, attende la risposta del bot e salva il risultato.
 
 ### Nome del bot
 
@@ -192,16 +196,21 @@ Marica Marches
 Per usare un nome diverso:
 
 ```powershell
-py pecus_autotest.py run --mode smoke --bot-name "Nome Bot"
+py pecus_autotest.py run --mode canonical --bot-name "Nome Bot"
 ```
 
-Nota operativa: lo script identifica i messaggi del bot tramite il nome presente nei metadati WhatsApp (`data-pre-plain-text`). Il nome passato con `--bot-name` deve quindi corrispondere al nome visualizzato da WhatsApp nella chat.
+Lo script identifica le risposte del bot tramite il nome presente nei metadati WhatsApp (`data-pre-plain-text`). Il valore passato con `--bot-name` deve corrispondere al nome visualizzato da WhatsApp nella chat.
 
-Esempio:
+### Avvii successivi
 
-```powershell
-py pecus_autotest.py run --mode functional --bot-name "Marica Marches"
-```
+Se la sessione WhatsApp Web e ancora valida:
+
+1. avviare il comando desiderato;
+2. attendere l'apertura automatica di WhatsApp Web;
+3. verificare che la chat del bot sia aperta;
+4. lasciare lavorare lo script fino alla fine del run.
+
+Se WhatsApp Web apre una chat diversa, selezionare manualmente la chat corretta prima che lo script inizi a inviare domande.
 
 ### Durante il run
 
@@ -216,53 +225,31 @@ Durante l'esecuzione:
 
 Lo script salva progressivamente i risultati in `raw_results.csv`. Se un test va in timeout o la risposta non viene raccolta, il run si ferma in modo protettivo e stampa il comando da usare per riprendere.
 
-### Ripresa dopo timeout o interruzione
-
-Se il run si interrompe, non cancellare la cartella del run. Riprendere con:
-
-```powershell
-py pecus_autotest.py resume "results\AUTO_YYYYMMDD_HHMMSS"
-```
-
-Il resume:
-
-- rilegge `raw_results.csv`;
-- rilegge `suite_snapshot.csv`;
-- identifica i test gia raccolti con successo;
-- riparte solo dai test pendenti;
-- mantiene il conteggio dei tentativi con `attempt_no` e `attempt_uid`.
-
-All'avvio del resume lo script attende alcuni secondi prima di ripartire, cosi eventuali risposte tardive nella chat hanno il tempo di stabilizzarsi.
-
 ### Problemi comuni
 
 Se compare di nuovo il QR code:
 
 - la sessione salvata in `whatsapp_profile/` non e piu valida;
 - scansionare di nuovo il QR code;
-- poi riaprire la chat del bot e rilanciare o riprendere il run.
+- riaprire la chat del bot;
+- rilanciare o riprendere il run.
 
 Se lo script resta fermo prima di inviare domande:
 
 - controllare che WhatsApp Web sia caricato;
 - controllare che la chat del bot sia aperta;
 - controllare che la casella di scrittura sia visibile;
-- se c'e un popup o una schermata iniziale, chiuderla manualmente.
+- chiudere manualmente eventuali popup o schermate iniziali.
 
 Se le risposte non vengono raccolte:
 
 - verificare che `--bot-name` corrisponda esattamente al nome mostrato da WhatsApp;
 - controllare che il bot stia rispondendo nella stessa chat;
-- aumentare il timeout, per esempio:
+- aumentare il timeout:
 
 ```powershell
-py pecus_autotest.py run --mode smoke --timeout 300
+py pecus_autotest.py run --mode canonical --timeout 300
 ```
-
-Se WhatsApp Web e gia aperto altrove:
-
-- chiudere altri browser o finestre che usano lo stesso account per i test;
-- usare solo la finestra aperta da Playwright durante il run.
 
 Se si vuole ripartire da un login pulito:
 
@@ -273,273 +260,385 @@ Se si vuole ripartire da un login pulito:
 
 Attenzione: `whatsapp_profile/` puo contenere dati locali e informazioni di sessione. Non va caricato nella repository e non va condiviso.
 
-## Comandi principali
+## Utilizzo della suite
 
-Pulire la cartella dei risultati correnti:
+### Pulire i risultati correnti
 
 ```powershell
 py pecus_autotest.py clean
 ```
 
-Il comando non cancella i risultati: sposta `results/` in `results_archive/results_YYYYMMDD_HHMMSS/` e ricrea una nuova `results/` vuota.
+Il comando non cancella i risultati. Sposta `results/` in:
 
-Eseguire uno smoke test:
-
-```powershell
-py pecus_autotest.py run --mode smoke
+```text
+results_archive/results_YYYYMMDD_HHMMSS/
 ```
 
-Esegue le 27 domande canoniche funzionali. `canonical` e un alias equivalente:
+e crea una nuova cartella `results/` vuota.
+
+### Solo domande canoniche - 27 test
 
 ```powershell
 py pecus_autotest.py run --mode canonical
 ```
 
-Eseguire la suite funzionale:
+Alias:
+
+```powershell
+py pecus_autotest.py run --mode smoke
+```
+
+Usarlo per debug rapido, controllo di una nuova build o verifica minima prima di un run piu lungo.
+
+### Functional - 79 test
 
 ```powershell
 py pecus_autotest.py run --mode functional
 ```
 
-Esegue 79 test: 27 canoniche e 52 parafrasi funzionali.
+Esegue:
 
-Eseguire la suite legacy RUN_001:
+```text
+27 canoniche
+52 parafrasi
+= 79 test
+```
+
+Usarlo per verificare coverage funzionale, robustezza linguistica e consistenza canonica/parafrasi.
+
+### Legacy RUN_001 - 10 test
 
 ```powershell
 py pecus_autotest.py run --mode legacy
 ```
 
-Esegue i 10 test storici RUN_001.
+Usarlo per confronti con la baseline conversazionale storica RUN_001.
 
-Eseguire la suite di regressione:
+### Regression V3 - 53 test
 
 ```powershell
 py pecus_autotest.py run --mode regression
 ```
 
-Esegue 53 scenari di regressione V3, inclusi contesto, cambio entita, rumore e produzione di parafrasi.
+Scenari coperti:
 
-Eseguire tutto il gate attivo:
+```text
+A_CONTEXT_DECAY
+B_SCOPE_RECOVERY
+C_ENTITY_SWITCH
+D_NOISE_RETENTION
+E_PARAPHRASE_PRODUCTION
+```
+
+Usarlo quando cambiano memoria conversazionale, state management, scope o gestione di parafrasi.
+
+### Full - 142 test attivi
+
+Comando consigliato per una baseline completa:
 
 ```powershell
 py pecus_autotest.py run --mode full
 ```
 
-Esegue 142 test attivi: functional, legacy e regression. `full` e anche la modalita di default se `--mode` non viene specificato.
-
-Alias equivalente:
+Alias:
 
 ```powershell
 py pecus_autotest.py run --mode all
 ```
 
-Eseguire i test V2 storici disattivati:
+Esegue:
+
+```text
+79 functional
+10 RUN_001 legacy
+53 V3 regression
+= 142 test
+```
+
+`full` e la modalita di default se `--mode` non viene specificato.
+
+### V2 deprecated - 44 test
 
 ```powershell
 py pecus_autotest.py run --mode deprecated_reference
 ```
 
-Questa modalita serve solo per audit o confronto storico. Non usarla come acceptance gate.
+Questa modalita serve solo per audit o indagine storica. Non usarla come acceptance gate.
 
-Riprendere un run interrotto:
+### Timeout personalizzato
+
+```powershell
+py pecus_autotest.py run --mode full --timeout 300
+```
+
+Default:
+
+```text
+240 s
+```
+
+### Suite, risultati e bot personalizzati
+
+```powershell
+py pecus_autotest.py run --mode full --suite "tests\pecus_llm_suite.csv"
+py pecus_autotest.py run --mode full --results-dir "results_test"
+py pecus_autotest.py run --mode full --bot-name "Marica Marches"
+```
+
+### Riprendere un run interrotto
 
 ```powershell
 py pecus_autotest.py resume "results\AUTO_YYYYMMDD_HHMMSS"
 ```
 
-Rivalutare un run senza inviare nuovi messaggi:
+Con timeout personalizzato:
+
+```powershell
+py pecus_autotest.py resume "results\AUTO_YYYYMMDD_HHMMSS" --timeout 300
+```
+
+Il resume:
+
+1. legge `raw_results.csv`;
+2. legge `suite_snapshot.csv`;
+3. individua i `test_id` gia raccolti con successo;
+4. preserva tutti i tentativi;
+5. aumenta `attempt_no`;
+6. riparte dal primo test non valido;
+7. rivaluta il run.
+
+### Rivalutare senza inviare messaggi
 
 ```powershell
 py pecus_autotest.py evaluate "results\AUTO_YYYYMMDD_HHMMSS"
 ```
 
-Cambiare timeout di attesa risposta:
+Usarlo quando cambia solo l'evaluator, quando vengono aggiunte nuove rubric o quando si vuole rivalutare lo stesso raw senza ripetere la conversazione WhatsApp.
+
+## Workflow consigliato
+
+Sviluppo quotidiano:
 
 ```powershell
-py pecus_autotest.py run --mode smoke --timeout 300
+py pecus_autotest.py run --mode canonical
 ```
 
-## Output di un run
+Modifiche a NLU, prompt o generazione risposta:
 
-Ogni run crea una cartella:
+```powershell
+py pecus_autotest.py run --mode functional
+```
+
+Modifiche a memoria, state management o scope:
+
+```powershell
+py pecus_autotest.py run --mode regression
+```
+
+Nuova baseline o pre-release:
+
+```powershell
+py pecus_autotest.py clean
+py pecus_autotest.py run --mode full
+```
+
+## Parametri monitorati
+
+L'evaluator master misura dimensioni separate, tra cui:
+
+- Intent Accuracy;
+- Scope Accuracy;
+- Animal Resolution Accuracy;
+- Context Accuracy;
+- Implicit Animal-Context Accuracy;
+- Context Retention Depth;
+- Scope Recovery;
+- Entity Probe;
+- Previous Entity Recall;
+- Noise Recovery;
+- Functional Paraphrase Consistency;
+- Regression Paraphrase Robustness;
+- Temporal Grounding;
+- Data Availability Disclosure;
+- Fallback Quality;
+- Guardrail clinici e terapeutici;
+- Advice overreach;
+- Metric Consistency;
+- Collector Validity;
+- latenze p50, p90, p95 e max.
+
+Per il dettaglio completo consultare [01_GUIDA_PARAMETRI_MONITORATI.md](01_GUIDA_PARAMETRI_MONITORATI.md).
+
+## Output prodotti da ogni run
+
+Ogni run crea:
 
 ```text
-results/AUTO_YYYYMMDD_HHMMSS/
+results/
+`-- AUTO_YYYYMMDD_HHMMSS/
+    |-- run_manifest.txt
+    |-- suite_snapshot.csv
+    |-- raw_results.csv
+    |-- evaluated_attempts.csv
+    |-- evaluated_results.csv
+    |-- paraphrase_consistency.csv
+    |-- area_summary.csv
+    |-- scenario_summary.csv
+    |-- aggregate_metrics.csv
+    |-- historical_comparison.csv
+    |-- summary.txt
+    `-- summary.md
 ```
 
-Dentro si trovano questi file.
+In caso di errore del locator WhatsApp possono essere prodotti anche:
+
+```text
+whatsapp_locator_failure.png
+whatsapp_locator_failure.txt
+```
+
+### File principali di output
 
 `run_manifest.txt`
 
-Manifest del run. Riporta:
-
-- `run_id`;
-- modalita eseguita;
-- data e ora di creazione;
-- suite usata;
-- timeout;
-- nome del bot;
-- versione dello schema raw.
+Manifest del run: ID, modalita, data/ora, suite, timeout, nome bot e versione schema.
 
 `suite_snapshot.csv`
 
-Copia della suite usata al momento del run. Serve a rendere riproducibile la valutazione anche se in seguito `tests/pecus_llm_suite.csv` cambia.
+Copia esatta della suite usata per il run. Per interpretare un vecchio run usare sempre questo file, non la suite corrente.
 
 `raw_results.csv`
 
-Risultati grezzi raccolti da WhatsApp Web. Contiene una riga per ogni tentativo, inclusi timeout o retry.
-
-Colonne importanti:
-
-- `run_id`, `run_mode`, `sequence_no`: contesto del run e ordine di esecuzione;
-- `attempt_no`, `attempt_uid`: numero e identificativo del tentativo;
-- `test_id`, `case_id`, `area`, `suite_type`, `scenario`: metadati del test;
-- `question`: domanda inviata al bot;
-- `response`: risposta raccolta;
-- `latency_ms`: tempo di risposta in millisecondi;
-- `message_count`: numero di messaggi raccolti per la risposta;
-- `response_truncated`: indica se la risposta e stata troncata o espansa;
-- `message_ids`, `whatsapp_metadata`: riferimenti ai messaggi WhatsApp;
-- `send_system_timestamp`, `system_timestamp`: timestamp di invio e raccolta;
-- `collector_success`: esito della raccolta;
-- `collector_note`: note del collector, per esempio timeout o risposta vuota;
-- `enabled`, `origin`, `methodology_status`, `test_layer`, `legacy_test_id`, `animal_explicit`, `evaluator_dimensions`: metadati master copiati dalla suite.
+Registro grezzo. Contiene per ogni tentativo domanda, risposta PECUS, timestamp, latenza, message ID, metadati WhatsApp, collector status e attempt number. Non va modificato manualmente.
 
 `evaluated_attempts.csv`
 
-Valutazione di ogni singolo tentativo presente nel raw. Aggiunge colonne derivate come:
-
-- `collector_status`;
-- `intent_status`;
-- `scope_status`;
-- `animal_status`;
-- `context_status`;
-- `implicit_context_status`;
-- `temporal_status`;
-- `availability_status`;
-- `fallback_status`;
-- `detected_scope`;
-- `detected_animals`;
-- `response_class`;
-- `guardrail_flags`;
-- `advice_flags`;
-- `metric_flags`;
-- `quality_flags`;
-- `core_status`;
-- `overall_status`;
-- `error_flags`.
-
-Questo file e utile per capire se un retry ha migliorato o peggiorato il risultato.
+Valutazione di ogni singolo tentativo. Utile per analizzare retry, timeout e stabilita.
 
 `evaluated_results.csv`
 
-Risultato finale per ogni test. Se ci sono piu tentativi, seleziona il tentativo valido finale secondo la logica dello script.
-
-Rispetto a `evaluated_attempts.csv`, include anche:
-
-- `attempts_total`: quanti tentativi esistono per quel test;
-- `chosen_attempt_no`: quale tentativo e stato scelto come finale.
-
-Questo e il file principale da usare per KPI e confronto tra run.
+File principale turno-per-turno. Contiene un record finale per `test_id` e usa l'ultimo tentativo valido quando esistono retry.
 
 `paraphrase_consistency.csv`
 
-Report di coerenza tra domanda canonica e varianti/parafrasi. Le colonne principali sono:
-
-- `case_id`;
-- `area`;
-- `test_id`;
-- `variant_type`;
-- `canonical_test_id`;
-- `canonical_class`;
-- `response_class`;
-- `animal_jaccard`;
-- `consistency_status`.
-
-Serve a verificare se formulazioni diverse della stessa richiesta producono risposte coerenti.
+Confronta ogni parafrasi con la domanda canonica dello stesso `case_id`.
 
 `area_summary.csv`
 
-Aggregazione per area funzionale. Contiene:
-
-- numero di test per area;
-- collector validi;
-- conteggi `PASS`, `REVIEW`, `FAIL` per `core_status`;
-- conteggi `PASS`, `REVIEW`, `FAIL` per `overall_status`;
-- numero di collector invalidi.
+Aggrega i risultati per area funzionale.
 
 `scenario_summary.csv`
 
-Aggregazione per scenario multi-turn. Riporta test, collector validi, core pass, context pass e overall pass per ogni scenario.
+Aggrega i risultati per scenario conversazionale.
 
 `aggregate_metrics.csv`
 
-Metriche aggregate dell'evaluator master. Include famiglie come:
-
-- `quality`;
-- `collector`;
-- `functional`;
-- `legacy`;
-- `regression`;
-- `guardrail`;
-- `metric_consistency`;
-- `latency`.
-
-Esempi di metriche: Intent Accuracy, Scope Accuracy, Animal Resolution Accuracy, Context Accuracy, Temporal Grounding, Data Availability Disclosure, Functional Paraphrase Consistency, Context Retention Depth, Scope Recovery, Noise Recovery e latenze p50/p90/p95/max.
+File principale per KPI quantitativi: quality, collector, functional, legacy, regression, guardrail, metric consistency e latency.
 
 `historical_comparison.csv`
 
-Confronto tra metriche correnti e baseline storiche RUN_001 / V3.1. Serve per capire se la nuova versione migliora, peggiora o mantiene il comportamento rispetto ai run di riferimento.
+Confronta il run corrente con baseline storiche RUN_001 e V3.1.
 
 `summary.txt`
 
-Report leggibile del run. Riporta:
-
-- KPI complessivi;
-- KPI core;
-- KPI overall;
-- metriche aggregate QA;
-- riepilogo per area;
-- riepilogo per scenario;
-- statistiche di latenza;
-- elenco dei test non-pass o con flag.
+Sintesi leggibile da terminale: KPI, area summary, scenario summary, non-pass e flag principali.
 
 `summary.md`
 
-Versione Markdown del report, piu comoda da condividere o leggere in GitHub. Contiene tabella delle metriche aggregate, confronto storico e lista non-pass/flag.
+Report Markdown condivisibile con sviluppatori, team prodotto o release note.
 
-## Interpretazione degli stati
+Per una guida estesa ai risultati consultare [03_GUIDA_RISULTATI.md](03_GUIDA_RISULTATI.md).
+
+## Lettura dei risultati
+
+Ordine consigliato per una review completa:
+
+```text
+1. summary.md
+2. aggregate_metrics.csv
+3. historical_comparison.csv
+4. area_summary.csv
+5. scenario_summary.csv
+6. evaluated_results.csv
+7. raw_results.csv
+```
+
+Se emerge un `FAIL`, seguire:
+
+```text
+summary / aggregate
+evaluated_results.csv
+evaluated_attempts.csv
+raw_results.csv
+suite_snapshot.csv
+```
+
+Questo permette di distinguere:
+
+- problema reale PECUS;
+- limite dell'evaluator;
+- problema del collector;
+- aspettativa errata del test.
+
+## Status
 
 `PASS`
 
-La risposta soddisfa le aspettative per il profilo di valutazione.
+La dimensione valutata soddisfa il criterio.
 
 `REVIEW`
 
-La risposta non e necessariamente errata, ma richiede revisione umana. Tipicamente succede quando il bot usa formulazioni ambigue, amplia troppo il perimetro, o attiva guardrail come terapia, diagnosi o prescrizione nutrizionale.
+Il comportamento richiede revisione umana. Non significa automaticamente risposta sbagliata: puo indicare ambiguita, incompletezza, fallback debole, limite non dichiarato o advice da controllare.
 
 `FAIL`
 
-La risposta viola un requisito atteso o non contiene le informazioni essenziali.
+Errore forte: intent errato, animale errato, scope errato, perdita del contesto, contraddizione incompatibile o guardrail grave.
 
 `INVALID_COLLECTOR`
 
-Il problema non e la qualita della risposta, ma la raccolta: timeout, risposta vuota, messaggio non intercettato o altro problema tecnico.
+Il test non puo essere usato per giudicare PECUS perche la raccolta non e valida: timeout, risposta vuota, contaminazione o troncamento grave.
+
+`N/A`
+
+La dimensione non e pertinente a quel test.
+
+## Core vs Overall
 
 `core_status`
 
-Esito centrale della risposta: intent, perimetro richiesto, riferimenti attesi e dimensioni principali della qualita.
+Risponde alla domanda: PECUS ha capito e risposto correttamente all'intento principale?
 
 `overall_status`
 
-Esito piu prudente: include anche guardrail e condizioni che possono trasformare un pass tecnico in un risultato da rivedere.
+Aggiunge qualita e sicurezza: temporal grounding, data availability, fallback, guardrail e incoerenze rilevanti.
 
-## Note importanti
+Esempio: PECUS puo identificare correttamente gli animali con conducibilita alta (`core_status = PASS`) ma proporre terapia senza gating (`overall_status = REVIEW`).
+
+## Regole operative
 
 - Un timeout interrompe il run in modo protettivo.
 - Il comando `resume` riparte solo dai test senza raccolta valida.
 - La chat WhatsApp non viene resettata automaticamente tra i test.
-- Il profilo `whatsapp_profile/` e locale e non va committato.
-- Gli output in `results/` e `results_archive/` sono inclusi nella repository come artefatti di confronto e audit.
-- La suite snapshot rende ogni run riproducibile anche se la suite sorgente cambia.
+- `whatsapp_profile/` e locale e non va committato.
+- `results/` e `results_archive/` sono inclusi nella repository come artefatti di confronto e audit.
 - Il gate consigliato della versione master e `py pecus_autotest.py run --mode full`.
+- I 44 test V2 `deprecated_reference` sono mantenuti per audit, ma non devono essere usati come acceptance gate.
+
+## Obiettivo del sistema
+
+L'autotest non deve dimostrare soltanto che PECUS sa rispondere. Deve verificare che PECUS:
+
+1. capisca la domanda;
+2. interroghi il dominio corretto;
+3. mantenga animale e scope;
+4. sia robusto alle parafrasi;
+5. dichiari quale periodo sta usando;
+6. dichiari quando un dato non e monitorato;
+7. non inventi informazioni;
+8. mantenga distinto rischio da diagnosi;
+9. non trasformi automaticamente un risk score in terapia;
+10. restituisca valori semanticamente coerenti;
+11. mantenga una conversazione stabile;
+12. risponda con performance compatibili con un uso operativo in stalla.
+
+Il risultato finale deve essere un decision-support layer affidabile sui dati disponibili, non semplicemente un chatbot capace di generare testo.
