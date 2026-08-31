@@ -201,6 +201,126 @@ py pecus_autotest.py run --mode canonical --bot-name "Nome Bot"
 
 Lo script identifica le risposte del bot tramite il nome presente nei metadati WhatsApp (`data-pre-plain-text`). Il valore passato con `--bot-name` deve corrispondere al nome visualizzato da WhatsApp nella chat.
 
+### Configurazione per stalla
+
+Prima di usare la suite su una stalla diversa, verificare due configurazioni:
+
+- nome del bot o contatto WhatsApp;
+- ID animale usati nei test individuali e conversazionali.
+
+#### Cambiare nome del bot WhatsApp
+
+Il nome del bot non si cambia nella suite. Si passa al runner con `--bot-name`:
+
+```powershell
+py pecus_autotest.py run --mode full --bot-name "Nome Bot"
+```
+
+Usare esattamente il nome visualizzato da WhatsApp nella chat, perche lo script lo usa per riconoscere quali messaggi sono risposte del bot.
+
+#### Cambiare ID animale target
+
+Gli ID animale sono definiti nella master suite:
+
+```text
+tests/pecus_llm_suite.csv
+```
+
+Le colonne da modificare sono:
+
+- `question`: testo inviato al bot; cambiare qui l'ID quando compare nella domanda.
+- `expected_animal`: ID animale atteso dall'evaluator.
+- `animal_explicit`: `True` se l'ID compare nella domanda, `False` se l'animale e implicito dal contesto precedente.
+
+Esempio per una domanda esplicita:
+
+```text
+question = descrivi la 3118
+expected_animal = 3118
+animal_explicit = True
+```
+
+per una nuova stalla con animale target `1452` diventa:
+
+```text
+question = descrivi la 1452
+expected_animal = 1452
+animal_explicit = True
+```
+
+Esempio per una domanda implicita:
+
+```text
+question = quanto produce oggi?
+expected_animal = 3118
+animal_explicit = False
+```
+
+per la stessa nuova stalla diventa:
+
+```text
+question = quanto produce oggi?
+expected_animal = 1452
+animal_explicit = False
+```
+
+In questo caso l'ID non va aggiunto alla domanda, perche il test misura se PECUS mantiene il contesto animale dal turno precedente.
+
+#### Test con due animali
+
+Alcuni scenari verificano il cambio entita, per esempio il passaggio da un animale a un altro e il recupero dell'animale precedente. In questi casi servono due ID validi nella stalla.
+
+I casi piu importanti da controllare sono:
+
+- `C_ENTITY_SWITCH`;
+- `LEGACY_RUN001`;
+- eventuali righe con `expected_scope = animal` e `expected_animal` valorizzato.
+
+Per una stalla con due animali target `1452` e `2087`, aggiornare in modo coerente:
+
+```text
+question = descrivi la 3118          -> descrivi la 1452
+expected_animal = 3118               -> 1452
+
+question = ora passa alla 2516       -> ora passa alla 2087
+expected_animal = 2516               -> 2087
+
+question = e l'altra invece?         -> resta invariata
+expected_animal = 3118               -> 1452
+```
+
+Le domande implicite come `quanto produce oggi?`, `che rischio ha?`, `e ieri?` o `e l'altra invece?` devono mantenere la formulazione originale, ma devono avere `expected_animal` aggiornato in base al contesto atteso.
+
+#### Suite separate per stalle diverse
+
+Se si testano piu stalle, la soluzione consigliata e creare una copia della suite per ogni stalla:
+
+```text
+tests/pecus_llm_suite_stalla_a.csv
+tests/pecus_llm_suite_stalla_b.csv
+tests/pecus_llm_suite_stalla_c.csv
+```
+
+Poi eseguire indicando la suite desiderata:
+
+```powershell
+py pecus_autotest.py run --mode full --suite "tests\pecus_llm_suite_stalla_a.csv"
+```
+
+Questo evita di modificare ogni volta la suite master e rende piu chiaro quale set di animali e stato usato per ogni run.
+
+#### Controllo rapido degli ID presenti
+
+Per vedere quali righe della suite hanno un animale atteso:
+
+```powershell
+Import-Csv -Delimiter ';' tests\pecus_llm_suite.csv |
+  Where-Object { $_.expected_animal } |
+  Select-Object test_id,scenario,question,expected_animal,animal_explicit
+```
+
+Prima di lanciare un run su una nuova stalla, controllare che ogni ID in `expected_animal` esista nella stalla e che le domande esplicite citino lo stesso ID.
+
 ### Avvii successivi
 
 Se la sessione WhatsApp Web e ancora valida:
@@ -383,6 +503,12 @@ Default:
 py pecus_autotest.py run --mode full --suite "tests\pecus_llm_suite.csv"
 py pecus_autotest.py run --mode full --results-dir "results_test"
 py pecus_autotest.py run --mode full --bot-name "Marica Marches"
+```
+
+Per stalle diverse, usare preferibilmente suite dedicate con ID animale gia adattati:
+
+```powershell
+py pecus_autotest.py run --mode full --suite "tests\pecus_llm_suite_stalla_a.csv" --bot-name "Marica Marches"
 ```
 
 ### Riprendere un run interrotto
