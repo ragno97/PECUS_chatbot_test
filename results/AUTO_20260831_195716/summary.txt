@@ -1,0 +1,206 @@
+PECUS CHAIN — MASTER AUTOTEST SUMMARY
+====================================================================
+Run ID: AUTO_20260831_195716
+Mode: all
+Test finali: 142
+
+CORE
+--------------------------------------------------------------------
+PASS: 115
+REVIEW: 14
+FAIL: 13
+INVALID_COLLECTOR: 0
+
+OVERALL
+--------------------------------------------------------------------
+PASS: 43
+REVIEW: 86
+FAIL: 13
+INVALID_COLLECTOR: 0
+
+AGGREGATE QA METRICS
+--------------------------------------------------------------------
+[quality] Intent Accuracy: 112/133 (84.2%)
+[quality] Scope Accuracy: 119/133 (89.5%)
+[quality] Animal Resolution Accuracy: 61/66 (92.4%)
+[quality] Context Accuracy: 119/133 (89.5%)
+[quality] Implicit Animal-Context Accuracy: 22/26 (84.6%)
+[quality] Temporal Grounding: 20/34 (58.8%)
+[quality] Data Availability Disclosure: 7/11 (63.6%)
+[quality] Fallback Quality: 7/9 (77.8%)
+[collector] Collector Validity: 142/142 (100.0%)
+[collector] Timeout Count: 0 (0.0%)
+[collector] Truncated Response Count: 0 (0.0%)
+[functional] Functional Canonical Core Pass: 24/27 (88.9%)
+[functional] Functional Paraphrase Core Pass: 32/52 (61.5%)
+[functional] Functional Standalone Paraphrase Consistency: 32/49 (65.3%)
+[functional] Functional Contextual Paraphrase Success: 0/3 (0.0%)
+[legacy] RUN_001 Context Retention Depth: 2
+[regression] V3 Context Retention Depth: 3
+[regression] Scope Recovery: 3/3 (100.0%)
+[regression] Entity Probe: 4/4 (100.0%)
+[regression] Previous Entity Recall: 1/1 (100.0%)
+[regression] Scope Switch: 3/3 (100.0%)
+[regression] Noise Recovery: 2/3 (66.7%)
+[regression] Regression Paraphrase Robustness: 13/13 (100.0%)
+[regression] Noise Recovery D1: 1/1 (100.0%)
+[regression] Noise Recovery D3: 1/1 (100.0%)
+[regression] Noise Recovery D5: 0/1 (0.0%)
+[guardrail] Guardrail: NUTRITIONAL_PRESCRIPTION_REVIEW: 21
+[guardrail] Guardrail: THERAPY_OVERREACH_REVIEW: 26
+[guardrail] Advice: ACTION_ADVICE: 93
+[guardrail] Advice: CLINICAL_OR_DOSING_ADVICE: 31
+[guardrail] Advice: NUTRITIONAL_ADVICE: 59
+[guardrail] Advice: UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW: 76
+[metric_consistency] Metric: PCT_MISMATCH(computed=-36.6%,stated=36.6%): 1
+[metric_consistency] Metric: PCT_MISMATCH(computed=18.9%,stated=9.2%): 1
+[metric_consistency] Metric: PRODUCTION_PERCENT_CONFLICT: 1
+[latency] Latency p50 ms: 32996
+[latency] Latency p90 ms: 60337
+[latency] Latency p95 ms: 65488
+[latency] Latency max ms: 93720
+
+AREA SUMMARY
+--------------------------------------------------------------------
+MUNGITURA: core PASS=18 REVIEW=9 FAIL=2 | overall PASS=13 REVIEW=14 FAIL=2 | invalid=0
+PRODUZIONE: core PASS=9 REVIEW=1 FAIL=3 | overall PASS=0 REVIEW=10 FAIL=3 | invalid=0
+MASTITE: core PASS=9 REVIEW=2 FAIL=1 | overall PASS=1 REVIEW=10 FAIL=1 | invalid=0
+METABOLICO: core PASS=9 REVIEW=2 FAIL=0 | overall PASS=1 REVIEW=10 FAIL=0 | invalid=0
+GENERICO: core PASS=11 REVIEW=0 FAIL=3 | overall PASS=1 REVIEW=10 FAIL=3 | invalid=0
+CONVERSAZIONE: core PASS=8 REVIEW=0 FAIL=2 | overall PASS=4 REVIEW=4 FAIL=2 | invalid=0
+REGRESSIONE: core PASS=51 REVIEW=0 FAIL=2 | overall PASS=23 REVIEW=28 FAIL=2 | invalid=0
+
+SCENARIO SUMMARY
+--------------------------------------------------------------------
+FUNCTIONAL_MUNGITURA: tests=29 collector=29 core_pass=18 context_pass=28 overall_pass=13
+FUNCTIONAL_PRODUZIONE: tests=13 collector=13 core_pass=9 context_pass=10 overall_pass=0
+FUNCTIONAL_MASTITE: tests=12 collector=12 core_pass=9 context_pass=11 overall_pass=1
+FUNCTIONAL_METABOLICO: tests=11 collector=11 core_pass=9 context_pass=9 overall_pass=1
+FUNCTIONAL_GENERICO: tests=14 collector=14 core_pass=11 context_pass=11 overall_pass=1
+LEGACY_RUN001: tests=10 collector=10 core_pass=8 context_pass=8 overall_pass=4
+A_CONTEXT_DECAY: tests=10 collector=10 core_pass=9 context_pass=9 overall_pass=4
+B_SCOPE_RECOVERY: tests=7 collector=7 core_pass=7 context_pass=7 overall_pass=1
+C_ENTITY_SWITCH: tests=9 collector=9 core_pass=9 context_pass=9 overall_pass=3
+D_NOISE_RETENTION: tests=15 collector=15 core_pass=5 context_pass=5 overall_pass=1
+E_PARAPHRASE_PRODUCTION: tests=12 collector=12 core_pass=12 context_pass=12 overall_pass=6
+
+NON-PASS / FLAGS
+--------------------------------------------------------------------
+SEL_MUNG_001_V0 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quante vacche/bufale hanno prodotto poco?
+SEL_MUNG_003_V0 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali animali sono in ritardo?
+SEL_MUNG_004_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quali vacche/bufale hanno meno mungiture?
+SEL_MUNG_005_V0 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=PASS availability=N/A fallback=PASS | flags=VALID_ZERO_RESULT | Q=chi non è stata munta oggi?
+SEL_MUNG_006_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi ha la conducibilità alta?
+SEL_MUNG_007_V0 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali primipare vanno poco al robot
+SEL_MUNG_008_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=TEMPORAL_REFERENCE_MISSING | Q=chi ha calato il latte oggi?
+SEL_MUNG_009_V0 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali sono le vacche/bufale con un calo superiore a 5 kg?
+SEL_MUNG_001_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=mi dai la lista di vacche che hanno prodotto poco?
+SEL_MUNG_002_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|DEFAULT_TODAY_BUT_RESPONSE_YESTERDAY | Q=chi ha ridotto le mungiture?
+SEL_MUNG_003_V1 | core=FAIL overall=FAIL | intent=FAIL scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=Chi è in ritardo?
+SEL_MUNG_004_V1 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|DEFAULT_TODAY_BUT_RESPONSE_YESTERDAY | Q=chi ha ridotto le mungiture?
+SEL_MUNG_005_V1 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=PASS availability=N/A fallback=N/A | flags= | Q=Chi non ha mungiture oggi?
+SEL_MUNG_006_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=PASS fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_DEMONSTRATED | Q=quali hanno conducibilità alta ora?
+SEL_MUNG_007_V1 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali primipare fanno poche visite al robot?
+SEL_MUNG_008_V1 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali vacche sono calate?
+SEL_MUNG_001_V2 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali ultime mungiture sono basse?
+SEL_MUNG_002_V2 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=animali con meno passaggi al robot
+SEL_MUNG_003_V2 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=PASS | flags=VALID_ZERO_RESULT | Q=fammi vedere chi non è passato al robot
+SEL_MUNG_004_V2 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=animali con meno passaggi al robot
+SEL_MUNG_005_V2 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=PASS availability=N/A fallback=PASS | flags=ACTION_ADVICE|VALID_ZERO_RESULT | Q=chi non è passato oggi?
+SEL_MUNG_007_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quali vacche in prima lattazione vanno poco al robot?
+SEL_MUNG_008_V2 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=lista cali produzione
+SEL_MUNG_009_V2 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=cali oltre 5 kg
+SEL_MUNG_001_V3 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi ha dato poco latte ora?
+SEL_MUNG_003_V3 | core=FAIL overall=FAIL | intent=FAIL scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=quali bufale sono indietro con la mungitura?
+SEL_PROD_001_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi produce meno?
+SEL_PROD_002_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quale gruppo è calato nella produzione?
+SEL_PROD_003_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=perché animale 3118 ha calato?
+SEL_PROD_004_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quanti/quali animali mi costano di più?
+SEL_PROD_005_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=PASS | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|VALID_ZERO_RESULT | Q=chi perde latte da più giorni?
+SEL_PROD_001_V1 | core=FAIL overall=FAIL | intent=FAIL scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=chi è sotto il gruppo?
+SEL_PROD_002_V1 | core=FAIL overall=FAIL | intent=REVIEW scope=FAIL animal=N/A context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=GROUP_SCOPE_UNCLEAR|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=il gruppo fresche sta calando?
+SEL_PROD_003_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=cosa sta succedendo alla 3118?
+SEL_PROD_004_V1 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi mi sta costando di più in latte?
+SEL_PROD_005_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=animali che continuano a calare
+SEL_PROD_002_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=c'è un calo di gruppo?
+SEL_PROD_003_V2 | core=FAIL overall=FAIL | intent=PASS scope=FAIL animal=FAIL_SCOPE context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=perché produce meno?
+SEL_PROD_005_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=calo persistente
+SEL_MAST_001_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|TEMPORAL_REFERENCE_MISSING | Q=chi ha la mastite oggi?
+SEL_MAST_002_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=PASS fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_DEMONSTRATED | Q=Quali vacche hanno conducibilità elevata?
+SEL_MAST_003_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=perché l'animale 2516 è segnalata per mastite?
+SEL_MAST_004_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi è segnata per mastite per più giorni?
+SEL_MAST_001_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi controllo per mammella?
+SEL_MAST_002_V1 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=conducibilità elevata
+SEL_MAST_003_V1 | core=FAIL overall=FAIL | intent=REVIEW scope=FAIL animal=FAIL_SCOPE context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT|ACTION_ADVICE | Q=perché è sospetta?
+SEL_MAST_004_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=sospetti mammari persistenti
+SEL_MAST_001_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=lista sospetti mammari
+SEL_MAST_002_V2 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=chi ha conducibilità sopra soglia
+SEL_MAST_003_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=cosa ha la 2516?
+SEL_MAST_004_V2 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=chi non si risolve?
+SEL_MET_001_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=Chi ha chetosi?
+SEL_MET_002_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=PASS fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_DEMONSTRATED | Q=quali animali hanno calo latte e ruminazione?
+SEL_MET_003_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=REVIEW fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_NOT_ESTABLISHED | Q=l'animale 3118 rumina bene?
+SEL_MET_004_V0 | core=PASS overall=PASS | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=PASS fallback=PASS | flags=ACTION_ADVICE|SIGNAL_UNAVAILABLE_DISCLOSED | Q=chi ha grasso elevato nel latte?
+SEL_MET_001_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=chi è a rischio chetosi?
+SEL_MET_002_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=PASS fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_DEMONSTRATED | Q=calo latte con ruminazione bassa
+SEL_MET_003_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=PASS fallback=PASS | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_UNAVAILABLE_DISCLOSED | Q=ruminazione della 3118
+SEL_MET_004_V1 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=REVIEW fallback=REVIEW | flags=HERD_SCOPE_UNCLEAR|SIGNAL_LIMIT_HIDDEN_BEHIND_GENERIC_FALLBACK|GENERIC_FALLBACK | Q=quali animali hanno il grasso del latte alto?
+SEL_MET_002_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=PASS fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_DEMONSTRATED | Q=animali da controllare per appetito
+SEL_MET_003_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=REVIEW fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|SIGNAL_AVAILABILITY_NOT_ESTABLISHED | Q=la 3118 mangia?
+SEL_MET_004_V2 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=REVIEW fallback=REVIEW | flags=HERD_SCOPE_UNCLEAR|SIGNAL_LIMIT_HIDDEN_BEHIND_GENERIC_FALLBACK|GENERIC_FALLBACK | Q=chi ha una percentuale di grasso elevata nel latte?
+SEL_GEN_002_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=mostrami l'animale 3118
+SEL_GEN_003_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=com'è oggi la stalla?
+SEL_GEN_004_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=come sta andando la produzione?
+SEL_GEN_005_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=come vanno le fresche/altro gruppo?
+SEL_GEN_001_V1 | core=FAIL overall=FAIL | intent=PASS scope=FAIL animal=FAIL_SCOPE context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=è una lattazione attiva?
+SEL_GEN_002_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=scheda 3118
+SEL_GEN_003_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=com'è la situazione?
+SEL_GEN_004_V1 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=produzione stalla giù?
+SEL_GEN_005_V1 | core=FAIL overall=FAIL | intent=REVIEW scope=FAIL animal=N/A context=FAIL | temporal=PASS availability=N/A fallback=N/A | flags=GROUP_SCOPE_UNCLEAR | Q=fresche oggi
+SEL_GEN_002_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=com'è messa la 3118?
+SEL_GEN_003_V2 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|TEMPORAL_REFERENCE_MISSING | Q=ci sono problemi oggi?
+SEL_GEN_005_V2 | core=FAIL overall=FAIL | intent=REVIEW scope=FAIL animal=N/A context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=GROUP_SCOPE_UNCLEAR|PCT_MISMATCH(computed=-36.6%,stated=36.6%) | Q=inizio lattazione
+SEL_GEN_002_V3 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=dati 3118
+LEGACY_R1_001 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=descrivi la 3118
+LEGACY_R1_003 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=e ieri?
+LEGACY_R1_004 | core=FAIL overall=FAIL | intent=PASS scope=FAIL animal=PASS_MIXED context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT|THERAPY_OVERREACH_REVIEW|NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=ha qualche rischio?
+LEGACY_R1_005 | core=FAIL overall=FAIL | intent=PASS scope=FAIL animal=FAIL_SCOPE context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=da cosa deriva?
+LEGACY_R1_009 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=tornando alla 3118, qual è la sua produzione?
+LEGACY_R1_010 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_IMPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=produzione oggi?
+REG_A_001 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=descrivi la 3118
+REG_A_002 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_IMPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quanto produce oggi?
+REG_A_004 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=che rischio ha?
+REG_A_005 | core=FAIL overall=FAIL | intent=PASS scope=FAIL animal=PASS_MIXED context=FAIL | temporal=N/A availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT | Q=qual è la causa principale?
+REG_A_006 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quali segnali lo supportano?
+REG_A_007 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quanto latte sta perdendo?
+REG_A_009 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|PCT_MISMATCH(computed=18.9%,stated=9.2%) | Q=come è cambiata negli ultimi giorni?
+REG_A_010 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=PASS | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quindi qual è la situazione principale adesso?
+REG_B_001 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=descrivi la 3118
+REG_B_003 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|TEMPORAL_REFERENCE_MISSING | Q=quali bufale sono a rischio oggi?
+REG_B_004 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=ACTION_ADVICE|TEMPORAL_REFERENCE_MISSING | Q=tornando alla bufala di cui parlavamo prima, quanto produce oggi?
+REG_B_005 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=parliamo di nuovo della 3118
+REG_B_006 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quali altre bufale hanno una perdita di latte simile?
+REG_B_007 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=e quella di prima che rischio ha?
+REG_C_001 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=descrivi la 3118
+REG_C_002 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quanto produce oggi?
+REG_C_003 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=ora passa alla 2516
+REG_C_005 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|ACTION_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=che rischio ha?
+REG_C_006 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=torna alla 3118
+REG_C_008 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=ora passa di nuovo alla 2516
+REG_C_009 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=THERAPY_OVERREACH_REVIEW|NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|CLINICAL_OR_DOSING_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|TEMPORAL_REFERENCE_MISSING | Q=e l'altra invece, quanto produce oggi?
+REG_D_001 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=descrivi la 3118
+REG_D_003 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=quanto produce oggi?
+REG_D_004 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|PRODUCTION_PERCENT_CONFLICT | Q=descrivi la 3118
+REG_D_005 | core=PASS overall=REVIEW | intent=N/A scope=N/A animal=N/A context=N/A | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE | Q=ok
+REG_D_008 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=NUTRITIONAL_PRESCRIPTION_REVIEW|ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW | Q=che rischio ha?
+REG_D_015 | core=FAIL overall=FAIL | intent=PASS scope=FAIL animal=FAIL_SCOPE context=FAIL | temporal=PASS availability=N/A fallback=N/A | flags=CONTEXT_SCOPE_DRIFT | Q=quanto produce oggi?
+REG_E_001 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=Quanto produce oggi la 3118?
+REG_E_002 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=ACTION_ADVICE|TEMPORAL_REFERENCE_MISSING | Q=Quanti kg di latte ha fatto oggi la 3118?
+REG_E_004 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=TEMPORAL_REFERENCE_MISSING | Q=La 3118 oggi quanto mi ha fatto?
+REG_E_005 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=TEMPORAL_REFERENCE_MISSING | Q=Oggi la 3118 quanto ha prodotto?
+REG_E_006 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=N/A availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=Qual è la produzione giornaliera della 3118?
+REG_E_007 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=Mi dai la produzione odierna della 3118?
+REG_E_008 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=TEMPORAL_REFERENCE_MISSING | Q=3118 quanti kg oggi?
+REG_E_009 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=ACTION_ADVICE|NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW|TEMPORAL_REFERENCE_MISSING | Q=Quanto latte ha prodotto oggi la 3118?
+REG_E_010 | core=PASS overall=PASS | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=PASS availability=N/A fallback=N/A | flags=ACTION_ADVICE | Q=quanto ha prodoto oggi la 3118?
+REG_E_011 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=ACTION_ADVICE|TEMPORAL_REFERENCE_MISSING | Q=Produzione della 3118 nelle ultime 24 ore?

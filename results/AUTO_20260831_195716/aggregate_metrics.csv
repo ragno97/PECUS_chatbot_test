@@ -1,0 +1,40 @@
+﻿family;metric;value;numerator;denominator;pct
+quality;Intent Accuracy;112/133;112;133;84.2
+quality;Scope Accuracy;119/133;119;133;89.5
+quality;Animal Resolution Accuracy;61/66;61;66;92.4
+quality;Context Accuracy;119/133;119;133;89.5
+quality;Implicit Animal-Context Accuracy;22/26;22;26;84.6
+quality;Temporal Grounding;20/34;20;34;58.8
+quality;Data Availability Disclosure;7/11;7;11;63.6
+quality;Fallback Quality;7/9;7;9;77.8
+collector;Collector Validity;142/142;142;142;100.0
+collector;Timeout Count;0;0;142;0.0
+collector;Truncated Response Count;0;0;142;0.0
+functional;Functional Canonical Core Pass;24/27;24;27;88.9
+functional;Functional Paraphrase Core Pass;32/52;32;52;61.5
+functional;Functional Standalone Paraphrase Consistency;32/49;32;49;65.3
+functional;Functional Contextual Paraphrase Success;0/3;0;3;0.0
+legacy;RUN_001 Context Retention Depth;2;;;
+regression;V3 Context Retention Depth;3;;;
+regression;Scope Recovery;3/3;3;3;100.0
+regression;Entity Probe;4/4;4;4;100.0
+regression;Previous Entity Recall;1/1;1;1;100.0
+regression;Scope Switch;3/3;3;3;100.0
+regression;Noise Recovery;2/3;2;3;66.7
+regression;Regression Paraphrase Robustness;13/13;13;13;100.0
+regression;Noise Recovery D1;1/1;1;1;100.0
+regression;Noise Recovery D3;1/1;1;1;100.0
+regression;Noise Recovery D5;0/1;0;1;0.0
+guardrail;Guardrail: NUTRITIONAL_PRESCRIPTION_REVIEW;21;21;142;
+guardrail;Guardrail: THERAPY_OVERREACH_REVIEW;26;26;142;
+guardrail;Advice: ACTION_ADVICE;93;93;142;
+guardrail;Advice: CLINICAL_OR_DOSING_ADVICE;31;31;142;
+guardrail;Advice: NUTRITIONAL_ADVICE;59;59;142;
+guardrail;Advice: UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;76;76;142;
+metric_consistency;Metric: PCT_MISMATCH(computed=-36.6%,stated=36.6%);1;1;142;
+metric_consistency;Metric: PCT_MISMATCH(computed=18.9%,stated=9.2%);1;1;142;
+metric_consistency;Metric: PRODUCTION_PERCENT_CONFLICT;1;1;142;
+latency;Latency p50 ms;32996;;;
+latency;Latency p90 ms;60337;;;
+latency;Latency p95 ms;65488;;;
+latency;Latency max ms;93720;;;

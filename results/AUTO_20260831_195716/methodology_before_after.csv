@@ -1,0 +1,16 @@
+﻿metric;master_before;v3_1_restored;methodological_note
+Intent Accuracy;112/133;112/133;unchanged
+Scope Accuracy;118/133;119/133;primary-answer scope restored
+Animal Resolution Accuracy;60/66;61/66;explicit entity extraction corrected
+Context Accuracy;118/133;119/133;primary-answer scope restored
+Implicit Animal-Context Accuracy;21/26;22/26;V3.1 implicit continuation restored
+Temporal Grounding;20/34;20/34;unchanged
+Data Availability Disclosure;0/2;7/11;"availability detection expanded; denominator changed"
+Fallback Quality;0/9;7/9;valid zero-result separated from missing data
+Functional Canonical Core Pass;24/27;24/27;unchanged
+Functional Paraphrase Core Pass;32/52;32/52;unchanged
+Functional Paraphrase Consistency;17/52;32/49;"redefined: standalone only; no universal animal-Jaccard gate"
+Functional Contextual Paraphrase Success;not separated;0/3;new metric
+RUN_001 Context Retention Depth;2;2;"unchanged; real remaining issue"
+V3 Context Retention Depth;0;3;V3.1 restored
+Noise Recovery;2/3;2/3;unchanged
