@@ -1,0 +1,2 @@
+﻿case_id;area;test_id;variant_type;canonical_test_id;canonical_class;response_class;animal_jaccard;consistency_status
+SEL_MUNG_001;MUNGITURA;SEL_MUNG_001_V0;canonical;SEL_MUNG_001_V0;narrative;narrative;;BASELINE

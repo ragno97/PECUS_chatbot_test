@@ -1,0 +1,56 @@
+PECUS CHAIN — MASTER AUTOTEST SUMMARY
+====================================================================
+Run ID: AUTO_20260927_163657
+Mode: full
+Test finali: 1
+
+CORE
+--------------------------------------------------------------------
+PASS: 0
+REVIEW: 0
+FAIL: 0
+INVALID_COLLECTOR: 1
+
+OVERALL
+--------------------------------------------------------------------
+PASS: 0
+REVIEW: 0
+FAIL: 0
+INVALID_COLLECTOR: 1
+
+AGGREGATE QA METRICS
+--------------------------------------------------------------------
+[quality] Intent Accuracy: N/A
+[quality] Scope Accuracy: N/A
+[quality] Animal Resolution Accuracy: N/A
+[quality] Context Accuracy: N/A
+[quality] Implicit Animal-Context Accuracy: N/A
+[quality] Temporal Grounding: N/A
+[quality] Data Availability Disclosure: N/A
+[quality] Fallback Quality: N/A
+[collector] Collector Validity: 0/1 (0.0%)
+[collector] Timeout Count: 1 (100.0%)
+[collector] Truncated Response Count: 0 (0.0%)
+[functional] Functional Canonical Core Pass: 0/1 (0.0%)
+[functional] Functional Paraphrase Core Pass: N/A
+[functional] Functional Paraphrase Consistency: N/A
+[legacy] RUN_001 Context Retention Depth: 0
+[regression] V3 Context Retention Depth: 0
+[regression] Scope Recovery: N/A
+[regression] Entity Probe: N/A
+[regression] Previous Entity Recall: N/A
+[regression] Scope Switch: N/A
+[regression] Noise Recovery: N/A
+[regression] Regression Paraphrase Robustness: N/A
+
+AREA SUMMARY
+--------------------------------------------------------------------
+MUNGITURA: core PASS=0 REVIEW=0 FAIL=0 | overall PASS=0 REVIEW=0 FAIL=0 | invalid=1
+
+SCENARIO SUMMARY
+--------------------------------------------------------------------
+FUNCTIONAL_MUNGITURA: tests=1 collector=0 core_pass=0 context_pass=0 overall_pass=0
+
+NON-PASS / FLAGS
+--------------------------------------------------------------------
+SEL_MUNG_001_V0 | core=INVALID_COLLECTOR overall=INVALID_COLLECTOR | intent=N/A scope=N/A animal=N/A context=N/A | temporal=N/A availability=N/A fallback=N/A | flags=COLLECTOR_FAILURE|EMPTY_RESPONSE | Q=quante vacche/bufale hanno prodotto poco?

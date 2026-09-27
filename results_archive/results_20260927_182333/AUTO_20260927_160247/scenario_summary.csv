@@ -1,0 +1,6 @@
+﻿scenario;tests;collector_valid;core_pass;core_review;core_fail;context_pass;overall_pass
+FUNCTIONAL_MUNGITURA;9;9;0;8;1;4;0
+FUNCTIONAL_PRODUZIONE;5;5;2;3;0;4;1
+FUNCTIONAL_MASTITE;4;4;1;3;0;4;1
+FUNCTIONAL_METABOLICO;4;4;2;2;0;3;2
+FUNCTIONAL_GENERICO;5;5;5;0;0;5;4

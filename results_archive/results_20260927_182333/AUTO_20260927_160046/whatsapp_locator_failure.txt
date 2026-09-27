@@ -1,0 +1,3 @@
+url=https://web.whatsapp.com/
+bot_name=Marica Marches
+contenteditable_count=0

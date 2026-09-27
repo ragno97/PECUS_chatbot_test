@@ -1,0 +1,27 @@
+﻿family;metric;value;numerator;denominator;pct
+quality;Intent Accuracy;13/27;13;27;48.1
+quality;Scope Accuracy;20/27;20;27;74.1
+quality;Animal Resolution Accuracy;5/5;5;5;100.0
+quality;Context Accuracy;20/27;20;27;74.1
+quality;Implicit Animal-Context Accuracy;N/A;0;0;
+quality;Temporal Grounding;6/9;6;9;66.7
+quality;Data Availability Disclosure;N/A;0;0;
+quality;Fallback Quality;3/4;3;4;75.0
+collector;Collector Validity;27/27;27;27;100.0
+collector;Timeout Count;0;0;27;0.0
+collector;Truncated Response Count;0;0;27;0.0
+functional;Functional Canonical Core Pass;13/27;13;27;48.1
+functional;Functional Paraphrase Core Pass;N/A;0;0;
+functional;Functional Paraphrase Consistency;N/A;0;0;
+legacy;RUN_001 Context Retention Depth;0;;;
+regression;V3 Context Retention Depth;0;;;
+regression;Scope Recovery;N/A;0;0;
+regression;Entity Probe;N/A;0;0;
+regression;Previous Entity Recall;N/A;0;0;
+regression;Scope Switch;N/A;0;0;
+regression;Noise Recovery;N/A;0;0;
+regression;Regression Paraphrase Robustness;N/A;0;0;
+latency;Latency p50 ms;27011;;;
+latency;Latency p90 ms;47426;;;
+latency;Latency p95 ms;59248;;;
+latency;Latency max ms;120739;;;

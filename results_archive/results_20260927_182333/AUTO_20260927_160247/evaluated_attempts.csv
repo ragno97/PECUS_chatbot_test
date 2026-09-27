@@ -1,0 +1,549 @@
+﻿run_id;run_mode;sequence_no;attempt_no;attempt_uid;test_id;case_id;area;suite_type;scenario;scenario_turn;block;variant_index;variant_type;variant_source;previously_executed;prior_validated;prior_result;source_case_id;source_mapping;question;evaluation_profile;expected_scope;expected_animal;input_data;expected_behavior;expected_fields;fallback;guardrail;support_current;probe_type;enabled;origin;methodology_status;test_layer;legacy_test_id;animal_explicit;evaluator_dimensions;response;latency_ms;message_count;response_truncated;message_ids;whatsapp_metadata;send_system_timestamp;system_timestamp;collector_success;collector_note;collector_status;semantic_status;intent_status;scope_status;animal_status;context_status;implicit_context_status;temporal_status;availability_status;availability_signal;fallback_status;detected_scope;detected_animals;response_class;guardrail_flags;advice_flags;metric_flags;quality_flags;core_status;overall_status;error_flags
+AUTO_20260927_160247;canonical;1;1;SEL_MUNG_001_V0_A1;SEL_MUNG_001_V0;SEL_MUNG_001;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_001;0;canonical;manual_selected;False;False;;MUNG_007;adapted;quante vacche/bufale hanno prodotto poco?;low_milking_yield_list;herd;;lista animali, produzione baseline, produzione attesa, media mandria, media gruppo, animal ID, gruppo, DIM;"L'ultima sessione di mungitura ha registrato ""#n animali"" con una bassa produzione. Ecco i peggiori:";Animale | DIM | Gruppo | Ultima mungitura | Latte ultima mungitura | Atteso | Differenza | Intervallo mungitura;Mancano produzione ultima mungitura o baseline attesa.;"Non usare produzione per mungitura isolata come segnale clinico. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 2026-09-14.
+
+
+
+361 bufale hanno prodotto poco (sotto il 20 % dell’atteso) su 440 con dati di produzione disponibili, cioè circa 82 % della mandria.
+
+
+
+Se vuoi approfondire le cause o vedere l’elenco degli animali più critici, chiedimi.";34849;1;False;A23ADFB827EA94B5D8;[16:05, 27/09/2026] Marica Marches:;2026-09-27T16:04:30;2026-09-27T16:05:12;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;361;results;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;2;1;SEL_MUNG_002_V0_A1;SEL_MUNG_002_V0;SEL_MUNG_002;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_002;0;canonical;manual_selected;False;False;;MUNG_003;adapted;quali vacche/bufale hanno saltato la mungitura?;missed_or_reduced_milkings;herd;;ID, DIM, media milk sessions gruppo, numero sessioni di mungitura;Gli animali con un numero minore di sessioni registrate sono i seguenti:  . (se robot: controlla il loro stato di salute o il funzionamento del robot);Animale | DIM | Parità | Gruppo | Mungiture 24h | Baseline mungiture | Differenza | Ultima mungitura | Note;Manca baseline individuale delle mungiture o conteggio ultime 24h.;"Non diagnosticare zoppia o malattia solo da riduzione mungiture. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14.
+
+
+
+Dato non disponibile: lactation_number (Ln) e DIM non presenti per le bufale elencate, perciò i campi sono indicati come n.d.
+
+
+
+-2396 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-2406 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-2439 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-2474 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-2494 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-2531 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-2981 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3030 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3069 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3106 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3121 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3122 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3124 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3134 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+-3142 Ln n.d. DIM n.d.: nessuna mungitura registrata
+
+
+
+Altri 137 non mostrati. Se vuoi l'elenco completo, chiedimelo.";92122;1;False;A4A57CE500ACC0CBD6;[16:06, 27/09/2026] Marica Marches:;2026-09-27T16:05:17;2026-09-27T16:06:57;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;narrative;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;3;1;SEL_MUNG_003_V0_A1;SEL_MUNG_003_V0;SEL_MUNG_003;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_003;0;canonical;manual_selected;False;False;;MUNG_001;exact;quali animali sono in ritardo?;milking_delay_list;herd;;ID, gruppo,  DIM,  ultima sessione registrata, ultima produzione, numero di sessioni nelle ultime 24h;Gli animali con maggiore ritardo tra le mungiture sono i seguenti:;Animale | DIM | Parità | Gruppo | Ultima mungitura | Ore da ultima mungitura | Soglia attesa | Produzione media 7g | Note dati;Manca ultima mungitura, stato attivo/in lattazione o soglia/intervallo atteso.;"Non associare ritardo a malattia senza altri segnali. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14.
+
+
+
+-150 L6 DIM 205: late
+
+-165 L6 DIM 243: late
+
+-2302 L3 DIM 223: late
+
+-2305 L3 DIM 203: late
+
+-2343 L2 DIM 242: late
+
+-2434 L2 DIM 223: late
+
+-2460 L8 DIM 246: late
+
+-2467 L2 DIM 255: late
+
+-2470 L2 DIM 203: late
+
+-2479 L3 DIM 229: late
+
+-2481 L2 DIM 229: late
+
+-2491 L2 DIM 294: late
+
+-2498 L2 DIM 227: late
+
+-2506 L2 DIM 203: late
+
+-2520 L2 DIM 294: late
+
+
+
+Altri 87 non mostrati. Se vuoi la lista completa, chiedimela.";46758;1;False;100BB9B1D2661AF220;[16:07, 27/09/2026] Marica Marches:;2026-09-27T16:07:02;2026-09-27T16:07:56;True;OK;PASS;FAIL;FAIL;REVIEW;N/A;REVIEW;N/A;N/A;N/A;;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;FAIL;FAIL;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;4;1;SEL_MUNG_004_V0_A1;SEL_MUNG_004_V0;SEL_MUNG_004;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_004;0;canonical;manual_selected;False;False;;MUNG_003;exact;quali vacche/bufale hanno meno mungiture?;low_milking_count;herd;;ID, gruppo, DIM, numero sessioni ultime 24h, media baseline mungiture;"Ho trovato {n_animali} animali con meno mungiture rispetto al loro andamento recente.
+{tabella}
+Verifica accesso a robot/sala, locomozione, comportamento e rifiuti robot.";Animale | DIM | Parità | Gruppo | Mungiture 24h | Baseline mungiture | Differenza | Ultima mungitura | Note;Manca baseline individuale delle mungiture o conteggio ultime 24h.;"Non diagnosticare zoppia o malattia solo da riduzione mungiture. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 2026‑09‑27
+
+
+
+-114 L7 DIM 137: 1
+
+-129 L7 DIM 178: 1
+
+-1320 L14 DIM 101: 1
+
+-149 L6 DIM 67: 1
+
+-150 L6 DIM 205: 1
+
+-153 L6 DIM 114: 1
+
+-163 L7 DIM 94: 1
+
+-165 L6 DIM 243: 1
+
+-2302 L3 DIM 223: 1
+
+-2304 L3 DIM 174: 1
+
+
+
+Altri 10 non mostrati. Se vuoi la lista completa, chiedimela.
+
+
+
+152 bufale non hanno alcuna registrazione di mungitura nel periodo considerato (cnt = 152). Alcune di queste sono: 2396, 2406, 2439, 2474, 2494, 2531, 2981, 3030, 3069, 3106, 3121, 3122, 3124, 3134, 3142, 3153, 5128, 5133, 5223, 5264 …
+
+
+
+Se vuoi approfondisco.";75189;1;False;41A3031E7357704C3E;[16:09, 27/09/2026] Marica Marches:;2026-09-27T16:08:01;2026-09-27T16:09:24;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;152;results;;NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;;NUTRITIONAL_ADVICE|UNREQUESTED_HIGH_IMPACT_ADVICE_REVIEW;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;5;1;SEL_MUNG_005_V0_A1;SEL_MUNG_005_V0;SEL_MUNG_005;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_005;0;canonical;manual_selected;False;False;;MUNG_002;exact;chi non è stata munta oggi?;not_milked_today;herd;;ID, gruppo, DIM, visite robot ultime 24h, nr sessioni mungitura valide, n mungiture baseline;Ecco gli animali che non hanno registrato una mungitura completa:;Animale | DIM | Parità | Gruppo | Ultima mungitura | Ore trascorse | Mungiture oggi | Visite robot oggi;Manca il conteggio mungiture giornaliero o il timestamp dei dati robot.;"Usare 'non risulta registrata' se c'è rischio dato non aggiornato. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 14/09/2026.
+
+
+
+Dato non disponibile: milking_visits_count non presente per questa stalla.
+
+
+
+Se vuoi approfondire con altri tipi di informazioni, chiedimi.";64335;1;False;68536F15C3B9670334;[16:10, 27/09/2026] Marica Marches:;2026-09-27T16:09:29;2026-09-27T16:10:41;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;REVIEW;N/A;;N/A;herd_query;;narrative;;;;STALE_DATE_UNDISCLOSED(2026-09-14);REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;6;1;SEL_MUNG_006_V0_A1;SEL_MUNG_006_V0;SEL_MUNG_006;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_006;0;canonical;manual_selected;False;False;;MUNG_010;exact;chi ha la conducibilità alta?;conductivity_list;herd;;ID, nr lattazione, DIM, gruppo, ultima conducibilità, media conducibilità gruppo, incremento conducibilità baseline;ecco gli animali con elevati valori di conducibilità:;Animale | DIM | Gruppo | Ultima mungitura | Conducibilità | Baseline/flag | Latte ultima | SCC score | Delta latte;Manca conducibilità aggiornata o baseline/flag aziendale.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14 00:00:00.
+
+
+
+-165 L6 DIM 243: 15.3
+
+-662 L6 DIM 283: 15.3
+
+-7375 L5 DIM 227: 14.9
+
+-428 L2 DIM 497: 12.2
+
+-5654 L4 DIM 216: 12.1
+
+-2467 L2 DIM 255: 12.0
+
+-5240 L5 DIM 257: 12.0
+
+
+
+Se vuoi approfondisco.";46023;1;False;2FAB5103153AAB8B20;[16:11, 27/09/2026] Marica Marches:;2026-09-27T16:10:46;2026-09-27T16:11:40;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;conductivity;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;7;1;SEL_MUNG_007_V0_A1;SEL_MUNG_007_V0;SEL_MUNG_007;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_007;0;canonical;manual_selected;False;False;;MUNG_012;adapted;quali primipare vanno poco al robot;primiparous_low_robot;herd;;ID, DIM, gruppo, nr visite ultime 24h, tempo dall'ultima visita, tempo di intervallo atteso;Ecco la lista completa delle primipare con poche visite volontarie:;Animale | DIM | Parità | Gruppo | Mungiture 24h | Visite robot | Ultima mungitura | Latte 24h;Manca DIM o dati robot.;Non parlare di chetosi/patologia senza segnali metabolici/produttivi aggiuntivi.;Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026‑09‑14.
+
+
+
+-3196 L1 DIM 227: 1 — attese 2 (-1, -50%)
+
+-8071 L1 DIM 235: 1 — attese 2 (-1, -50%)
+
+-8042 L1 DIM 229: 1 — attese 2 (-1, -50%)
+
+-8134 L1 DIM 76: 1 — attese 2 (-1, -50%)
+
+-8151 L1 DIM 83: 1 — attese 2 (-1, -50%)
+
+-8165 L1 DIM 63: 1 — attese 2 (-1, -50%)
+
+-8144 L1 DIM 70: 1 — attese 2 (-1, -50%)
+
+-8128 L1 DIM 138: 1 — attese 2 (-1, -50%)
+
+-3214 L1 DIM 208: 1 — attese 2 (-1, -50%)
+
+-8147 L1 DIM 73: 1 — attese 2 (-1, -50%)
+
+
+
+Altre ≈190 primipare non mostrate. Se vuoi la lista completa, chiedimela.";61468;1;False;51465DA618110AB72E;[16:12, 27/09/2026] Marica Marches:;2026-09-27T16:11:45;2026-09-27T16:12:54;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;8;1;SEL_MUNG_008_V0_A1;SEL_MUNG_008_V0;SEL_MUNG_008;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_008;0;canonical;manual_selected;False;False;;PROD_001;exact_cross_area;chi ha calato il latte oggi?;production_drop_list;herd;;ID, gruppo, lattazione, DIM, baseline individuale (media n giorni), ultima produzione produzione, delta produzione;Gli animali con il maggiore calo individuale sono i seguenti:;Animale | DIM | Parità | Gruppo | Latte attuale | Baseline/media | Delta kg | Delta % | Segnali associati;Manca produzione aggiornata o baseline/media recente.;Non indicare causa certa del calo se non ci sono segnali concordanti.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 27/09/2026
+
+
+
+-2516 L2 DIM 32: 1.2 kg — attesi 14.0 kg (-12.8 kg, -91%)
+
+-2500 L3 DIM 67: 4.2 kg — attesi 14.5 kg (-10.3 kg, -71%)
+
+-2468 L3 DIM 70: 4.3 kg — attesi 14.4 kg (-10.1 kg, -70%)
+
+-8058 L2 DIM 75: 3.2 kg — attesi 13.1 kg (-9.9 kg, -76%)
+
+-778 L3 DIM 140: 0.9 kg — attesi 10.1 kg (-9.2 kg, -91%)
+
+-3118 L2 DIM 77: 4.2 kg — attesi 13.0 kg (-8.8 kg, -68%)
+
+-2452 L3 DIM 41: 6.5 kg — attesi 15.1 kg (-8.6 kg, -57%)
+
+-2511 L3 DIM 39: 6.5 kg — attesi 15.0 kg (-8.5 kg, -57%)
+
+-3018 L2 DIM 32: 5.6 kg — attesi 14.0 kg (-8.4 kg, -60%)
+
+-436 L2 DIM 43: 6.2 kg — attesi 14.3 kg (-8.1 kg, -57%)
+
+
+
+Altri 10 non mostrati. Se vuoi la lista completa, chiedimela.";47212;1;False;C82A8861D216F21A23;[16:13, 27/09/2026] Marica Marches:;2026-09-27T16:12:59;2026-09-27T16:13:54;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;PASS;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;9;1;SEL_MUNG_009_V0_A1;SEL_MUNG_009_V0;SEL_MUNG_009;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_009;0;canonical;manual_selected;False;False;;PROD_002;exact_cross_area;quali sono le vacche/bufale con un calo superiore a 5 kg?;production_drop_threshold;herd;;ID, gruppo, lattazione, DIM, baseline individuale (media n giorni), ultima produzione produzione;"Animali con calo superiore a {X} kg:
+{tabella}
+La tabella è ordinata per scostamento produttivo, non per priorità.";Animale | DIM | Gruppo | Latte attuale | Baseline | Calo kg | Calo % | Note;Manca produzione, baseline o soglia interpretabile.;"Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 14/09/2026.
+
+
+
+-2516 L2 DIM 32: 1,2 kg — attesi 14,0 kg (-12,8 kg, -91,4%)
+
+-2500 L3 DIM 67: 4,2 kg — attesi 14,5 kg (-10,3 kg, -71,1%)
+
+-2468 L3 DIM 70: 4,3 kg — attesi 14,4 kg (-10,1 kg, -70,0%)
+
+-8058 L2 DIM 75: 3,2 kg — attesi 13,1 kg (-9,9 kg, -75,6%)
+
+-778 L3 DIM 140: 0,9 kg — attesi 10,1 kg (-9,2 kg, -91,1%)
+
+-3118 L2 DIM 77: 4,2 kg — attesi 13,0 kg (-8,8 kg, -67,7%)
+
+-2452 L3 DIM 41: 6,5 kg — attesi 15,1 kg (-8,6 kg, -56,8%)
+
+-2511 L3 DIM 39: 6,5 kg — attesi 15,0 kg (-8,5 kg, -56,7%)
+
+-3018 L2 DIM 32: 5,6 kg — attesi 14,0 kg (-8,4 kg, -60,0%)
+
+-436 L2 DIM 43: 6,2 kg — attesi 14,3 kg (-8,1 kg, -56,7%)
+
+-5769 L4 DIM 23: 4,0 kg — attesi 11,9 kg (-7,9 kg, -66,2%)
+
+-3168 L2 DIM 91: 4,5 kg — attesi 12,3 kg (-7,8 kg, -63,3%)
+
+-9571 L5 DIM 70: 4,9 kg — attesi 12,6 kg (-7,7 kg, -61,1%)
+
+-7035 L3 DIM 44: 7,5 kg — attesi 15,1 kg (-7,6 kg, -50,4%)
+
+-8134 L1 DIM 76: 3,8 kg — attesi 11,4 kg (-7,6 kg, -66,7%)
+
+
+
+Altri 80 non mostrati. Se vuoi la lista completa, chiedimela.";65593;1;False;1F24324F020E35EF14;[16:15, 27/09/2026] Marica Marches:;2026-09-27T16:13:59;2026-09-27T16:15:13;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;REVIEW;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR|STALE_DATE_UNDISCLOSED(2026-09-14);REVIEW;REVIEW;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;10;1;SEL_PROD_001_V0_A1;SEL_PROD_001_V0;SEL_PROD_001;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_001;0;canonical;manual_selected;False;False;;PROD_006;exact;chi produce meno?;low_production_list;herd;;ID, gruppo,DIM, ultima produzione, media gruppo, delta produzione;"Animali sotto la media del proprio gruppo:
+{tabella}
+Questo confronto è più utile se il gruppo è omogeneo per DIM/parità.";Animale | DIM | Parità | Gruppo | Latte attuale | Media gruppo | Delta vs gruppo | Delta vs se stessa;Manca gruppo o media gruppo calcolabile.;Non giudicare animale senza considerare DIM/parità quando disponibili.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14.
+
+
+
+-8071 L1 DIM 235: 0,3 kg — attesi 6,0 kg (-5,7 kg, -95%)
+
+-2548 L2 DIM 190: 0,3 kg — attesi 7,8 kg (-7,5 kg, -96%)
+
+-3196 L1 DIM 227: 0,3 kg — attesi 6,2 kg (-5,9 kg, -95%)
+
+-7375 L5 DIM 227: 0,4 kg — attesi 5,2 kg (-4,8 kg, -92%)
+
+-5256 L5 DIM 239: 0,5 kg — attesi 4,9 kg (-4,4 kg, -90%)
+
+-662 L6 DIM 283: 0,6 kg — attesi 3,7 kg (-3,1 kg, -84%)
+
+-165 L6 DIM 243: 0,6 kg — attesi 4,8 kg (-4,2 kg, -87%)
+
+-428 L2 DIM 497: 0,7 kg — attesi 1,9 kg (-1,2 kg, -62%)
+
+-8042 L1 DIM 229: 0,7 kg — attesi 6,2 kg (-5,5 kg, -89%)
+
+-778 L3 DIM 140: 0,9 kg — attesi 10,1 kg (-9,2 kg, -91%)
+
+
+
+Se vuoi approfondisco.";51511;1;False;42A1A8FB540D53E24C;[16:16, 27/09/2026] Marica Marches:;2026-09-27T16:15:26;2026-09-27T16:16:25;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;11;1;SEL_PROD_002_V0_A1;SEL_PROD_002_V0;SEL_PROD_002;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_002;0;canonical;manual_selected;False;False;;PROD_005;exact;quale gruppo è calato nella produzione?;group_production_drop;group;;gruppo, n animali, produzione gruppo corrente, produzione baseline gruppo utlimi 7 gg, delta produzione gruppo;"Confronto produzione per gruppo:
+{tabella}
+Se il calo è concentrato nel gruppo, verificare anche fattore ambientale/gestionale/alimentare.";Gruppo | Animali | Latte medio attuale | Baseline gruppo | Delta kg/capo | THI | Note;Mancano gruppi o baseline produttive di gruppo.;Non concludere razione/ambiente senza dati di supporto.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14.
+
+
+
+Il gruppo con la più forte riduzione della produzione è P2, con media residuale relativo ‑38,3 %.
+
+
+
+Dato non disponibile: n animali, media produzione e baseline per i gruppi.
+
+
+
+Se vuoi approfondire le singole bufale di quel gruppo o confrontare con altri periodi, fammi sapere.";23846;1;False;BE21A9A2969CFACD5A;[16:16, 27/09/2026] Marica Marches:;2026-09-27T16:16:30;2026-09-27T16:17:02;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;group;;narrative;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;12;1;SEL_PROD_003_V0_A1;SEL_PROD_003_V0;SEL_PROD_003;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_003;0;canonical;manual_selected;False;False;;PROD_007;exact;perché animale 3118 ha calato?;production_drop_reason;animal;3118;DIM, gruppo, lattazione, delta produzione, allarmi attivi triage/probabilità patologia;"La {animal_id} è sotto il suo andamento recente di {production_delta_kg} kg.
+{tabella}
+Se conducibilità/SCC sono alterati, verifica latte e mammella; se ruminazione è bassa, controlla appetito/stato generale; se il gruppo cala con THI alto, valuta contesto ambientale.";Animale | Latte attuale | Baseline | Delta kg | Ruminazione | Conducibilità | SCC score | THI | Mungiture | Esito PECUS;Manca produzione/baseline o dati associati.;Non dare causa unica se segnali discordanti o assenti.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-07.
+
+
+
+Dato non disponibile: Ln non presente per questa stalla.
+
+Dato non disponibile: DIM non presente per questa stalla.
+
+
+
+3118 Ln N/D DIM N/D: mastite, probabilità 21%
+
+Perdita stimata 7,2 kg/giorno rispetto al valore atteso (≈ ‑52 % di produzione)
+
+Segnali: perdita prevista ML 7,16 kg/giorno
+
+
+
+Se vuoi approfondisco.";32354;1;False;2D07EA84C8C11B061E;[16:17, 27/09/2026] Marica Marches:;2026-09-27T16:17:07;2026-09-27T16:17:47;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;;N/A;animal;3118;results;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;13;1;SEL_PROD_004_V0_A1;SEL_PROD_004_V0;SEL_PROD_004;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_004;0;canonical;manual_selected;False;False;;PROD_008;exact;quanti/quali animali mi costano di più?;economic_loss_list;herd;;ID, gruppo, DIM, produzione baseline, delta ultimi 7 gg, costo totale, produzione baseline  gruppo;"Animali con maggiore perdita economica stimata dai dati disponibili:
+{tabella}
+Mostra sempre se il prezzo latte è reale o default e il periodo della stima.";Animale | DIM | Gruppo | Calo kg/g | Prezzo latte usato | Perdita €/g | Base calcolo | Note;Manca prezzo latte esplicito, baseline o perdita calcolabile: non stimare il costo in euro. Se possibile mostra solo la perdita produttiva disponibile e indica l'input mancante.;Non mostrare euro e non usare prezzi/default non esplicitamente disponibili nel dataset o nella configurazione corrente.;"Supportato solo se sono disponibili baseline/perdita e prezzo latte esplicito; altrimenti usare fallback senza stimare euro.";canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-07.
+
+Dato non disponibile: Ln non presente per questa stalla.
+
+Dato non disponibile: DIM non presente per questa stalla.
+
+
+
+-2516 Ln N/D DIM N/D: 10,0 kg — perdita prevista 10,0 kg/giorno
+
+-444 Ln N/D DIM N/D: 9,1 kg — perdita prevista 9,1 kg/giorno
+
+-2448 Ln N/D DIM N/D: 7,4 kg — perdita prevista 7,4 kg/giorno
+
+
+
+Se vuoi approfondisco le singole bufale.";24243;1;False;D910098414B127AB46;[16:18, 27/09/2026] Marica Marches:;2026-09-27T16:17:52;2026-09-27T16:18:24;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;results;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;14;1;SEL_PROD_005_V0_A1;SEL_PROD_005_V0;SEL_PROD_005;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_005;0;canonical;manual_selected;False;False;;PROD_010;exact;chi perde latte da più giorni?;persistent_milk_loss;herd;;ID, gruppo, dIM, produzione baseline, delta ultimi 7 gg, n giorni sotto baseline;"Animali con calo produttivo persistente:
+{tabella}
+Distinguere se il segnale è individuale o condiviso dal gruppo.";Animale | DIM | Gruppo | Giorni sotto baseline | Calo medio kg | Calo massimo | Segnali associati | Ultimo esito;Manca storico produzione sufficiente.;Non usare 'cronico' senza regola validata e storico clinico.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-07.
+
+
+
+Le tre bufale segnalate a rischio (2516, 444, 2448) hanno perdita prevista solo per il prossimo giorno; la verifica di persistenza non ha rilevato alcuna allerta zootecnica in corso per esse né per altre nella lista.
+
+
+
+0 bufale soddisfano il criterio di perdita di latte da più giorni.
+
+
+
+Se vuoi approfondisco.";29431;1;False;C66C648A554CE5C0D0;[16:18, 27/09/2026] Marica Marches:;2026-09-27T16:18:29;2026-09-27T16:19:06;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;REVIEW;herd_query;;no_data;;;;NO_DATA_REASON_UNCLEAR;PASS;REVIEW;
+AUTO_20260927_160247;canonical;15;1;SEL_MAST_001_V0_A1;SEL_MAST_001_V0;SEL_MAST_001;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_001;0;canonical;manual_selected;False;False;;MAMM_001;guardrail_adapted;chi ha la mastite oggi?;mammary_signal_list;herd;;ID, gruppo, dim, lattazione, conducibilità corrente, media conducibilità ultimi 7 gg, conta SCC, delta produzione, probabilità triage;Gli animali che presentano segnali mammari elevati sono i seguenti:;Animale | DIM | Parità | Gruppo | Segnale mammario | Conducibilità | SCC score | Calo latte | Ultimo dato;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-07.
+
+
+
+-3114 Ln N/D DIM N/D: probabilità 71 % — perdita 5,3 kg/giorno
+
+-5694 Ln N/D DIM N/D: probabilità 70 % — perdita 5,1 kg/giorno
+
+-153 Ln N/D DIM N/D: probabilità 65 % — perdita 4,1 kg/giorno
+
+-7375 Ln N/D DIM N/D: probabilità 64 % — perdita 3,6 kg/giorno
+
+-2305 Ln N/D DIM N/D: probabilità 62 % — perdita 3,4 kg/giorno
+
+
+
+Dato non disponibile: Ln non presente per questa stalla.
+
+Dato non disponibile: DIM non presente per questa stalla.
+
+
+
+Se vuoi approfondire cause o azioni consigliate per una di queste bufale, chiedimi.";31559;1;False;3E928D80DE6B338C5E;[16:19, 27/09/2026] Marica Marches:;2026-09-27T16:19:19;2026-09-27T16:19:59;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;REVIEW;N/A;;N/A;herd_query;;results;;;;TEMPORAL_REFERENCE_MISSING;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;16;1;SEL_MAST_002_V0_A1;SEL_MAST_002_V0;SEL_MAST_002;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_002;0;canonical;manual_selected;False;False;;MAMM_002;exact;Quali vacche hanno conducibilità elevata?;conductivity_list;herd;;ID, gruppo, DIM , lattazione, ultima conducibilità, baseline conducibilità, delta utlimi 3 giorni;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | DIM | Gruppo | Conducibilità | Baseline/Soglia | Ultima mungitura | SCC score | Calo latte;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14.
+
+
+
+-165 L6 DIM 243: 15,3
+
+-662 L6 DIM 283: 15,3
+
+-7375 L5 DIM 227: 14,9
+
+-428 L2 DIM 497: 12,2
+
+-5654 L4 DIM 216: 12,1
+
+-5240 L5 DIM 257: 12,0
+
+-2467 L2 DIM 255: 12,0
+
+
+
+Le bufale sopra indicano i valori più alti di conducibilità media nella stalla. Se vuoi approfondire una di queste bufale (es. confronto con produzione o segnali di mastite), fammelo sapere.";30533;1;False;054382666E49528BA6;[16:20, 27/09/2026] Marica Marches:;2026-09-27T16:20:04;2026-09-27T16:20:42;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;conductivity;N/A;herd_query;;narrative;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;17;1;SEL_MAST_003_V0_A1;SEL_MAST_003_V0;SEL_MAST_003;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_003;0;canonical;manual_selected;False;False;;MAMM_006;guardrail_adapted;perché l'animale 2516 è segnalata per mastite?;mammary_reason;animal;2516;dim, gruppo, lattazione, conducibilità, SCC, conducibilità quarto maggiore, delta produzione, perdita prevista;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | Segnale | Conducibilità | SCC score | Calo latte | Ultima mungitura | DIM | Gruppo;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-07.
+
+
+
+2516 Ln N/D DIM N/D, mastite al parto, probabilità 62 %.
+
+Perdita prevista 10 kg/giorno.
+
+Segnali: scostamento medio 10 gg –0,87 %; perdita prevista ML 9,99 kg/giorno; conducibilità persistente z‑score +0,71.
+
+Segnalata perché il modello ha individuato un calo della produzione (‑0,87 % rispetto alla curva), una perdita di latte stimata di circa 10 kg al giorno e un aumento della conducibilità, tutti indicatori tipici di mastite nel periodo di transizione post‑parto.
+
+
+
+Se vuoi approfondisco.";43849;1;False;91FB551A3103053703;[16:21, 27/09/2026] Marica Marches:;2026-09-27T16:20:47;2026-09-27T16:21:39;True;OK;PASS;REVIEW;REVIEW;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;;N/A;animal;2516;results;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;18;1;SEL_MAST_004_V0_A1;SEL_MAST_004_V0;SEL_MAST_004;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_004;0;canonical;manual_selected;False;False;;MAMM_012;exact;chi è segnata per mastite per più giorni?;persistent_mammary_signal;herd;;ID, gruppo, lattazione, DIM, timestamp prima segnalazione,;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | DIM | Gruppo | Giorni con segnale | Primo segnale | Ultimo segnale | Esiti registrati | Trend latte;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Parziale: dipende dallo storico;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: nessun dato.
+
+
+
+0 bufale sono segnate per mastite per più giorni.
+
+
+
+Se vuoi approfondire altre segnalazioni o parametri, fammi sapere.";16297;1;False;9EFE12DC44B8F51985;[16:21, 27/09/2026] Marica Marches:;2026-09-27T16:21:44;2026-09-27T16:22:07;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;PASS;herd_query;;no_data;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;19;1;SEL_MET_001_V0_A1;SEL_MET_001_V0;SEL_MET_001;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_001;0;canonical;manual_selected;False;False;;MET_002;guardrail_adapted;Chi ha chetosi?;possible_ketosis_list;herd;;id, gruppo, DIM, lattazione, delta produzione, delta ruminazione, produzione attesa;"Animali/dati metabolici richiesti:
+{tabella}
+Interpretazione: descrivere come segnale metabolico compatibile da verificare, usando appetito, riempimento ruminale, BHB se disponibile e protocollo aziendale/professionale.";Animale | DIM | Gruppo | Segnale compatibile | Calo latte | Ruminazione | F:P | BHB registrato;Mancano produzione, ruminazione, DIM, componenti latte o segnale metabolico necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non dire 'chetosi certa' e non suggerire somministrazioni. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se segnali metabolici presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-07.
+
+
+
+Dato non disponibile: Ln e DIM non presenti per queste bufale.
+
+
+
+-2516 Ln N/D DIM N/D: probabilità 78 % — perdita prevista 10,0 kg/g
+
+-444 Ln N/D DIM N/D: probabilità 78 % — perdita prevista 9,1 kg/g
+
+-2448 Ln N/D DIM N/D: probabilità 75 % — perdita prevista 7,4 kg/g
+
+-517 Ln N/D DIM N/D: probabilità 72 % — perdita prevista 6,9 kg/g
+
+-436 Ln N/D DIM N/D: probabilità 71 % — perdita prevista 6,6 kg/g
+
+
+
+Se vuoi approfondire una di queste bufale, indicami l’ID.";23040;1;False;FF04BB5824F9ED8F5D;[16:22, 27/09/2026] Marica Marches:;2026-09-27T16:22:20;2026-09-27T16:22:51;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR
+AUTO_20260927_160247;canonical;20;1;SEL_MET_002_V0_A1;SEL_MET_002_V0;SEL_MET_002;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_002;0;canonical;manual_selected;False;False;;PROD_014;exact_cross_area;quali animali hanno calo latte e ruminazione?;milk_rumination_drop;herd;;ID, gruppo, DIM, delta produzione, delta ruminazione;"Animali con calo produttivo e ruminazione ridotta:
+{tabella}
+Controlla appetito, riempimento ruminale e comportamento; BHB se previsto da protocollo.";Animale | DIM | Gruppo | Calo kg | Ruminazione attuale | Delta ruminazione | THI | Note;Mancano ruminazione o baseline ruminazione.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'.";Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: nessuna data presente.
+
+
+
+Dato non disponibile: ruminazione non presente per questa stalla, quindi non è possibile identificare le bufale con contemporaneo calo di latte e ridotta ruminazione.
+
+
+
+Se ti interessa, posso comunque mostrarti l’elenco delle bufale che presentano un calo della produzione rispetto alla curva di lattazione, se i dati sono disponibili. Se vuoi approfondisco.";24343;1;False;A48C43B75E887CBB8F;[16:23, 27/09/2026] Marica Marches:;2026-09-27T16:22:56;2026-09-27T16:23:28;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;rumination;N/A;herd_query;;narrative;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;21;1;SEL_MET_003_V0_A1;SEL_MET_003_V0;SEL_MET_003;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_003;0;canonical;manual_selected;False;False;;MET_005;exact;l'animale 3118 rumina bene?;rumination_animal;animal;3118;lattazione, DIM, ruminazione, baseline ruminazione, delta ruminazione;"Animali/dati metabolici richiesti:
+{tabella}
+Interpretazione: descrivere come segnale metabolico compatibile da verificare, usando appetito, riempimento ruminale, BHB se disponibile e protocollo aziendale/professionale.";Dato | Valore | Baseline | Scostamento | Note;Mancano produzione, ruminazione, DIM, componenti latte o segnale metabolico necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non dire 'chetosi certa' e non suggerire somministrazioni. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se segnali metabolici presenti;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dato non disponibile: il campo rumination non è presente per questa stalla.
+
+
+
+Non possiamo valutare se la bufala 3118 rumina bene.
+
+
+
+Se vuoi approfondisco altri indicatori disponibili per la bufala 3118.";21444;1;False;368A79584E688174FA;[16:23, 27/09/2026] Marica Marches:;2026-09-27T16:23:33;2026-09-27T16:24:02;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;rumination;PASS;animal;3118;no_data;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;22;1;SEL_MET_004_V0_A1;SEL_MET_004_V0;SEL_MET_004;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_004;0;canonical;manual_selected;False;False;;CUSTOM_SELECTED;custom_selected;chi ha grasso elevato nel latte?;high_milk_fat;herd;;ID, gruppo, lattazione, DIM, fat_pct, ultima produzione, n sessioni mungitura;;;;"Non formulare diagnosi certa; non prescrivere terapia; non usare priorità non implementata.";Selezionato manualmente come attualmente supportato;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;Dato non disponibile: il campo grassi nel latte non è presente per questa stalla. Se ti interessa, posso mostrarti altri indicatori disponibili (produzione, conducibilità, numero di mungiture, ecc.). Fammi sapere!;14815;1;False;B62A8561CE814AA0B1;[16:24, 27/09/2026] Marica Marches:;2026-09-27T16:24:07;2026-09-27T16:24:29;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;milk_fat;PASS;herd_query;;no_data;;;;;REVIEW;REVIEW;
+AUTO_20260927_160247;canonical;23;1;SEL_GEN_001_V0_A1;SEL_GEN_001_V0;SEL_GEN_001;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_001;0;canonical;manual_selected;False;False;;ID_004;exact;l'animale 3118 è in lattazione?;lactation_status;animal;3118;status animale, gruppo, lattazione, DIM, ultimo parto;"Identikit animale con i dati attualmente disponibili:
+{tabella}
+Dichiarare sempre i domini mancanti: riproduzione/asciutta/razione se non integrati.";Animale | Stato lattazione | DIM | Ultima mungitura | Ultimo aggiornamento;Animale non trovato o dati base insufficienti per costruire l'identikit.;"Non inventare dati riproduttivi, asciutta, trattamenti o stato non presente. Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato.";Supportato parziale;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14
+
+
+
+-3118 L2 DIM 77: fase peak
+
+
+
+Sì, la bufala 3118 è in lattazione (lattazione n. 2, 77 giorni, fase peak).
+
+
+
+Se vuoi approfondisco.";16712;1;False;277484554A65FA72F8;[16:24, 27/09/2026] Marica Marches:;2026-09-27T16:24:43;2026-09-27T16:25:07;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;;N/A;animal;3118;results;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;24;1;SEL_GEN_002_V0_A1;SEL_GEN_002_V0;SEL_GEN_002;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_002;0;canonical;manual_selected;False;False;;ID_001;exact;mostrami l'animale 3118;animal_profile;animal;3118;status, gruppo, lattazione, DIM, ultimo parto, asciutta prevista?, baseline produzione, probabilità triage;"Identikit animale con i dati attualmente disponibili:
+{tabella}
+Dichiarare sempre i domini mancanti: riproduzione/asciutta/razione se non integrati.";Sezione | Dato | Valore | Ultimo aggiornamento | Nota;Animale non trovato o dati base insufficienti per costruire l'identikit.;"Non inventare dati riproduttivi, asciutta, trattamenti o stato non presente. Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato.";Supportato parziale;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14
+
+
+
+-3118 L2 DIM 77: patologia non disponibile, probabilità non disponibile
+
+Produzione attuale 4,2 kg — attesa 13,02 kg (perdita 8,82 kg, -67,8 %)
+
+Segnali chiave: conducibilità 7,1, mungiture 1, roll bias -8,33, roll volatility 0,08
+
+
+
+Se vuoi approfondisco.";20685;1;False;915754315C7445003D;[16:25, 27/09/2026] Marica Marches:;2026-09-27T16:25:12;2026-09-27T16:25:40;True;OK;PASS;PASS;PASS;PASS;PASS_IMPLICIT;PASS;N/A;N/A;N/A;;N/A;animal_implicit;;results;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;25;1;SEL_GEN_003_V0_A1;SEL_GEN_003_V0;SEL_GEN_003;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_003;0;canonical;manual_selected;False;False;;HERD_001;exact;com'è oggi la stalla?;herd_status;herd;;nr animali in lattazione, produzione tot, nr problemi segnalati per classe triage;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Sezione | Valore | Nota | Dati usati;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: data non disponibile.
+
+440 bufale presenti.
+Produzione media giornaliera: 5,95 kg di latte per bufala.
+Scostamento medio dalla curva di lattazione: -35,2 % (produzione inferiore al livello atteso).
+361 bufale con calo > 20 % rispetto all’atteso.
+8 bufale con sovrapproduzione > 20 % rispetto all’atteso.
+
+
+La maggior parte delle bufale (circa 82 %) sta registrando una produzione notevolmente inferiore al previsto, segnale di possibile stress, problemi nutrizionali o sanitari.
+
+
+
+Se vuoi approfondire gruppi o singole bufale, chiedi pure.";24063;1;False;6EA6F733FEE57B2C0B;[16:26, 27/09/2026] Marica Marches:;2026-09-27T16:25:45;2026-09-27T16:26:16;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;REVIEW;N/A;;N/A;herd_query;361,440;results;;;;TEMPORAL_REFERENCE_MISSING;PASS;REVIEW;
+AUTO_20260927_160247;canonical;26;1;SEL_GEN_004_V0_A1;SEL_GEN_004_V0;SEL_GEN_004;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_004;0;canonical;manual_selected;False;False;;HERD_005;adapted;come sta andando la produzione?;herd_production_trend;herd;;produzione media mandria corrente, delta mesi precedenti, delta anno precedente;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Periodo | Latte medio/capo | Baseline | Delta | Animali attivi | Note;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-14 00:00:00.
+
+
+
+Negli ultimi 7 giorni la produzione totale giornaliera è variata tra 2 624,2 kg e 2 668,8 kg, con una media di circa 2 645 kg al giorno. La media per bufala si aggira intorno ai 6,0 kg: picco 6,06 kg il 10/09 e lieve calo a 5,95 kg il 14/09. Il numero di bufale con dati è stabile (≈ 440 capi), quindi la variazione è legata alla resa individuale.
+
+
+
+Trend: la produzione è leggermente in diminuzione negli ultimi due giorni rispetto al picco della prima metà della settimana.
+
+
+
+Se vuoi approfondire gruppi o confronti con la resa attesa, chiedimi pure.";21679;1;False;ADF12D554604F1920A;[16:26, 27/09/2026] Marica Marches:;2026-09-27T16:26:21;2026-09-27T16:26:51;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;results;;;;;PASS;PASS;
+AUTO_20260927_160247;canonical;27;1;SEL_GEN_005_V0_A1;SEL_GEN_005_V0;SEL_GEN_005;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_005;0;canonical;manual_selected;False;False;;HERD_006;exact;come vanno le fresche/altro gruppo?;group_status;group;;media produzione ultimi 7gg per animale, media DIM gruppo, delta produzione;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Animale | DIM | Parità | Latte | Delta | Ruminazione | Segnali | Mungiture;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: data non specificata.
+
+
+
+fresh: 22 bufale — media 7,23 kg — scostamento -35 %
+
+peak: 151 bufale — media 7,51 kg — scostamento -41 %
+
+mid: 202 bufale — media 5,71 kg — scostamento -35 %
+
+late: 105 bufale — media 4,21 kg — scostamento -26 %
+
+
+
+Le bufale fresche stanno già producendo al di sotto del previsto (‑35 %). Il gruppo “peak” ha la produzione più alta in valore assoluto ma il gap più ampio (‑41 %). I gruppi “mid” e “late” mostrano rispettivamente una resa intermedia (‑35 %) e la più bassa (‑26 %).
+
+
+
+Se vuoi approfondire singole bufale o confronti più dettagliati, fammi sapere.";27983;1;False;67F25BF85EA992B7D5;[16:27, 27/09/2026] Marica Marches:;2026-09-27T16:26:56;2026-09-27T16:27:31;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;group;;results;;;;;PASS;PASS;

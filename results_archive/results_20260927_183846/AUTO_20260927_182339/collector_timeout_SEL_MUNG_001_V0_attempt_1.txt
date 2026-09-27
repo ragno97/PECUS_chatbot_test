@@ -1,0 +1,16 @@
+url=https://web.whatsapp.com/
+sender_filter=Marica Marches
+message_metadata_count=13
+[0] inbound=0 outbound=0 metadata=[16:42, 27/09/2026] Pecus Chain: 
+[1] inbound=0 outbound=0 metadata=[17:17, 27/09/2026] Marica Marchese: 
+[2] inbound=0 outbound=0 metadata=[17:17, 27/09/2026] Pecus Chain: 
+[3] inbound=0 outbound=0 metadata=[17:45, 27/09/2026] Marica Marchese: 
+[4] inbound=0 outbound=0 metadata=[17:45, 27/09/2026] Pecus Chain: 
+[5] inbound=0 outbound=0 metadata=[17:54, 27/09/2026] Marica Marchese: 
+[6] inbound=0 outbound=0 metadata=[17:54, 27/09/2026] Pecus Chain: 
+[7] inbound=0 outbound=0 metadata=[18:00, 27/09/2026] Marica Marchese: 
+[8] inbound=0 outbound=0 metadata=[18:00, 27/09/2026] Pecus Chain: 
+[9] inbound=0 outbound=0 metadata=[18:06, 27/09/2026] Marica Marchese: 
+[10] inbound=0 outbound=0 metadata=[18:06, 27/09/2026] Pecus Chain: 
+[11] inbound=0 outbound=0 metadata=[18:23, 27/09/2026] Marica Marchese: 
+[12] inbound=0 outbound=0 metadata=[18:24, 27/09/2026] Pecus Chain: 

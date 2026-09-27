@@ -1,0 +1,83 @@
+PECUS CHAIN — MASTER AUTOTEST SUMMARY
+====================================================================
+Run ID: AUTO_20260927_183850
+Mode: smoke
+Test finali: 27
+
+CORE
+--------------------------------------------------------------------
+PASS: 13
+REVIEW: 13
+FAIL: 1
+INVALID_COLLECTOR: 0
+
+OVERALL
+--------------------------------------------------------------------
+PASS: 11
+REVIEW: 15
+FAIL: 1
+INVALID_COLLECTOR: 0
+
+AGGREGATE QA METRICS
+--------------------------------------------------------------------
+[quality] Intent Accuracy: 13/27 (48.1%)
+[quality] Scope Accuracy: 20/27 (74.1%)
+[quality] Animal Resolution Accuracy: 5/5 (100.0%)
+[quality] Context Accuracy: 20/27 (74.1%)
+[quality] Implicit Animal-Context Accuracy: N/A
+[quality] Temporal Grounding: 6/9 (66.7%)
+[quality] Data Availability Disclosure: N/A
+[quality] Fallback Quality: 3/4 (75.0%)
+[collector] Collector Validity: 27/27 (100.0%)
+[collector] Timeout Count: 0 (0.0%)
+[collector] Truncated Response Count: 0 (0.0%)
+[functional] Functional Canonical Core Pass: 13/27 (48.1%)
+[functional] Functional Paraphrase Core Pass: N/A
+[functional] Functional Paraphrase Consistency: N/A
+[legacy] RUN_001 Context Retention Depth: 0
+[regression] V3 Context Retention Depth: 0
+[regression] Scope Recovery: N/A
+[regression] Entity Probe: N/A
+[regression] Previous Entity Recall: N/A
+[regression] Scope Switch: N/A
+[regression] Noise Recovery: N/A
+[regression] Regression Paraphrase Robustness: N/A
+[latency] Latency p50 ms: 27011
+[latency] Latency p90 ms: 47426
+[latency] Latency p95 ms: 59248
+[latency] Latency max ms: 120739
+
+AREA SUMMARY
+--------------------------------------------------------------------
+MUNGITURA: core PASS=1 REVIEW=7 FAIL=1 | overall PASS=1 REVIEW=7 FAIL=1 | invalid=0
+PRODUZIONE: core PASS=4 REVIEW=1 FAIL=0 | overall PASS=4 REVIEW=1 FAIL=0 | invalid=0
+MASTITE: core PASS=1 REVIEW=3 FAIL=0 | overall PASS=0 REVIEW=4 FAIL=0 | invalid=0
+METABOLICO: core PASS=2 REVIEW=2 FAIL=0 | overall PASS=2 REVIEW=2 FAIL=0 | invalid=0
+GENERICO: core PASS=5 REVIEW=0 FAIL=0 | overall PASS=4 REVIEW=1 FAIL=0 | invalid=0
+
+SCENARIO SUMMARY
+--------------------------------------------------------------------
+FUNCTIONAL_MUNGITURA: tests=9 collector=9 core_pass=1 context_pass=4 overall_pass=1
+FUNCTIONAL_PRODUZIONE: tests=5 collector=5 core_pass=4 context_pass=4 overall_pass=4
+FUNCTIONAL_MASTITE: tests=4 collector=4 core_pass=1 context_pass=3 overall_pass=0
+FUNCTIONAL_METABOLICO: tests=4 collector=4 core_pass=2 context_pass=4 overall_pass=2
+FUNCTIONAL_GENERICO: tests=5 collector=5 core_pass=5 context_pass=5 overall_pass=4
+
+NON-PASS / FLAGS
+--------------------------------------------------------------------
+SEL_MUNG_001_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=quante vacche/bufale hanno prodotto poco?
+SEL_MUNG_002_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=quali vacche/bufale hanno saltato la mungitura?
+SEL_MUNG_003_V0 | core=FAIL overall=FAIL | intent=FAIL scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=PASS | flags= | Q=quali animali sono in ritardo?
+SEL_MUNG_004_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=quali vacche/bufale hanno meno mungiture?
+SEL_MUNG_006_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=PASS availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=chi ha la conducibilità alta?
+SEL_MUNG_007_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=quali primipare vanno poco al robot
+SEL_MUNG_008_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=PASS availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=chi ha calato il latte oggi?
+SEL_MUNG_009_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=PASS availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=quali sono le vacche/bufale con un calo superiore a 5 kg?
+SEL_PROD_001_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=PASS availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=chi produce meno?
+SEL_MAST_001_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=TEMPORAL_REFERENCE_MISSING | Q=chi ha la mastite oggi?
+SEL_MAST_002_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=REVIEW animal=N/A context=REVIEW | temporal=N/A availability=N/A fallback=N/A | flags=HERD_SCOPE_UNCLEAR | Q=Quali vacche hanno conducibilità elevata?
+SEL_MAST_003_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=PASS_EXPLICIT context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=STALE_DATE_UNDISCLOSED(2026-09-26) | Q=perché l'animale 2516 è segnalata per mastite?
+SEL_MAST_004_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=REVIEW | flags=NO_DATA_REASON_UNCLEAR | Q=chi è segnata per mastite per più giorni?
+SEL_MET_001_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=Chi ha chetosi?
+SEL_MET_004_V0 | core=REVIEW overall=REVIEW | intent=REVIEW scope=PASS animal=N/A context=PASS | temporal=N/A availability=N/A fallback=N/A | flags= | Q=chi ha grasso elevato nel latte?
+SEL_GEN_003_V0 | core=PASS overall=REVIEW | intent=PASS scope=PASS animal=N/A context=PASS | temporal=REVIEW availability=N/A fallback=N/A | flags=TEMPORAL_REFERENCE_MISSING | Q=com'è oggi la stalla?

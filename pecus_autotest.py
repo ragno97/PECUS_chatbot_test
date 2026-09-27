@@ -21,9 +21,10 @@ from playwright.sync_api import sync_playwright
 DEFAULT_SUITE = Path("tests/pecus_llm_suite.csv")
 DEFAULT_RESULTS_DIR = Path("results")
 DEFAULT_ARCHIVE_DIR = Path("results_archive")
-DEFAULT_BOT_NAME = "Marica Marches"
+DEFAULT_BOT_NAME = "Pecus Chain"
+DEFAULT_SENDER_NAME = "Pecus Chain"
 
-DEFAULT_TIMEOUT_SECONDS = 240
+DEFAULT_TIMEOUT_SECONDS = 480
 QUIET_SECONDS = 6
 BETWEEN_QUESTIONS_SECONDS = 5
 BETWEEN_AREAS_SECONDS = 8
@@ -314,21 +315,23 @@ def message_key(message: dict) -> str:
     )
 
 
-def get_bot_messages(page, bot_name: str) -> list[dict]:
-    locator = page.locator(
-        f'[data-pre-plain-text*="{bot_name}:"]'
-    )
+def get_bot_messages(page, sender_name: str) -> list[dict]:
+    locator = page.locator('[data-pre-plain-text]')
 
     messages = []
+    marker = f"] {sender_name}:"
 
     for index in range(locator.count()):
         element = locator.nth(index)
 
         try:
-            text = element.inner_text().strip()
             metadata = element.get_attribute(
                 "data-pre-plain-text"
             )
+            if not metadata or marker not in metadata:
+                continue
+
+            text = element.inner_text().strip()
 
             ancestor = element.locator(
                 "xpath=ancestor::*[@data-id][1]"
@@ -414,7 +417,7 @@ def expand_message_by_id(page, message_id) -> bool:
 
 def qualifying_messages(
     page,
-    bot_name: str,
+    sender_name: str,
     known_keys: set[str],
     send_minute: datetime,
 ) -> list[dict]:
@@ -422,7 +425,7 @@ def qualifying_messages(
 
     for message in get_bot_messages(
         page,
-        bot_name,
+        sender_name,
     ):
         if message_key(message) in known_keys:
             continue
@@ -450,14 +453,16 @@ def qualifying_messages(
 def collect_one_turn(
     page,
     message_box,
-    bot_name: str,
+    sender_name: str,
     test: dict,
     known_keys: set[str],
     timeout_seconds: int,
+    run_dir: Path,
+    attempt_no: int,
 ) -> dict:
     for message in get_bot_messages(
         page,
-        bot_name,
+        sender_name,
     ):
         known_keys.add(message_key(message))
 
@@ -502,7 +507,7 @@ def collect_one_turn(
     while time.monotonic() < deadline:
         current = qualifying_messages(
             page,
-            bot_name,
+            sender_name,
             known_keys,
             send_minute,
         )
@@ -518,6 +523,32 @@ def collect_one_turn(
         page.wait_for_timeout(500)
 
     if not collected:
+        diagnostic_lines = [
+            f"url={page.url}",
+            f"sender_filter={sender_name}",
+        ]
+        locator = page.locator('[data-pre-plain-text]')
+        diagnostic_lines.append(
+            f"message_metadata_count={locator.count()}"
+        )
+        marker = f"] {sender_name}:"
+        for index in range(min(locator.count(), 50)):
+            element = locator.nth(index)
+            metadata = element.get_attribute(
+                "data-pre-plain-text"
+            )
+            matched = bool(metadata) and marker in metadata
+            diagnostic_lines.append(
+                f"[{index}] matched_sender={matched} metadata={metadata}"
+            )
+        diagnostic_path = run_dir / (
+            f"collector_timeout_{test['test_id']}_attempt_{attempt_no}.txt"
+        )
+        diagnostic_path.write_text(
+            "\n".join(diagnostic_lines) + "\n",
+            encoding="utf-8",
+        )
+        print("Diagnostica collector:", diagnostic_path)
         return {
             "response": "",
             "latency_ms": None,
@@ -545,7 +576,7 @@ def collect_one_turn(
 
     for message in qualifying_messages(
         page,
-        bot_name,
+        sender_name,
         known_keys,
         send_minute,
     ):
@@ -567,7 +598,7 @@ def collect_one_turn(
             message_key(message): message
             for message in qualifying_messages(
                 page,
-                bot_name,
+                sender_name,
                 known_keys,
                 send_minute,
             )
@@ -2452,14 +2483,18 @@ def try_open_bot_chat(page, bot_name):
 
 
 def ensure_whatsapp_ready(page, bot_name, run_dir):
-    box,selector=find_message_box(page)
-    if box is not None:
-        print("Composer WhatsApp:",selector); return box
-    print("Composer non trovato; provo ad aprire la chat",bot_name)
-    try_open_bot_chat(page,bot_name); page.wait_for_timeout(1500)
-    box,selector=find_message_box(page)
-    if box is not None:
-        print("Chat aperta. Composer:",selector); return box
+    print("Seleziono la chat WhatsApp",bot_name)
+    deadline = time.monotonic() + 120
+    next_chat_attempt = 0.0
+    while time.monotonic() < deadline:
+        chat_selected = False
+        if time.monotonic() >= next_chat_attempt:
+            chat_selected = try_open_bot_chat(page,bot_name)
+            next_chat_attempt = time.monotonic() + 5
+        box,selector=find_message_box(page)
+        if box is not None and chat_selected:
+            print("Chat pronta. Composer:",selector); return box
+        page.wait_for_timeout(1000)
     run_dir.mkdir(parents=True,exist_ok=True)
     try: page.screenshot(path=str(run_dir/"whatsapp_locator_failure.png"),full_page=True)
     except Exception: pass
@@ -2471,7 +2506,10 @@ def ensure_whatsapp_ready(page, bot_name, run_dir):
             lines.append(f"[{i}] visible={c.is_visible()} role={c.get_attribute('role')} data-tab={c.get_attribute('data-tab')} aria-label={c.get_attribute('aria-label')} aria-placeholder={c.get_attribute('aria-placeholder')}")
     except Exception as exc: lines.append(repr(exc))
     diag=run_dir/"whatsapp_locator_failure.txt"; diag.write_text("\n".join(lines)+"\n",encoding="utf-8")
-    raise RuntimeError(f"Composer WhatsApp non trovato. Diagnostica: {diag}")
+    raise RuntimeError(
+        f"Chat '{bot_name}' o composer WhatsApp non trovato. "
+        f"Diagnostica: {diag}"
+    )
 
 
 # ===================================================================
@@ -2485,6 +2523,7 @@ def create_manifest(
     suite_path: Path,
     timeout_seconds: int,
     bot_name: str,
+    sender_name: str,
 ):
     manifest = [
         "PECUS CHAIN — RUN MANIFEST",
@@ -2495,6 +2534,7 @@ def create_manifest(
         f"suite={suite_path}",
         f"timeout_seconds={timeout_seconds}",
         f"bot_name={bot_name}",
+        f"sender_name={sender_name}",
         f"raw_schema_version=2_master",
     ]
 
@@ -2513,6 +2553,7 @@ def execute_tests(
     pending: list[tuple[int, dict]],
     attempts: Counter,
     bot_name: str,
+    sender_name: str,
     timeout_seconds: int,
     resume: bool,
 ):
@@ -2556,7 +2597,7 @@ def execute_tests(
             message_key(message)
             for message in get_bot_messages(
                 page,
-                bot_name,
+                sender_name,
             )
         }
 
@@ -2592,10 +2633,12 @@ def execute_tests(
             result = collect_one_turn(
                 page,
                 message_box,
-                bot_name,
+                sender_name,
                 test,
                 known_keys,
                 timeout_seconds,
+                run_dir,
+                attempt_no,
             )
 
             append_raw(
@@ -2683,6 +2726,7 @@ def command_run(args):
         suite_path,
         args.timeout,
         args.bot_name,
+        args.sender_name,
     )
 
     print(
@@ -2718,6 +2762,7 @@ def command_run(args):
         pending=pending,
         attempts=Counter(),
         bot_name=args.bot_name,
+        sender_name=args.sender_name,
         timeout_seconds=args.timeout,
         resume=False,
     )
@@ -2829,6 +2874,7 @@ def command_resume(args):
         pending=pending,
         attempts=attempts,
         bot_name=args.bot_name,
+        sender_name=args.sender_name,
         timeout_seconds=args.timeout,
         resume=True,
     )
@@ -2996,6 +3042,12 @@ def build_parser():
     run.add_argument(
         "--bot-name",
         default=DEFAULT_BOT_NAME,
+        help="Nome della chat WhatsApp da aprire.",
+    )
+    run.add_argument(
+        "--sender-name",
+        default=DEFAULT_SENDER_NAME,
+        help="Nome autore delle risposte nei metadati WhatsApp.",
     )
     run.add_argument(
         "--timeout",
@@ -3019,6 +3071,12 @@ def build_parser():
     resume.add_argument(
         "--bot-name",
         default=DEFAULT_BOT_NAME,
+        help="Nome della chat WhatsApp da aprire.",
+    )
+    resume.add_argument(
+        "--sender-name",
+        default=DEFAULT_SENDER_NAME,
+        help="Nome autore delle risposte nei metadati WhatsApp.",
     )
     resume.add_argument(
         "--timeout",

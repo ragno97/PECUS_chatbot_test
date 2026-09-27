@@ -1,0 +1,529 @@
+﻿run_id;run_mode;sequence_no;attempt_no;attempt_uid;test_id;case_id;area;suite_type;scenario;scenario_turn;block;variant_index;variant_type;variant_source;previously_executed;prior_validated;prior_result;source_case_id;source_mapping;question;evaluation_profile;expected_scope;expected_animal;input_data;expected_behavior;expected_fields;fallback;guardrail;support_current;probe_type;enabled;origin;methodology_status;test_layer;legacy_test_id;animal_explicit;evaluator_dimensions;response;latency_ms;message_count;response_truncated;message_ids;whatsapp_metadata;send_system_timestamp;system_timestamp;collector_success;collector_note;collector_status;semantic_status;intent_status;scope_status;animal_status;context_status;implicit_context_status;temporal_status;availability_status;availability_signal;fallback_status;detected_scope;detected_animals;response_class;guardrail_flags;advice_flags;metric_flags;quality_flags;core_status;overall_status;error_flags;attempts_total;chosen_attempt_no
+AUTO_20260927_183850;smoke;1;1;SEL_MUNG_001_V0_A1;SEL_MUNG_001_V0;SEL_MUNG_001;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_001;0;canonical;manual_selected;False;False;;MUNG_007;adapted;quante vacche/bufale hanno prodotto poco?;low_milking_yield_list;herd;;lista animali, produzione baseline, produzione attesa, media mandria, media gruppo, animal ID, gruppo, DIM;"L'ultima sessione di mungitura ha registrato ""#n animali"" con una bassa produzione. Ecco i peggiori:";Animale | DIM | Gruppo | Ultima mungitura | Latte ultima mungitura | Atteso | Differenza | Intervallo mungitura;Mancano produzione ultima mungitura o baseline attesa.;"Non usare produzione per mungitura isolata come segnale clinico. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27.
+
+
+
+Nel periodo più recente, 157 bufale hanno prodotto poco (residuo ≤ ‑30 % rispetto alla produzione attesa per il loro DIM e parità).
+
+
+
+Se ti serve l’elenco delle bufale interessate o vuoi approfondire le cause, fammi sapere.";51172;1;False;3D258629F272C6F9E9;[18:39, 27/09/2026] Pecus Chain:;2026-09-27T18:38:58;2026-09-27T18:39:57;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;narrative;;;;;REVIEW;REVIEW;;1;1
+AUTO_20260927_183850;smoke;2;1;SEL_MUNG_002_V0_A1;SEL_MUNG_002_V0;SEL_MUNG_002;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_002;0;canonical;manual_selected;False;False;;MUNG_003;adapted;quali vacche/bufale hanno saltato la mungitura?;missed_or_reduced_milkings;herd;;ID, DIM, media milk sessions gruppo, numero sessioni di mungitura;Gli animali con un numero minore di sessioni registrate sono i seguenti:  . (se robot: controlla il loro stato di salute o il funzionamento del robot);Animale | DIM | Parità | Gruppo | Mungiture 24h | Baseline mungiture | Differenza | Ultima mungitura | Note;Manca baseline individuale delle mungiture o conteggio ultime 24h.;"Non diagnosticare zoppia o malattia solo da riduzione mungiture. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 2026-09-27.
+
+
+
+Dato non disponibile: milking_visits_count non presente per questa stalla.";31787;1;False;402A973A2FA0AC1D19;[18:40, 27/09/2026] Pecus Chain:;2026-09-27T18:40:02;2026-09-27T18:40:42;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;narrative;;;;;REVIEW;REVIEW;;1;1
+AUTO_20260927_183850;smoke;3;1;SEL_MUNG_003_V0_A1;SEL_MUNG_003_V0;SEL_MUNG_003;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_003;0;canonical;manual_selected;False;False;;MUNG_001;exact;quali animali sono in ritardo?;milking_delay_list;herd;;ID, gruppo,  DIM,  ultima sessione registrata, ultima produzione, numero di sessioni nelle ultime 24h;Gli animali con maggiore ritardo tra le mungiture sono i seguenti:;Animale | DIM | Parità | Gruppo | Ultima mungitura | Ore da ultima mungitura | Soglia attesa | Produzione media 7g | Note dati;Manca ultima mungitura, stato attivo/in lattazione o soglia/intervallo atteso.;"Non associare ritardo a malattia senza altri segnali. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27.
+
+
+
+0 bufale soddisfano il criterio. Dato non disponibile: milking_visits_count non presente per questa stalla.
+
+
+
+Se vuoi approfondisco.";19431;1;False;52A041763FF1DD2983;[18:41, 27/09/2026] Pecus Chain:;2026-09-27T18:40:47;2026-09-27T18:41:14;True;OK;PASS;FAIL;FAIL;PASS;N/A;PASS;N/A;N/A;N/A;;PASS;herd_query;;no_data;;;;;FAIL;FAIL;;1;1
+AUTO_20260927_183850;smoke;4;1;SEL_MUNG_004_V0_A1;SEL_MUNG_004_V0;SEL_MUNG_004;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_004;0;canonical;manual_selected;False;False;;MUNG_003;exact;quali vacche/bufale hanno meno mungiture?;low_milking_count;herd;;ID, gruppo, DIM, numero sessioni ultime 24h, media baseline mungiture;"Ho trovato {n_animali} animali con meno mungiture rispetto al loro andamento recente.
+{tabella}
+Verifica accesso a robot/sala, locomozione, comportamento e rifiuti robot.";Animale | DIM | Parità | Gruppo | Mungiture 24h | Baseline mungiture | Differenza | Ultima mungitura | Note;Manca baseline individuale delle mungiture o conteggio ultime 24h.;"Non diagnosticare zoppia o malattia solo da riduzione mungiture. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27.
+
+
+
+-2304 L3 DIM 187: 1
+
+-2318 L3 DIM 98: 1
+
+-2305 L3 DIM 216: 1
+
+-2335 L3 DIM 200: 1
+
+-2343 L2 DIM 254: 1
+
+-150 L6 DIM 218: 1
+
+-2353 L3 DIM 167: 1
+
+-1320 L14 DIM 114: 1
+
+-2342 L3 DIM 61: 1
+
+-2367 L3 DIM 32: 1
+
+
+
+Tutte le 217 bufale hanno registrato 1 mungitura nella giornata più recente, quindi questo è il minimo osservato. Se vuoi approfondire le cause o vedere l’elenco completo, dimmi pure.";29283;1;False;4462D3F5DC83046486;[18:41, 27/09/2026] Pecus Chain:;2026-09-27T18:41:19;2026-09-27T18:41:55;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;5;1;SEL_MUNG_005_V0_A1;SEL_MUNG_005_V0;SEL_MUNG_005;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_005;0;canonical;manual_selected;False;False;;MUNG_002;exact;chi non è stata munta oggi?;not_milked_today;herd;;ID, gruppo, DIM, visite robot ultime 24h, nr sessioni mungitura valide, n mungiture baseline;Ecco gli animali che non hanno registrato una mungitura completa:;Animale | DIM | Parità | Gruppo | Ultima mungitura | Ore trascorse | Mungiture oggi | Visite robot oggi;Manca il conteggio mungiture giornaliero o il timestamp dei dati robot.;"Usare 'non risulta registrata' se c'è rischio dato non aggiornato. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 2026‑09‑27.
+
+
+
+Dato non disponibile: lactation_number e DIM non presenti nei record. Inoltre milking_visits_count è assente, quindi non è possibile identificare le bufale che non sono state munte oggi.
+
+
+
+Sono registrate 594 bufale in totale nella mandria, ma non è disponibile alcuna informazione sui conteggi delle mungiture per la giornata corrente.
+
+
+
+Se vuoi approfondire o richiedere altri dettagli, fammi sapere.";62709;1;False;6C04B6F09090F934B1;[18:42, 27/09/2026] Pecus Chain:;2026-09-27T18:42:00;2026-09-27T18:43:10;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;PASS;N/A;;PASS;herd_query;;no_data;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;6;1;SEL_MUNG_006_V0_A1;SEL_MUNG_006_V0;SEL_MUNG_006;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_006;0;canonical;manual_selected;False;False;;MUNG_010;exact;chi ha la conducibilità alta?;conductivity_list;herd;;ID, nr lattazione, DIM, gruppo, ultima conducibilità, media conducibilità gruppo, incremento conducibilità baseline;ecco gli animali con elevati valori di conducibilità:;Animale | DIM | Gruppo | Ultima mungitura | Conducibilità | Baseline/flag | Latte ultima | SCC score | Delta latte;Manca conducibilità aggiornata o baseline/flag aziendale.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+
+
+-5654 L4 DIM 228: 14.2
+
+-9685 L3 DIM 315: 12.0
+
+-150 L6 DIM 218: 11.8
+
+-2436 L9 DIM 174: 11.8
+
+-2350 L3 DIM 52: 11.65
+
+-786 L2 DIM 300: 11.4
+
+-3097 L2 DIM 47: 11.35
+
+-751 L2 DIM 310: 11.2
+
+-5256 L5 DIM 251: 11.1
+
+-6556 L4 DIM 275: 11.1
+
+
+
+Altri 10 non mostrati. Se vuoi la lista completa, chiedimela.";27880;1;False;D4651563F0565AD77A;[18:43, 27/09/2026] Pecus Chain:;2026-09-27T18:43:16;2026-09-27T18:43:51;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;PASS;N/A;conductivity;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;7;1;SEL_MUNG_007_V0_A1;SEL_MUNG_007_V0;SEL_MUNG_007;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_007;0;canonical;manual_selected;False;False;;MUNG_012;adapted;quali primipare vanno poco al robot;primiparous_low_robot;herd;;ID, DIM, gruppo, nr visite ultime 24h, tempo dall'ultima visita, tempo di intervallo atteso;Ecco la lista completa delle primipare con poche visite volontarie:;Animale | DIM | Parità | Gruppo | Mungiture 24h | Visite robot | Ultima mungitura | Latte 24h;Manca DIM o dati robot.;Non parlare di chetosi/patologia senza segnali metabolici/produttivi aggiuntivi.;Supportato se dati robot presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27
+
+
+
+-3183 L1 DIM 238: 1 visita — baseline 1 (0)
+
+-3141 L1 DIM 331: 1 visita — baseline 1 (0)
+
+-3150 L1 DIM 333: 1 visita — baseline 1 (0)
+
+-3152 L1 DIM 220: 1 visita — baseline 1 (0)
+
+-3180 L1 DIM 247: 1 visita — baseline 1 (0)
+
+-3187 L1 DIM 225: 1 visita — baseline 1 (0)
+
+-3188 L1 DIM 240: 1 visita — baseline 1 (0)
+
+-3189 L1 DIM 231: 1 visita — baseline 1 (0)
+
+-3192 L1 DIM 237: 1 visita — baseline 1 (0)
+
+-3193 L1 DIM 201: 1 visita — baseline 1 (0)
+
+-3197 L1 DIM 218: 1 visita — baseline 1 (0)
+
+-3198 L1 DIM 222: 1 visita — baseline 1 (0)
+
+-3199 L1 DIM 227: 1 visita — baseline 1 (0)
+
+-3200 L1 DIM 229: 1 visita — baseline 1 (0)
+
+-3201 L1 DIM 233: 1 visita — baseline 1 (0)
+
+
+
+Altri 40 non mostrati. Se vuoi la lista completa, chiedimela.";40783;1;False;E3E3BF83165F204948;[18:44, 27/09/2026] Pecus Chain:;2026-09-27T18:43:56;2026-09-27T18:44:44;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;8;1;SEL_MUNG_008_V0_A1;SEL_MUNG_008_V0;SEL_MUNG_008;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_008;0;canonical;manual_selected;False;False;;PROD_001;exact_cross_area;chi ha calato il latte oggi?;production_drop_list;herd;;ID, gruppo, lattazione, DIM, baseline individuale (media n giorni), ultima produzione produzione, delta produzione;Gli animali con il maggiore calo individuale sono i seguenti:;Animale | DIM | Parità | Gruppo | Latte attuale | Baseline/media | Delta kg | Delta % | Segnali associati;Manca produzione aggiornata o baseline/media recente.;Non indicare causa certa del calo se non ci sono segnali concordanti.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+
+
+-6384 L9 DIM 173: 0,2 kg — attesi 7,06 kg (-6,86 kg, -97,2 %)
+
+-2491 L2 DIM 307: 0,2 kg — attesi 4,31 kg (-4,11 kg, -95,4 %)
+
+-3099 L2 DIM 248: 0,4 kg — attesi 5,69 kg (-5,29 kg, -92,9 %)
+
+-150 L6 DIM 218: 0,4 kg — attesi 5,41 kg (-5,01 kg, -92,6 %)
+
+-6571 L4 DIM 221: 0,4 kg — attesi 5,31 kg (-4,91 kg, -92,5 %)
+
+-3192 L1 DIM 237: 0,6 kg — attesi 5,82 kg (-5,22 kg, -89,7 %)
+
+-2479 L3 DIM 242: 0,6 kg — attesi 5,52 kg (-4,92 kg, -89,1 %)
+
+-9581 L5 DIM 212: 0,8 kg — attesi 5,60 kg (-4,80 kg, -85,7 %)
+
+-5256 L5 DIM 251: 0,7 kg — attesi 4,44 kg (-3,74 kg, -84,2 %)
+
+-5182 L6 DIM 199: 1,0 kg — attesi 6,05 kg (-5,05 kg, -83,5 %)
+
+
+
+Altri 10 non mostrati. Se vuoi la lista completa, chiedimela.";27011;1;False;5B8AEFC36BD3BE3850;[18:45, 27/09/2026] Pecus Chain:;2026-09-27T18:44:49;2026-09-27T18:45:24;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;PASS;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;9;1;SEL_MUNG_009_V0_A1;SEL_MUNG_009_V0;SEL_MUNG_009;MUNGITURA;functional;FUNCTIONAL_MUNGITURA;;SEL_MUNG_009;0;canonical;manual_selected;False;False;;PROD_002;exact_cross_area;quali sono le vacche/bufale con un calo superiore a 5 kg?;production_drop_threshold;herd;;ID, gruppo, lattazione, DIM, baseline individuale (media n giorni), ultima produzione produzione;"Animali con calo superiore a {X} kg:
+{tabella}
+La tabella è ordinata per scostamento produttivo, non per priorità.";Animale | DIM | Gruppo | Latte attuale | Baseline | Calo kg | Calo % | Note;Manca produzione, baseline o soglia interpretabile.;"Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 27/09/2026.
+
+
+
+-2468 L3 DIM 82: 3,5 kg — attesi 13,36 kg (-9,86 kg, -74%)
+
+-2516 L2 DIM 44: 4,8 kg — attesi 14,03 kg (-9,23 kg, -66%)
+
+-3092 L2 DIM 51: 5,5 kg — attesi 13,88 kg (-8,38 kg, -60%)
+
+-2452 L3 DIM 54: 6,6 kg — attesi 14,68 kg (-8,08 kg, -55%)
+
+-1320 L14 DIM 114: 2,0 kg — attesi 9,93 kg (-7,93 kg, -80%)
+
+-5681 L4 DIM 29: 4,3 kg — attesi 12,22 kg (-7,92 kg, -65%)
+
+-2511 L3 DIM 52: 6,9 kg — attesi 14,72 kg (-7,82 kg, -53%)
+
+-3118 L2 DIM 89: 4,5 kg — attesi 12,02 kg (-7,52 kg, -63%)
+
+-2430 L3 DIM 144: 2,5 kg — attesi 9,62 kg (-7,12 kg, -74%)
+
+-3176 L2 DIM 51: 6,8 kg — attesi 13,88 kg (-7,08 kg, -51%)
+
+-8151 L1 DIM 96: 3,6 kg — attesi 10,58 kg (-6,98 kg, -66%)
+
+-6384 L9 DIM 173: 0,2 kg — attesi 7,06 kg (-6,86 kg, -97%)
+
+-5700 L4 DIM 51: 6,0 kg — attesi 12,83 kg (-6,83 kg, -53%)
+
+-721 L3 DIM 74: 7,3 kg — attesi 13,83 kg (-6,53 kg, -47%)
+
+-3018 L2 DIM 45: 7,7 kg — attesi 14,02 kg (-6,32 kg, -45%)
+
+
+
+Altri 30 non mostrati. Se vuoi la lista completa, chiedimela.";44928;1;False;BEDB56416093C0CCFA;[18:46, 27/09/2026] Pecus Chain:;2026-09-27T18:45:29;2026-09-27T18:46:23;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;PASS;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;10;1;SEL_PROD_001_V0_A1;SEL_PROD_001_V0;SEL_PROD_001;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_001;0;canonical;manual_selected;False;False;;PROD_006;exact;chi produce meno?;low_production_list;herd;;ID, gruppo,DIM, ultima produzione, media gruppo, delta produzione;"Animali sotto la media del proprio gruppo:
+{tabella}
+Questo confronto è più utile se il gruppo è omogeneo per DIM/parità.";Animale | DIM | Parità | Gruppo | Latte attuale | Media gruppo | Delta vs gruppo | Delta vs se stessa;Manca gruppo o media gruppo calcolabile.;Non giudicare animale senza considerare DIM/parità quando disponibili.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+
+
+-6384 L9 DIM 173: 0,2 kg — attesi 7,06 kg (-6,86 kg, -97 %)
+
+-2491 L2 DIM 307: 0,2 kg — attesi 4,31 kg (-4,11 kg, -95 %)
+
+
+
+Se vuoi approfondisco.";20114;1;False;3ABD6E375C1DDF1258;[18:46, 27/09/2026] Pecus Chain:;2026-09-27T18:46:36;2026-09-27T18:47:03;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;PASS;N/A;;N/A;unclear;;results;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;11;1;SEL_PROD_002_V0_A1;SEL_PROD_002_V0;SEL_PROD_002;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_002;0;canonical;manual_selected;False;False;;PROD_005;exact;quale gruppo è calato nella produzione?;group_production_drop;group;;gruppo, n animali, produzione gruppo corrente, produzione baseline gruppo utlimi 7 gg, delta produzione gruppo;"Confronto produzione per gruppo:
+{tabella}
+Se il calo è concentrato nel gruppo, verificare anche fattore ambientale/gestionale/alimentare.";Gruppo | Animali | Latte medio attuale | Baseline gruppo | Delta kg/capo | THI | Note;Mancano gruppi o baseline produttive di gruppo.;Non concludere razione/ambiente senza dati di supporto.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+
+
+Gruppo più calato
+
+P4+: 105 bufale — residuo medio -1,18 kg — -13,7 % rispetto alla produzione attesa.
+
+
+
+Gli altri gruppi hanno residui meno negativi (P2: -0,87 kg, -10,0 %; P3: -1,06 kg, -8,9 %; P1: -0,49 kg, -5,4 %).
+
+
+
+Se vuoi approfondire le singole bufale di P4+ o confrontare con altri periodi, dimmelo.";19455;1;False;BE5AA84BF81460435F;[18:47, 27/09/2026] Pecus Chain:;2026-09-27T18:47:08;2026-09-27T18:47:35;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;PASS;N/A;;N/A;group;;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;12;1;SEL_PROD_003_V0_A1;SEL_PROD_003_V0;SEL_PROD_003;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_003;0;canonical;manual_selected;False;False;;PROD_007;exact;perché animale 3118 ha calato?;production_drop_reason;animal;3118;DIM, gruppo, lattazione, delta produzione, allarmi attivi triage/probabilità patologia;"La {animal_id} è sotto il suo andamento recente di {production_delta_kg} kg.
+{tabella}
+Se conducibilità/SCC sono alterati, verifica latte e mammella; se ruminazione è bassa, controlla appetito/stato generale; se il gruppo cala con THI alto, valuta contesto ambientale.";Animale | Latte attuale | Baseline | Delta kg | Ruminazione | Conducibilità | SCC score | THI | Mungiture | Esito PECUS;Manca produzione/baseline o dati associati.;Non dare causa unica se segnali discordanti o assenti.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026‑09‑27.
+
+
+
+-3118 L2 DIM 89: 4,5 kg — attesi 12,0 kg (-7,5 kg, -63%)
+
+
+
+3118 L2 DIM 89, laminità, probabilità 74%
+
+Produce 4,5 kg — attesi 12,0 kg, perdita stimata 7,7 kg/giorno
+
+Segnali: scostamento dalla curva -0,75 %, perdita prevista ML 7,67 kg/giorno
+
+
+
+Se vuoi approfondisco.";39504;1;False;195799472059AF2F04;[18:48, 27/09/2026] Pecus Chain:;2026-09-27T18:47:40;2026-09-27T18:48:27;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;;N/A;animal;3118;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;13;1;SEL_PROD_004_V0_A1;SEL_PROD_004_V0;SEL_PROD_004;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_004;0;canonical;manual_selected;False;False;;PROD_008;exact;quanti/quali animali mi costano di più?;economic_loss_list;herd;;ID, gruppo, DIM, produzione baseline, delta ultimi 7 gg, costo totale, produzione baseline  gruppo;"Animali con maggiore perdita economica stimata dai dati disponibili:
+{tabella}
+Mostra sempre se il prezzo latte è reale o default e il periodo della stima.";Animale | DIM | Gruppo | Calo kg/g | Prezzo latte usato | Perdita €/g | Base calcolo | Note;Manca prezzo latte esplicito, baseline o perdita calcolabile: non stimare il costo in euro. Se possibile mostra solo la perdita produttiva disponibile e indica l'input mancante.;Non mostrare euro e non usare prezzi/default non esplicitamente disponibili nel dataset o nella configurazione corrente.;"Supportato solo se sono disponibili baseline/perdita e prezzo latte esplicito; altrimenti usare fallback senza stimare euro.";canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-26.
+
+
+
+5 bufale risultano tra le più costose per perdita di latte prevista.
+
+2516 Ln N/D DIM N/D: 8,5 kg/giorno — perdita prevista
+3118 Ln N/D DIM N/D: 7,7 kg/giorno — perdita prevista
+1320 Ln N/D DIM N/D: 7,1 kg/giorno — perdita prevista
+5769 Ln N/D DIM N/D: 6,8 kg/giorno — perdita prevista
+5681 Ln N/D DIM N/D: 5,3 kg/giorno — perdita prevista
+
+
+Dato non disponibile: Ln non presente per questa stalla.
+
+Dato non disponibile: DIM non presente per questa stalla.
+
+
+
+Se vuoi approfondisco.";21552;1;False;909B62BEFD439FE7B9;[18:48, 27/09/2026] Pecus Chain:;2026-09-27T18:48:32;2026-09-27T18:49:01;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;1320,2516,3118,5681,5769;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;14;1;SEL_PROD_005_V0_A1;SEL_PROD_005_V0;SEL_PROD_005;PRODUZIONE;functional;FUNCTIONAL_PRODUZIONE;;SEL_PROD_005;0;canonical;manual_selected;False;False;;PROD_010;exact;chi perde latte da più giorni?;persistent_milk_loss;herd;;ID, gruppo, dIM, produzione baseline, delta ultimi 7 gg, n giorni sotto baseline;"Animali con calo produttivo persistente:
+{tabella}
+Distinguere se il segnale è individuale o condiviso dal gruppo.";Animale | DIM | Gruppo | Giorni sotto baseline | Calo medio kg | Calo massimo | Segnali associati | Ultimo esito;Manca storico produzione sufficiente.;Non usare 'cronico' senza regola validata e storico clinico.;Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+
+
+Dato non disponibile: Ln non presente per questa stalla.
+
+Dato non disponibile: DIM non presente per questa stalla.
+
+
+
+-129 Ln - DIM -: 18 giorni — perdita più prolungata
+
+-2379 Ln - DIM -: 15 giorni
+
+-2500 Ln - DIM -: 15 giorni
+
+-1320 Ln - DIM -: 15 giorni
+
+-2971 Ln - DIM -: 15 giorni
+
+-2436 Ln - DIM -: 15 giorni
+
+-2506 Ln - DIM -: 15 giorni
+
+-2305 Ln - DIM -: 15 giorni
+
+-2498 Ln - DIM -: 15 giorni
+
+-2997 Ln - DIM -: 15 giorni
+
+
+
+Altri 0 non mostrati. Se vuoi approfondisco.";38934;1;False;BA2DF01530C70FE5F6;[18:49, 27/09/2026] Pecus Chain:;2026-09-27T18:49:06;2026-09-27T18:49:52;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;narrative;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;15;1;SEL_MAST_001_V0_A1;SEL_MAST_001_V0;SEL_MAST_001;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_001;0;canonical;manual_selected;False;False;;MAMM_001;guardrail_adapted;chi ha la mastite oggi?;mammary_signal_list;herd;;ID, gruppo, dim, lattazione, conducibilità corrente, media conducibilità ultimi 7 gg, conta SCC, delta produzione, probabilità triage;Gli animali che presentano segnali mammari elevati sono i seguenti:;Animale | DIM | Parità | Gruppo | Segnale mammario | Conducibilità | SCC score | Calo latte | Ultimo dato;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 2026-09-26.
+
+
+
+Dato non disponibile: Ln non presente per questa stalla.
+
+Dato non disponibile: DIM non presente per questa stalla.
+
+
+
+-3068 Ln ND DIM ND: 67 % — probabilità di mastite
+
+-3180 Ln ND DIM ND: 64 % — probabilità di mastite
+
+-5731 Ln ND DIM ND: 60 % — probabilità di mastite
+
+
+
+Se vuoi approfondire le cause o le azioni consigliate, fammi sapere.";21622;1;False;C0AD5606FD9991D55B;[18:50, 27/09/2026] Pecus Chain:;2026-09-27T18:50:05;2026-09-27T18:50:34;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;REVIEW;N/A;;N/A;herd_query;;narrative;;;;TEMPORAL_REFERENCE_MISSING;REVIEW;REVIEW;;1;1
+AUTO_20260927_183850;smoke;16;1;SEL_MAST_002_V0_A1;SEL_MAST_002_V0;SEL_MAST_002;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_002;0;canonical;manual_selected;False;False;;MAMM_002;exact;Quali vacche hanno conducibilità elevata?;conductivity_list;herd;;ID, gruppo, DIM , lattazione, ultima conducibilità, baseline conducibilità, delta utlimi 3 giorni;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | DIM | Gruppo | Conducibilità | Baseline/Soglia | Ultima mungitura | SCC score | Calo latte;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27
+
+
+
+-5654 L4 DIM 228: 14.2
+
+-9685 L3 DIM 315: 12.0
+
+
+
+Altre 8 bufale hanno conducibilità inferiore a 12. Se vuoi approfondisco.";24491;1;False;82B203039A226AE14A;[18:51, 27/09/2026] Pecus Chain:;2026-09-27T18:50:39;2026-09-27T18:51:11;True;OK;PASS;REVIEW;REVIEW;REVIEW;N/A;REVIEW;N/A;N/A;N/A;conductivity;N/A;unclear;;narrative;;;;HERD_SCOPE_UNCLEAR;REVIEW;REVIEW;HERD_SCOPE_UNCLEAR;1;1
+AUTO_20260927_183850;smoke;17;1;SEL_MAST_003_V0_A1;SEL_MAST_003_V0;SEL_MAST_003;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_003;0;canonical;manual_selected;False;False;;MAMM_006;guardrail_adapted;perché l'animale 2516 è segnalata per mastite?;mammary_reason;animal;2516;dim, gruppo, lattazione, conducibilità, SCC, conducibilità quarto maggiore, delta produzione, perdita prevista;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | Segnale | Conducibilità | SCC score | Calo latte | Ultima mungitura | DIM | Gruppo;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se dati mammari presenti;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-26.
+
+
+
+L’animale 2516 non è segnalata per mastite, ma per cheto‑acidosi (ketosis).
+
+Patologia: ketosis – probabilità 78 % (likelihood 0.78) – certezza low.
+Data valutazione: 26/09/2026.
+Perdita prevista di latte: 8,5 kg/giorno (horizon 24 h, confermata anche a 48 h e 72 h).
+Segnali principali: “inizio lattazione (DIM < 60)” e “perdita prevista ML 8,5 kg/giorno”.
+
+
+Il modello ha considerato i pattern disponibili (produzione, conduttività, ecc.) e ha ritenuto più coerente con una cheto‑acidosi, tipica nei primi giorni di lattazione, piuttosto che con una mastite, per la quale non sono stati rilevati valori di conduttività o altri indicatori tipici.
+
+
+
+Dato non disponibile: Ln e DIM non presenti per questa bufala nel dataset.
+
+
+
+Se ti interessa verificare eventuali segnali di mastite o le azioni consigliate per la cheto‑acidosi, fammi sapere.";24220;1;False;F77ABD2910E6AF03BE;[18:51, 27/09/2026] Pecus Chain:;2026-09-27T18:51:16;2026-09-27T18:51:49;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;REVIEW;N/A;;N/A;animal;2516;results;;;;STALE_DATE_UNDISCLOSED(2026-09-26);PASS;REVIEW;;1;1
+AUTO_20260927_183850;smoke;18;1;SEL_MAST_004_V0_A1;SEL_MAST_004_V0;SEL_MAST_004;MASTITE;functional;FUNCTIONAL_MASTITE;;SEL_MAST_004;0;canonical;manual_selected;False;False;;MAMM_012;exact;chi è segnata per mastite per più giorni?;persistent_mammary_signal;herd;;ID, gruppo, lattazione, DIM, timestamp prima segnalazione,;"Animali/dati mammari richiesti:
+{tabella}
+Interpretazione: usa questi dati come segnale mammario da verificare in stalla; controlla latte, mammella e CMT/campione se previsto dal protocollo.";Animale | DIM | Gruppo | Giorni con segnale | Primo segnale | Ultimo segnale | Esiti registrati | Trend latte;Mancano dati mammari aggiornati o campi necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non usare 'mastite certa'; usare 'segnale mammario'. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Parziale: dipende dallo storico;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+Ultimi dati disponibili: 27/09/2026.
+
+
+
+0 bufale soddisfano il criterio.
+
+
+
+Se vuoi approfondisco.";14582;1;False;6A6992F7F293041FA3;[18:52, 27/09/2026] Pecus Chain:;2026-09-27T18:51:54;2026-09-27T18:52:16;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;REVIEW;herd_query;;no_data;;;;NO_DATA_REASON_UNCLEAR;REVIEW;REVIEW;;1;1
+AUTO_20260927_183850;smoke;19;1;SEL_MET_001_V0_A1;SEL_MET_001_V0;SEL_MET_001;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_001;0;canonical;manual_selected;False;False;;MET_002;guardrail_adapted;Chi ha chetosi?;possible_ketosis_list;herd;;id, gruppo, DIM, lattazione, delta produzione, delta ruminazione, produzione attesa;"Animali/dati metabolici richiesti:
+{tabella}
+Interpretazione: descrivere come segnale metabolico compatibile da verificare, usando appetito, riempimento ruminale, BHB se disponibile e protocollo aziendale/professionale.";Animale | DIM | Gruppo | Segnale compatibile | Calo latte | Ruminazione | F:P | BHB registrato;Mancano produzione, ruminazione, DIM, componenti latte o segnale metabolico necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non dire 'chetosi certa' e non suggerire somministrazioni. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se segnali metabolici presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Ultimi dati disponibili: 2026‑09‑26.
+
+
+
+-2516 Ln N/D DIM N/D: probabilità 78 % — perdita prevista 8,5 kg/giorno
+
+-5769 Ln N/D DIM N/D: probabilità 72 % — perdita prevista 6,8 kg/giorno
+
+-5681 Ln N/D DIM N/D: probabilità 64 % — perdita prevista 5,3 kg/giorno
+
+
+
+Dato non disponibile: Ln e DIM non presenti per questa stalla.
+
+
+
+Se vuoi approfondire i segnali che hanno portato alla segnalazione o le azioni consigliate, chiedimi.";32288;1;False;545D79AF1A7B5CA1DC;[18:53, 27/09/2026] Pecus Chain:;2026-09-27T18:52:29;2026-09-27T18:53:09;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;;results;;;;;REVIEW;REVIEW;;1;1
+AUTO_20260927_183850;smoke;20;1;SEL_MET_002_V0_A1;SEL_MET_002_V0;SEL_MET_002;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_002;0;canonical;manual_selected;False;False;;PROD_014;exact_cross_area;quali animali hanno calo latte e ruminazione?;milk_rumination_drop;herd;;ID, gruppo, DIM, delta produzione, delta ruminazione;"Animali con calo produttivo e ruminazione ridotta:
+{tabella}
+Controlla appetito, riempimento ruminale e comportamento; BHB se previsto da protocollo.";Animale | DIM | Gruppo | Calo kg | Ruminazione attuale | Delta ruminazione | THI | Note;Mancano ruminazione o baseline ruminazione.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'.";Supportato se produzione e baseline presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27/09/2026.
+
+
+
+-6384 L9 DIM 173: 0,2 kg — attesi 7,1 kg (-6,9 kg, -97,2%)
+
+-2491 L2 DIM 307: 0,2 kg — attesi 4,3 kg (-4,1 kg, -95,3%)
+
+-3099 L2 DIM 248: 0,4 kg — attesi 5,7 kg (-5,3 kg, -93,0%)
+
+-150 L6 DIM 218: 0,4 kg — attesi 5,4 kg (-5,0 kg, -92,6%)
+
+-6571 L4 DIM 221: 0,4 kg — attesi 5,3 kg (-4,9 kg, -92,5%)
+
+-3192 L1 DIM 237: 0,6 kg — attesi 5,8 kg (-5,2 kg, -89,7%)
+
+-2479 L3 DIM 242: 0,6 kg — attesi 5,5 kg (-4,9 kg, -89,1%)
+
+-9581 L5 DIM 212: 0,8 kg — attesi 5,6 kg (-4,8 kg, -85,7%)
+
+-5256 L5 DIM 251: 0,7 kg — attesi 4,4 kg (-3,7 kg, -84,2%)
+
+-5182 L6 DIM 199: 1,0 kg — attesi 6,1 kg (-5,1 kg, -83,5%)
+
+-3188 L1 DIM 240: 1,1 kg — attesi 5,7 kg (-4,6 kg, -80,9%)
+
+-1320 L14 DIM 114: 2,0 kg — attesi 9,9 kg (-7,9 kg, -79,8%)
+
+
+
+Altri 8 non mostrati. Se vuoi la lista completa, chiedimela.
+
+
+
+Ruminazione: Dato non disponibile: nessuna colonna relativa alla ruminazione presente per questa stalla. Se vuoi approfondire il calo di latte, chiedi pure.";36396;1;False;951F1E03E086086820;[18:53, 27/09/2026] Pecus Chain:;2026-09-27T18:53:14;2026-09-27T18:53:59;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;rumination;N/A;herd_query;;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;21;1;SEL_MET_003_V0_A1;SEL_MET_003_V0;SEL_MET_003;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_003;0;canonical;manual_selected;False;False;;MET_005;exact;l'animale 3118 rumina bene?;rumination_animal;animal;3118;lattazione, DIM, ruminazione, baseline ruminazione, delta ruminazione;"Animali/dati metabolici richiesti:
+{tabella}
+Interpretazione: descrivere come segnale metabolico compatibile da verificare, usando appetito, riempimento ruminale, BHB se disponibile e protocollo aziendale/professionale.";Dato | Valore | Baseline | Scostamento | Note;Mancano produzione, ruminazione, DIM, componenti latte o segnale metabolico necessari per questa domanda.;"Non formulare diagnosi certa e non prescrivere terapie; usare 'segnale compatibile/da verificare'. Non dire 'chetosi certa' e non suggerire somministrazioni. Non usare priorità alta/media/bassa o score non implementati; ordinare solo per metrica disponibile.";Supportato se segnali metabolici presenti;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dato non disponibile: la colonna relativa alla ruminazione non è presente per questa stalla.
+
+Se vuoi approfondisco altri aspetti dell'animale 3118.";12750;1;False;A810BF39670B41EC60;[18:54, 27/09/2026] Pecus Chain:;2026-09-27T18:54:04;2026-09-27T18:54:24;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;rumination;PASS;animal;3118;no_data;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;22;1;SEL_MET_004_V0_A1;SEL_MET_004_V0;SEL_MET_004;METABOLICO;functional;FUNCTIONAL_METABOLICO;;SEL_MET_004;0;canonical;manual_selected;False;False;;CUSTOM_SELECTED;custom_selected;chi ha grasso elevato nel latte?;high_milk_fat;herd;;ID, gruppo, lattazione, DIM, fat_pct, ultima produzione, n sessioni mungitura;;;;"Non formulare diagnosi certa; non prescrivere terapia; non usare priorità non implementata.";Selezionato manualmente come attualmente supportato;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dato non disponibile: contenuto di grassi nel latte non presente per questa stalla.
+
+
+
+Se ti interessa qualche altro indicatore (produzione, conduzione, segnalazioni di patologie, ecc.) fammi sapere.";14528;1;False;6A680567C1BFDBE06D;[18:54, 27/09/2026] Pecus Chain:;2026-09-27T18:54:29;2026-09-27T18:54:51;True;OK;PASS;REVIEW;REVIEW;PASS;N/A;PASS;N/A;N/A;N/A;milk_fat;N/A;herd_query;;narrative;;;;;REVIEW;REVIEW;;1;1
+AUTO_20260927_183850;smoke;23;1;SEL_GEN_001_V0_A1;SEL_GEN_001_V0;SEL_GEN_001;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_001;0;canonical;manual_selected;False;False;;ID_004;exact;l'animale 3118 è in lattazione?;lactation_status;animal;3118;status animale, gruppo, lattazione, DIM, ultimo parto;"Identikit animale con i dati attualmente disponibili:
+{tabella}
+Dichiarare sempre i domini mancanti: riproduzione/asciutta/razione se non integrati.";Animale | Stato lattazione | DIM | Ultima mungitura | Ultimo aggiornamento;Animale non trovato o dati base insufficienti per costruire l'identikit.;"Non inventare dati riproduttivi, asciutta, trattamenti o stato non presente. Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato.";Supportato parziale;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27
+
+
+
+-3118 L2 DIM 89: peak
+
+
+
+Sì, la bufala 3118 è in lattazione (lattazione 2, DIM 89 giorni, fase peak).
+
+
+
+Se vuoi approfondisco.";120739;1;False;F7F757DE1D635C62DC;[18:55, 27/09/2026] Pecus Chain:;2026-09-27T18:55:04;2026-09-27T18:57:12;True;OK;PASS;PASS;PASS;PASS;PASS_EXPLICIT;PASS;N/A;N/A;N/A;;N/A;animal;3118;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;24;1;SEL_GEN_002_V0_A1;SEL_GEN_002_V0;SEL_GEN_002;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_002;0;canonical;manual_selected;False;False;;ID_001;exact;mostrami l'animale 3118;animal_profile;animal;3118;status, gruppo, lattazione, DIM, ultimo parto, asciutta prevista?, baseline produzione, probabilità triage;"Identikit animale con i dati attualmente disponibili:
+{tabella}
+Dichiarare sempre i domini mancanti: riproduzione/asciutta/razione se non integrati.";Sezione | Dato | Valore | Ultimo aggiornamento | Nota;Animale non trovato o dati base insufficienti per costruire l'identikit.;"Non inventare dati riproduttivi, asciutta, trattamenti o stato non presente. Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato.";Supportato parziale;canonical;True;LLM_QUESTION_SET;active;functional;;True;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27.
+
+
+
+-3118 L2 DIM 89: 4,5 kg — attesi 12,0 kg (-7,5 kg, -62,6%)
+
+
+
+Se vuoi approfondisco.";22243;1;False;E889C487EB44138FA5;[18:57, 27/09/2026] Pecus Chain:;2026-09-27T18:57:17;2026-09-27T18:57:47;True;OK;PASS;PASS;PASS;PASS;PASS_IMPLICIT;PASS;N/A;N/A;N/A;;N/A;animal_implicit;;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;25;1;SEL_GEN_003_V0_A1;SEL_GEN_003_V0;SEL_GEN_003;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_003;0;canonical;manual_selected;False;False;;HERD_001;exact;com'è oggi la stalla?;herd_status;herd;;nr animali in lattazione, produzione tot, nr problemi segnalati per classe triage;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Sezione | Valore | Nota | Dati usati;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27.
+
+
+
+Bufale con dati: 424
+
+Produzione totale giornaliera: 3479,5 kg di latte
+
+Produzione media per bufala: 8,19 kg/giorno
+
+Scostamento medio dalla curva di lattazione: -9,4 % (produzione inferiore al valore atteso)
+
+Bufale con calo > 20 % rispetto all’atteso: 196
+
+Conducibilità media del latte: 7,83 (unità di sistema)
+
+Visite di mungitura medie al giorno: 1,49
+
+
+
+La produzione complessiva è intorno a 3,5 t, ma la media per capi è circa il 10 % sotto il livello previsto, con quasi metà delle bufale che mostrano un calo significativo. La conducibilità è nella norma e le mungiture sono leggermente più di una al giorno.
+
+
+
+Se vuoi approfondire un aspetto specifico, fammi sapere.";23382;1;False;A06718EC0799645484;[18:58, 27/09/2026] Pecus Chain:;2026-09-27T18:57:52;2026-09-27T18:58:23;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;REVIEW;N/A;;N/A;herd_query;;results;;;;TEMPORAL_REFERENCE_MISSING;PASS;REVIEW;;1;1
+AUTO_20260927_183850;smoke;26;1;SEL_GEN_004_V0_A1;SEL_GEN_004_V0;SEL_GEN_004;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_004;0;canonical;manual_selected;False;False;;HERD_005;adapted;come sta andando la produzione?;herd_production_trend;herd;;produzione media mandria corrente, delta mesi precedenti, delta anno precedente;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Periodo | Latte medio/capo | Baseline | Delta | Animali attivi | Note;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 2026-09-27 00:00:00.
+
+Ultimi dati disponibili: 2026-09-27.
+
+
+
+Produzione totale (kg) e scostamento medio dalla curva ( % ) dal 20 al 27 set 2026:
+
+20 set: 2 322,8 kg — –39,8 %
+21 set: 2 364,3 kg — –38,9 %
+22 set: 4 021,8 kg — +0,5 %
+23 set: 4 053,2 kg — +1,7 %
+24 set: 4 068,3 kg — +2,8 %
+25 set: 4 242,6 kg — +8,0 %
+26 set: 4 275,1 kg — +9,6 %
+27 set: 3 479,5 kg — –9,4 %
+
+
+Andamento: dal 22 set al 26 set la produzione è cresciuta in modo costante, superando il valore atteso (scostamento positivo). Il 27 set c’è stato un calo brusco di circa 10 % rispetto alla curva di lattazione.
+
+
+
+Se vuoi approfondire un giorno specifico, un gruppo di bufale o le cause del calo del 27 set, fammi sapere.";20058;1;False;31D67011499097E3FC;[18:58, 27/09/2026] Pecus Chain:;2026-09-27T18:58:28;2026-09-27T18:58:55;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;herd_query;20,21,22,23,24,25,26,27;results;;;;;PASS;PASS;;1;1
+AUTO_20260927_183850;smoke;27;1;SEL_GEN_005_V0_A1;SEL_GEN_005_V0;SEL_GEN_005;GENERICO;functional;FUNCTIONAL_GENERICO;;SEL_GEN_005;0;canonical;manual_selected;False;False;;HERD_006;exact;come vanno le fresche/altro gruppo?;group_status;group;;media produzione ultimi 7gg per animale, media DIM gruppo, delta produzione;"Riepilogo mandria/gruppo con dati disponibili:
+{tabella}
+Separare sempre segnali da conferme registrate e dichiarare domini non aggiornati.";Animale | DIM | Parità | Latte | Delta | Ruminazione | Segnali | Mungiture;Mancano aggregati aggiornati, denominatore animali attivi o storico sufficiente.;"Non dire 'sta bene' se mancano dati; distinguere assenza di segnale da assenza di dato. Non usare priorità non implementata; non diagnosticare a livello mandria.";Supportato se aggregati presenti;canonical;True;LLM_QUESTION_SET;active;functional;;False;intent|scope|filter|temporal|availability|fallback|guardrail|latency|collector;"Dati al 27 settembre 2026.
+
+
+
+fresh: 5 bufale, media 7,46 kg, attese 10,63 kg (-3,17 kg, -29,9%)
+
+
+
+altro: 419 bufale, media 8,22 kg, attese 9,00 kg (-0,78 kg, -8,7%)
+
+
+
+Le bufale fresche (DIM 0‑21) mostrano un calo più marcato rispetto al valore atteso, circa ‑30 %. Gli altri gruppi (mid, peak, late) hanno un deficit medio intorno al ‑9 %. Se vuoi approfondire un singolo gruppo o confronti storici, chiedimi pure.";27673;1;False;53E99B5D0ADC47884D;[18:59, 27/09/2026] Pecus Chain:;2026-09-27T18:59:00;2026-09-27T18:59:35;True;OK;PASS;PASS;PASS;PASS;N/A;PASS;N/A;N/A;N/A;;N/A;group;;results;;;;;PASS;PASS;;1;1
