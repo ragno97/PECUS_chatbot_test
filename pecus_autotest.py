@@ -491,7 +491,16 @@ def collect_one_turn(
     )
     print("=" * 86)
 
-    message_box.click()
+    for click_attempt in range(3):
+        try:
+            message_box.click()
+            break
+        except Exception:
+            if click_attempt == 2:
+                raise
+            page.keyboard.press("Escape")
+            page.wait_for_timeout(1000)
+
     message_box.fill(test["question"])
     message_box.press("Enter")
 
